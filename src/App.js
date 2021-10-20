@@ -1,9 +1,9 @@
-import { Button } from 'antd'
-import 'antd/dist/antd.css'
+import Button from './components/Button'
+import './App.css'
 function App() {
   return (
     <div className="App">
-      <Button type="primary">Primary Button</Button>
+      <Button></Button>
     </div>
   )
 }
