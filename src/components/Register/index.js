@@ -1,6 +1,8 @@
 import { Form, Input, InputNumber, Button } from 'antd'
 import axios from 'axios'
 import './index.css'
+import { UserOutlined, LockOutlined } from '@ant-design/icons'
+
 const layout = {
   labelCol: {
     span: 8,
@@ -12,11 +14,11 @@ const layout = {
 /* eslint-disable no-template-curly-in-string */
 
 const API_END_POINT = 'http://13.209.30.200'
-async function Register_Information({ email, fullname, password }) {
+async function Register_Information({ email, fullName, password }) {
   try {
-    const response = await axios.post(`${API_END_POINT}/login`, {
+    const response = await axios.post(`${API_END_POINT}/signup`, {
       email,
-      fullname,
+      fullName,
       password,
     })
     alert('회원 가입이 완료되었습니다')
@@ -39,8 +41,8 @@ const validateMessages = {
 
 const Register = () => {
   const onFinish = ({ user }) => {
-    const { email, fullname, password } = user
-    Register_Information({ email, fullname, password })
+    const { email, fullName, password } = user
+    Register_Information({ email, fullName, password })
   }
 
   return (
@@ -62,11 +64,24 @@ const Register = () => {
       >
         <Input />
       </Form.Item>
-      <Form.Item name={['user', 'fullname']} label="fullname">
+      <Form.Item name={['user', 'fullName']} label="fullName">
         <Input />
       </Form.Item>
-      <Form.Item name={['user', 'password']} label="password">
-        <Input />
+      <Form.Item
+        name={['user', 'password']}
+        label="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+      >
+        <Input
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="Password"
+        />
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         <Button type="primary" htmlType="submit">
