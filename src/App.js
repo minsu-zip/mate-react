@@ -1,9 +1,6 @@
 import './App.css'
 import { Route, Switch } from 'react-router'
-import LoginPage from '@pages/LoginPage'
-import HomePage from '@pages/HomePage'
-import PostsPage from '@pages/PostsPage'
-import MyPage from '@pages/MyPage'
+import { LoginPage, HomePage, PostsPage, MyPage, NotFoundPage } from '@pages'
 import DefaultTemplate from '@components/template/DefaultTemplate'
 import Footer from '@components/Footer'
 const App = () => {
@@ -22,6 +19,9 @@ const App = () => {
         </Route>
         <Route path="/mypage" exact>
           <MyPage></MyPage>
+        </Route>
+        <Route path="*" exact>
+          <NotFoundPage></NotFoundPage>
         </Route>
       </Switch>
       {/* <Footer></Footer> */}
