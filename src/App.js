@@ -1,10 +1,12 @@
-import Button from './components/Button'
-import './App.css'
+import React from 'react'
+import LoginForm from './components/LoginForm/index.js'
+import UserLoginStore from './components/context/contextLogin'
+
 function App() {
   return (
-    <div className="App">
-      <Button></Button>
-    </div>
+    <UserLoginStore>
+      <LoginForm></LoginForm>
+    </UserLoginStore>
   )
 }
 

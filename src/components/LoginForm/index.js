@@ -1,119 +1,78 @@
-import React, { useState, useEffect } from 'react'
-import {
-  useUsersState,
-  useUsersDispatch,
-  Post_Login,
-} from '../context/contextLogin.js'
+import React, { useContext, useState, useEffect } from 'react'
+import { UserLoginContext, Post_Login } from '../context/contextLogin.js'
 import { Form, Input, Button, Checkbox } from 'antd'
+import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import './index.css'
 
-function LoginForm() {
-  const [userId, setUserId] = useState(null)
-  const state = useUsersState()
-  const dispatch = useUsersDispatch()
-  const { data: users, loading, error } = state.users
+const LoginForm = () => {
+  const [form] = Form.useForm()
+  const [, forceUpdate] = useState({}) // To disable submit button at the beginning.
 
   useEffect(() => {
-    if (state.user.data) {
-      console.log('로그인 성공')
-    } else {
-      console.log('로그인 실패')
-    }
-  }, [state])
-
-  if (loading) return <div>로딩중..</div>
-  if (error) return <div>에러가 발생했습니다</div>
-
-  console.log(state)
+    forceUpdate({})
+  }, [])
 
   const onFinish = (values) => {
-    Post_Login(values, dispatch)
-  }
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
+    Post_Login({ id: values.username, pw: values.password })
+    console.log('Finish:', values)
   }
 
   return (
     <Form
-      name="basic"
-      labelCol={{
-        span: 8,
-      }}
-      wrapperCol={{
-        span: 16,
-      }}
+      name="normal_login"
+      className="login-form"
       initialValues={{
         remember: true,
       }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
     >
       <Form.Item
-        label="Username"
         name="username"
         rules={[
           {
             required: true,
-            message: 'Please input your username!',
+            message: 'Please input your Username!',
           },
         ]}
       >
-        <Input />
+        <Input
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          placeholder="Username"
+        />
       </Form.Item>
-
       <Form.Item
-        label="Password"
         name="password"
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: 'Please input your Password!',
           },
         ]}
       >
-        <Input.Password />
+        <Input
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="Password"
+        />
+      </Form.Item>
+      <Form.Item>
+        <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+
+        <a className="login-form-forgot" href="">
+          Forgot password
+        </a>
       </Form.Item>
 
-      <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Button type="primary" htmlType="submit">
-          Submit
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className="login-form-button">
+          Log in
         </Button>
+        Or <a href="">register now!</a>
       </Form.Item>
     </Form>
   )
 }
 
 export default LoginForm
-
-// import React from 'react'
-// import LoginForm from './components/LoginForm/index.js'
-// import { UsersProvider } from './components/context/contextLogin'
-
-// function App() {
-//   return (
-//     <UsersProvider>
-//       <LoginForm />
-//     </UsersProvider>
-//   )
-// }
-
-// export default App
-
-// App.js에서 이렇게 동작시 사용가능
