@@ -1,12 +1,36 @@
-import React from 'react'
-import LoginForm from './components/LoginForm/index.js'
-import UserLoginStore from './components/context/contextLogin'
+import './App.css'
+import { Route, Switch } from 'react-router'
+import LoginPage from '@pages/LoginPage'
+import HomePage from '@pages/HomePage'
+import PostsPage from '@pages/PostsPage'
+import MyPage from '@pages/MyPage'
+import DefaultTemplate from '@components/template/DefaultTemplate'
+import Footer from '@components/Footer'
+import RegisterPage from './pages/RegisterPage.js'
 
-function App() {
+const App = () => {
   return (
-    <UserLoginStore>
-      <LoginForm></LoginForm>
-    </UserLoginStore>
+    <div className="App">
+      <DefaultTemplate></DefaultTemplate>
+      <Switch>
+        <Route path="/" exact>
+          <LoginPage></LoginPage>
+        </Route>
+        <Route path="/posts" exact>
+          <PostsPage></PostsPage>
+        </Route>
+        <Route path="/home" exact>
+          <HomePage></HomePage>
+        </Route>
+        <Route path="/mypage" exact>
+          <MyPage></MyPage>
+        </Route>
+        <Route path="/register" exact>
+          <RegisterPage></RegisterPage>
+        </Route>
+      </Switch>
+      {/* <Footer></Footer> */}
+    </div>
   )
 }
 
