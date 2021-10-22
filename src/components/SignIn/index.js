@@ -1,27 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
-import axios from 'axios'
 import { Form, Input, Button, Checkbox, Alert } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.css'
-
-const API_END_POINT = 'http://13.209.30.200'
-async function PostSignIn({ id, pw }) {
-  console.log(id, pw)
-  let isProblem
-  try {
-    const response = await axios.post(`${API_END_POINT}/login`, {
-      email: id,
-      password: pw,
-    })
-    sessionStorage.setItem('userInformation', JSON.stringify(response.data))
-    alert('정상작동')
-    isProblem = false
-    return isProblem
-  } catch (error) {
-    isProblem = true
-    return isProblem
-  }
-}
+import { PostSignIn } from '../Api'
 
 const Login = () => {
   const [form] = Form.useForm()
@@ -102,7 +83,7 @@ const Login = () => {
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        Or <a href="/register">signUp now!</a>
+        Or <a href="/">signUp now!</a>
       </Form.Item>
     </Form>
   )
