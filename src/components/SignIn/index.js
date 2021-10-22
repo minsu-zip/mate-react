@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Form, Input, Button, Checkbox, Alert } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.css'
-import { PostSignIn } from '../Api'
+import PostSignIn from '../Api/PostSignIn'
 
 const Login = () => {
   const [form] = Form.useForm()
