@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import GetSignOut from '../Api/GetSignOut'
+import GetSignOut from '@api/GetSignOut'
 import styled from '@emotion/styled'
 
 const Button = styled.button`
