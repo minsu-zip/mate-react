@@ -5,7 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.css'
 
 const API_END_POINT = 'http://13.209.30.200'
-async function Post_Login({ id, pw }) {
+async function PostSignIn({ id, pw }) {
   console.log(id, pw)
   let isProblem
   try {
@@ -33,7 +33,7 @@ const Login = () => {
   }, [])
 
   const onFinish = (values) => {
-    Post_Login({ id: values.username, pw: values.password }).then((res) => {
+    PostSignIn({ id: values.username, pw: values.password }).then((res) => {
       setIsSignInProblem(res)
     })
     console.log('Finish:', values)
@@ -102,7 +102,7 @@ const Login = () => {
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        Or <a href="/register">register now!</a>
+        Or <a href="/register">signUp now!</a>
       </Form.Item>
     </Form>
   )
