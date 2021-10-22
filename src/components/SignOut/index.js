@@ -3,7 +3,7 @@ import { GetSignOut } from '../Api'
 
 const SignIn = () => {
   return (
-    <Link to="/register">
+    <Link to="/">
       <button onClick={GetSignOut}>로그아웃 버튼</button>
     </Link>
   )
