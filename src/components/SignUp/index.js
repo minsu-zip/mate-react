@@ -1,7 +1,7 @@
 import { Form, Input, InputNumber, Button } from 'antd'
 import './index.css'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import PostSignUp from '../Api/PostSignUp'
+import PostSignUp from 'api/PostSignUp'
 const layout = {
   labelCol: {
     span: 8,
