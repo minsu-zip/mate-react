@@ -1,34 +1,41 @@
 import React, { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
-import { Form, Input, Button, Checkbox } from 'antd'
+import { Form, Input, Button, Checkbox, Alert } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.css'
 
 const API_END_POINT = 'http://13.209.30.200'
 async function Post_Login({ id, pw }) {
   console.log(id, pw)
+  let isProblem
   try {
     const response = await axios.post(`${API_END_POINT}/login`, {
       email: id,
       password: pw,
     })
-    sessionStorage.setItem('userInformation', JSON.stringify(response))
+    sessionStorage.setItem('userInformation', JSON.stringify(response.data))
     alert('정상작동')
+    isProblem = false
+    return isProblem
   } catch (error) {
-    console.log(error)
+    isProblem = true
+    return isProblem
   }
 }
 
 const Login = () => {
   const [form] = Form.useForm()
   const [, forceUpdate] = useState({}) // To disable submit button at the beginning.
+  const [isSignInProblem, setIsSignInProblem] = useState(false)
 
   useEffect(() => {
     forceUpdate({})
   }, [])
 
   const onFinish = (values) => {
-    Post_Login({ id: values.username, pw: values.password })
+    Post_Login({ id: values.username, pw: values.password }).then((res) => {
+      setIsSignInProblem(res)
+    })
     console.log('Finish:', values)
   }
 
@@ -70,6 +77,17 @@ const Login = () => {
           placeholder="Password"
         />
       </Form.Item>
+      {isSignInProblem ? (
+        <Alert
+          message="Error"
+          description="이메일 혹은 비밀번호를 잘못 입력했습니다"
+          type="error"
+          showIcon
+        />
+      ) : (
+        ''
+      )}
+
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
