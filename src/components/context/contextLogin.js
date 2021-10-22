@@ -22,7 +22,8 @@ export async function Post_Login({ id, pw }) {
       email: id,
       password: pw,
     })
-    console.log(response.data)
+    sessionStorage.setItem('userData', response)
+    alert('정상작동')
   } catch (error) {
     console.log(error)
   }

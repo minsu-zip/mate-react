@@ -6,7 +6,7 @@ import PostsPage from '@pages/PostsPage'
 import MyPage from '@pages/MyPage'
 import DefaultTemplate from '@components/template/DefaultTemplate'
 import Footer from '@components/Footer'
-import RegisterPage from './pages/RegisterPage.js'
+import SignUpPage from './pages/SignUp.js'
 
 const App = () => {
   return (
@@ -26,7 +26,7 @@ const App = () => {
           <MyPage></MyPage>
         </Route>
         <Route path="/register" exact>
-          <RegisterPage></RegisterPage>
+          <SignUpPage></SignUpPage>
         </Route>
       </Switch>
       {/* <Footer></Footer> */}
