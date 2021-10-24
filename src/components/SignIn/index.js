@@ -28,6 +28,7 @@ const Login = () => {
         }}
         onFinish={onFinish}
       >
+        <div class="main_title">𝓶𝓪𝓽𝓮</div>
         <Form.Item
           name="username"
           rules={[
@@ -71,10 +72,6 @@ const Login = () => {
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
-
-          <a className="login-form-forgot" href="">
-            Forgot password
-          </a>
         </Form.Item>
 
         <Form.Item>
