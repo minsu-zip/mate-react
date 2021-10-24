@@ -1,12 +1,16 @@
 import './App.css'
 import { Route, Switch } from 'react-router'
-import SignInPage from '@pages/SignInPage'
-import HomePage from '@pages/HomePage'
-import PostsPage from '@pages/PostsPage'
-import MyPage from '@pages/MyPage'
+import {
+  LoginPage,
+  HomePage,
+  PostsPage,
+  MyPage,
+  NotFoundPage,
+  SignInPage,
+  SignUpPage,
+} from '@pages'
 import DefaultTemplate from '@components/template/DefaultTemplate'
-import Footer from '@components/Footer'
-import SignUpPage from './pages/SignUpPage.js'
+// import Footer from '@components/Footer'
 
 const App = () => {
   return (
@@ -27,6 +31,9 @@ const App = () => {
         </Route>
         <Route path="/register" exact>
           <SignUpPage></SignUpPage>
+        </Route>
+        <Route path="*" exact>
+          <NotFoundPage></NotFoundPage>
         </Route>
       </Switch>
       {/* <Footer></Footer> */}

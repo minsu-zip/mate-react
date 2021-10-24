@@ -1,9 +1,12 @@
-import Button from '@components/Button'
+import React from 'react'
+import PostList from '@components/Post/PostList'
+import { Button } from 'antd'
+
 const PostsPage = () => {
   return (
-    <div>
-      <Button></Button>
-    </div>
+    <>
+      <PostList></PostList>
+    </>
   )
 }
 
