@@ -10,6 +10,8 @@ module.exports = {
       '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@contexts': path.resolve(__dirname, 'src/contexts'),
       '@pages': path.resolve(__dirname, 'src/pages'),
+      '@api': path.resolve(__dirname, 'src/api'),
+      '@AntDesign': path.resolve(__dirname, 'src/components/AntDesign'),
     },
   },
 }
