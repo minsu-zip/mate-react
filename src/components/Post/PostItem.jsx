@@ -11,6 +11,12 @@ const IconText = ({ icon, text }) => (
 )
 
 const PostItem = ({ item }) => {
+  const [commentState, setCommentState] = useState(false)
+
+  const commentHandle = () => {
+    if (item.comments.length > 0) setCommentState(!commentState)
+  }
+
   return (
     <>
       <List.Item
@@ -23,6 +29,7 @@ const PostItem = ({ item }) => {
           />,
           <Button
             icon={<MessageOutlined />}
+            onClick={commentHandle}
             style={{ border: '0', paddingLeft: '0' }}
           >
             <span>{item.comments.length}</span>
@@ -43,6 +50,12 @@ const PostItem = ({ item }) => {
         />
         {item.content}
       </List.Item>
+
+      {commentState
+        ? item.comments.map((comment) => (
+            <CommentList key={comment._id} comment={comment}></CommentList>
+          ))
+        : ''}
     </>
   )
 }
