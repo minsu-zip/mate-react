@@ -74,7 +74,7 @@ const Login = () => {
           </Form.Item>
         </Form.Item>
 
-        <Form.Item>
+        <Form.Item className="login-form-bottom">
           <AntButton
             text="Log in"
             type="primary"
@@ -82,7 +82,10 @@ const Login = () => {
             htmlType="submit"
             className="login-form-button"
           />
-          Or <a href="/register">signUp now!</a>
+          계정이 없으신가요?{' '}
+          <a href="/register" className="signup-form-href">
+            가입하기
+          </a>
         </Form.Item>
       </Form>
     </>

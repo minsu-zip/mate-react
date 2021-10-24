@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 500px;
+  background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
 }
 .login-form-forgot {
 }
@@ -19,10 +19,22 @@
   width: 100%;
 }
 
-.ant-row {
+.ant-col {
   width: 500px;
 }
 
 .ant-input-affix-wrapper {
   height: 50px;
+}
+
+.ant-btn-lg {
+  margin: 0px 0px 30px 0px;
+}
+
+.signup-form-href {
+  font-weight: bold;
+}
+
+.login-form-bottom {
+  text-align: center;
 }
