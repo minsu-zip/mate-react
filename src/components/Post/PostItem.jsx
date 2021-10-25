@@ -20,6 +20,7 @@ const PostItem = ({ item }) => {
   return (
     <>
       <List.Item
+        style={{ marginBottom: '10px' }}
         key={item.title}
         actions={[
           <IconText
@@ -39,23 +40,22 @@ const PostItem = ({ item }) => {
           <img
             width={272}
             alt="logo"
-            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+            src={
+              item.image
+                ? item.image
+                : 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
+            }
           />
         }
       >
         <List.Item.Meta
           avatar={<Avatar src={item.avatar} />}
           title={<a href={item.href}>{item.title}</a>}
-          // description={item.description}
         />
         {item.content}
       </List.Item>
 
-      {commentState
-        ? item.comments.map((comment) => (
-            <CommentList key={comment._id} comment={comment}></CommentList>
-          ))
-        : ''}
+      {commentState ? <CommentList comment={item.comments}></CommentList> : ''}
     </>
   )
 }
