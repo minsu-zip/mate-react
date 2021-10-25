@@ -8,6 +8,7 @@ import {
   NotFoundPage,
   SignInPage,
   SignUpPage,
+  PostCreatePage,
 } from '@pages'
 import DefaultTemplate from '@components/template/DefaultTemplate'
 // import Footer from '@components/Footer'
@@ -31,6 +32,9 @@ const App = () => {
         </Route>
         <Route path="/register" exact>
           <SignUpPage></SignUpPage>
+        </Route>
+        <Route path="/post/create" exact>
+          <PostCreatePage></PostCreatePage>
         </Route>
         <Route path="*" exact>
           <NotFoundPage></NotFoundPage>
