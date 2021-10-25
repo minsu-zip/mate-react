@@ -3,13 +3,20 @@ import React from 'react'
 const AntButton = ({
   text,
   type,
+  shape,
   size = 'default',
   className = '',
   htmlType = '',
 }) => {
   return (
     <>
-      <Button type={type} size={size} className={className} htmlType={htmlType}>
+      <Button
+        type={type}
+        shape={shape}
+        size={size}
+        className={className}
+        htmlType={htmlType}
+      >
         {text}
       </Button>
     </>
