@@ -1,0 +1,40 @@
+.main_title {
+  font-size: 80px;
+  text-align: center;
+}
+.mypage-form {
+  max-width: auto;
+  max-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
+}
+.login-form-forgot {
+}
+.ant-col-rtl .login-form-forgot {
+}
+.login-form-button {
+  width: 100%;
+}
+
+.ant-col {
+  width: 500px;
+}
+
+.ant-input-affix-wrapper {
+  height: 50px;
+}
+
+.ant-btn-lg {
+  margin: 0px 0px 30px 0px;
+}
+
+.signup-form-href {
+  font-weight: bold;
+}
+
+.login-form-bottom {
+  text-align: center;
+}
