@@ -5,9 +5,9 @@ import { Button } from 'antd'
 import axios from 'axios'
 import styled from '@emotion/styled'
 
-const Container = styled.div`
-  margin-left: 50px;
-  margin-right: 50px;
+const PostCreateContainer = styled.div`
+  width: 80%;
+  display: inline-block;
 `
 const Div = styled.div`
   margin: 10px;
@@ -53,7 +53,7 @@ const PostCreatePage = () => {
 
   return (
     <>
-      <Container>
+      <PostCreateContainer>
         <Div>
           <input
             type="file"
@@ -72,7 +72,7 @@ const PostCreatePage = () => {
             생성
           </Button>
         </Div>
-      </Container>
+      </PostCreateContainer>
     </>
   )
 }

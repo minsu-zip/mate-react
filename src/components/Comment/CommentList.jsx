@@ -10,7 +10,7 @@ const CommentList = ({ comment }) => {
       return {
         author: author.email,
         avatar: 'https://joeschmoe.io/api/v1/random',
-        content: <p>{comment}</p>,
+        content: <p style={{ float: 'left' }}>{comment}</p>,
         datetime: createdAt,
       }
     })
