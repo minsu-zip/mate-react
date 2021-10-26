@@ -6,7 +6,6 @@ export default async function PutMyInformation(fullName, username) {
   const BearerToken = `Bearer ${sessionStorage
     .getItem('userInformation')
     .replace(/\"/gi, '')}`
-  console.log(fullName, username)
   try {
     await axios
       .put(
@@ -23,7 +22,6 @@ export default async function PutMyInformation(fullName, username) {
         },
       )
       .then((res) => res.data)
-      .then((data) => alert(data))
   } catch (error) {
     console.log(error)
   }
