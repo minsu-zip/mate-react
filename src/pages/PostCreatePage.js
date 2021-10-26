@@ -19,7 +19,6 @@ const PostCreatePage = () => {
 
   const inputHandle = (e) => {
     setTextVaule(e)
-    console.log(textValue)
   }
 
   const setPostCreate = async () => {
@@ -34,16 +33,12 @@ const PostCreatePage = () => {
       headers: {
         Authorization:
           'Bearer ' +
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYxNzE4NjBhYjYzN2JjMTExOTdkZThhOCIsImVtYWlsIjoia2h3OTcwNDIxQGtha2FvLmNvbSJ9LCJpYXQiOjE2MzUxNTAwODZ9.DDATyzYB8UCtRgQkTH_Ob2c35bzMHIcidDqsZmh9jRk',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYxNzE4NjBhYjYzN2JjMTExOTdkZThhOCIsImVtYWlsIjoia2h3OTcwNDIxQGtha2FvLmNvbSJ9LCJpYXQiOjE2MzUyNTgyMDV9.PCHDllZkpZ2bXV89cRBig4UrZ8EHC-tj8wTxMlrXlos',
       },
       data: formData,
+    }).catch((error) => {
+      console.log(error)
     })
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
   }
 
   const onImgChange = (e) => {
