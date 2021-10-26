@@ -3,9 +3,8 @@ import { Form, Input, Button, Checkbox } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import AntButton from '@AntDesign/AntButton'
 import './index.css'
-import axios from 'axios'
-
-const API_END_POINT = 'http://13.209.30.200'
+import PutMyPw from '@api/PutMyPw'
+import PutMyInformation from '@api/PutMyInformation'
 
 const modifyInformation = (values) => {
   const { userName, fullName, checkPw1, checkPw2 } = values
@@ -15,59 +14,6 @@ const modifyInformation = (values) => {
   } else {
     PutMyPw(checkPw1)
     PutMyInformation(fullName, userName)
-  }
-}
-
-const PutMyInformation = async (fullName, username) => {
-  const BearerToken = `Bearer ${sessionStorage
-    .getItem('userInformation')
-    .replace(/\"/gi, '')}`
-
-  try {
-    await axios
-      .put(
-        `${API_END_POINT}/settings/update-user`,
-        {
-          fullName,
-          username,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: BearerToken,
-          },
-        },
-      )
-      .then((res) => res.data)
-      .then((data) => alert(data))
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const PutMyPw = async (pw) => {
-  const BearerToken = `Bearer ${sessionStorage
-    .getItem('userInformation')
-    .replace(/\"/gi, '')}`
-
-  try {
-    await axios
-      .put(
-        `${API_END_POINT}/settings/update-password`,
-        {
-          password: pw,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: BearerToken,
-          },
-        },
-      )
-      .then((res) => res.data)
-      .then((data) => alert(data))
-  } catch (error) {
-    console.log(error)
   }
 }
 
