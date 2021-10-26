@@ -3,7 +3,7 @@ import PostList from '@components/Post/PostList'
 import styled from '@emotion/styled'
 
 const PostContainer = styled.div`
-  width: 80%;
+  width: 50%;
   display: inline-block;
 `
 
