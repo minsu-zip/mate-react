@@ -1,6 +1,6 @@
 import { List, Avatar, Space, Button } from 'antd'
 import { MessageOutlined, LikeOutlined } from '@ant-design/icons'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CommentList from '@components/Comment/CommentList'
 
 const IconText = ({ icon, text }) => (
@@ -10,12 +10,16 @@ const IconText = ({ icon, text }) => (
   </Space>
 )
 
-const PostItem = ({ item }) => {
+const PostItem = ({ item, pageState }) => {
   const [commentState, setCommentState] = useState(false)
 
   const commentHandle = () => {
     if (item.comments.length > 0) setCommentState(!commentState)
   }
+
+  useEffect(() => {
+    setCommentState(false)
+  }, [pageState])
 
   return (
     <>

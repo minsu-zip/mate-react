@@ -37,6 +37,8 @@ const PostList = () => {
     history,
   ])
 
+  const [pageState, setPageState] = useState(false)
+
   return (
     <>
       <Button
@@ -53,12 +55,14 @@ const PostList = () => {
         size="large"
         pagination={{
           onChange: (page) => {
-            console.log(page)
+            setPageState(!pageState)
           },
           pageSize: 7,
         }}
         dataSource={postList}
-        renderItem={(item) => <PostItem item={item}></PostItem>}
+        renderItem={(item) => (
+          <PostItem item={item} pageState={pageState}></PostItem>
+        )}
       />
     </>
   )
