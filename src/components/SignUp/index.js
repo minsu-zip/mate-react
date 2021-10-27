@@ -2,6 +2,8 @@ import { Form, Input, InputNumber, Button } from 'antd'
 import './index.css'
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
 import PostSignUp from '@api/PostSignUp'
+import React, { useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
 const layout = {
   labelCol: {
     span: 8,
@@ -25,10 +27,13 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const Register = () => {
-  const onFinish = ({ user }) => {
+  const onFinish = async ({ user }) => {
     const { email, fullName, password } = user
-    PostSignUp({ email, fullName, password })
+    await PostSignUp({ email, fullName, password })
+    handleOnClick()
   }
+  const history = useHistory()
+  const handleOnClick = useCallback(() => history.push('/'), [history])
 
   return (
     <Form
