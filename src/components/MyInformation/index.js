@@ -5,12 +5,28 @@ import AntButton from '@AntDesign/AntButton'
 import './index.css'
 import PutMyPw from '@api/PutMyPw'
 import PutMyInformation from '@api/PutMyInformation'
+import styled from '@emotion/styled'
+import axios from 'axios'
+
+const Image = styled.img`
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: skyblue;
+  background-image: url('${(props) => props.src}')
+  background-size: 500px;
+  background-repeat: no-repeat;
+`
+
+const Div = styled.div`
+  margin: 10px;
+`
 
 const modifyInformation = (values) => {
   const { userName, fullName, checkPw1, checkPw2 } = values
 
   if (checkPw1 !== checkPw2) {
-    alert('동일한 비밀번호가 입력되지 않았습니다')
+    console.log('동일한 비밀번호가 입력되지 않았습니다')
   } else {
     PutMyPw(checkPw1)
     PutMyInformation(fullName, userName)
@@ -20,6 +36,45 @@ const modifyInformation = (values) => {
 const HorizontalLoginForm = () => {
   const [form] = Form.useForm()
   const [, forceUpdate] = useState({}) // To disable submit button at the beginning.
+  const [imageGetProps, setimageGetProps] = useState('')
+
+  useEffect(() => {
+    console.log('=== useEffect first ===')
+    const fetchArticles = async () => {
+      const articleData = await getImage()
+      console.log(articleData, 'articledata')
+      setimageGetProps(articleData)
+    }
+    fetchArticles()
+  }, [])
+
+  const getImage = async (articleDataUrl) => {
+    const BearerToken = `Bearer ${sessionStorage
+      .getItem('userInformation')
+      .replace(/\"/gi, '')}`
+
+    return await axios({
+      method: 'get',
+      url: `http://13.209.30.200/auth-user`,
+      headers: {
+        Authorization: BearerToken,
+      },
+      body: {
+        isCover: false,
+        image: articleDataUrl,
+      },
+    })
+      .then((response) => response.data)
+      .then(({ image }) => {
+        console.log('getImage 이미지 가져오기 작동')
+        return image
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  getImage()
 
   useEffect(() => {
     forceUpdate({})
@@ -27,6 +82,46 @@ const HorizontalLoginForm = () => {
 
   const onFinish = (values) => {
     modifyInformation(values)
+  }
+
+  const [textValue, setTextVaule] = useState('')
+  const [imageUpload, setImageUpload] = useState()
+
+  const inputHandle = (e) => {
+    setTextVaule(e)
+    console.log(textValue)
+  }
+
+  const setPostCreate = async () => {
+    const formData = new FormData()
+    formData.append('isCover', false)
+    formData.append('image', imageUpload)
+
+    const BearerToken = `Bearer ${sessionStorage
+      .getItem('userInformation')
+      .replace(/\"/gi, '')}`
+
+    await axios({
+      method: 'post',
+      url: `http://13.209.30.200/users/upload-photo`,
+      headers: {
+        Authorization: BearerToken,
+      },
+      data: formData,
+    })
+      .then((response) => {
+        alert('이미지 업로드')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  const getImageUrl = () => {
+    console.log('getImageUrl')
+  }
+  const onImgChange = (e) => {
+    e.preventDefault()
+    setImageUpload(e.target.files[0])
   }
 
   return (
@@ -39,6 +134,22 @@ const HorizontalLoginForm = () => {
         }}
         onFinish={onFinish}
       >
+        <Div>
+          <Image src={imageGetProps}></Image>
+          <input
+            type="file"
+            className="imgInput"
+            accept="image/*"
+            name="file"
+            onChange={onImgChange}
+          ></input>
+        </Div>
+
+        <Div>
+          <Button type="primary" onClick={setPostCreate}>
+            생성
+          </Button>
+        </Div>
         <Form.Item
           name="userName"
           rules={[
