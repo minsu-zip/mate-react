@@ -4,8 +4,7 @@ import Button from './Button'
 import styled from '@emotion/styled'
 
 const Form = styled.form`
-  width: 100%;
-  background-color: beige;
+  margin: 0 0;
   box-shadow: 0 0 4px rgba(0, 0);
 `
 

@@ -1,14 +1,15 @@
 const Input = () => {
   const style = {
     display: 'inline-block',
+    margin: '5px 0',
     padding: '6px 8px',
     width: '80%',
-    height: 80,
+    height: 50,
     fontSize: 14,
-    borderRadius: 4,
-    border: '2px solid #333',
-    backgroundColor: 'pink',
-    boxSizing: 'border-box',
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+    border: '1px solid #39A388',
+    // boxSizing: 'border-box',
   }
   return <input type="search" placeholder="Search" style={style}></input>
 }

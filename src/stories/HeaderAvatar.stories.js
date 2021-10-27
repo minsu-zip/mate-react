@@ -15,11 +15,11 @@ export default {
     size: {
       defaultValue: 70,
       control: { type: 'range', min: 40, max: 200 },
-      mode: {
-        defaultValue: 'cover',
-        control: 'inline-radio',
-        options: ['contain', 'cover', 'fill'],
-      },
+    },
+    mode: {
+      defaultValue: 'cover',
+      control: 'inline-radio',
+      options: ['contain', 'cover', 'fill'],
     },
   },
 }

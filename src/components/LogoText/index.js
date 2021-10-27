@@ -1,10 +1,20 @@
 import PropTypes from 'prop-types'
-const LogoText = ({ block, paragraph, size, strong, color, ...props }) => {
+import './index'
+
+const LogoText = ({
+  block,
+  paragraph,
+  size = 40,
+  strong = true,
+  color = '#1C7947',
+  ...props
+}) => {
   const Tag = block ? 'div' : paragraph ? 'p' : 'span'
   const fontStyle = {
     fontSize: size,
     fontWeight: strong ? 'bold' : undefined,
     color: color,
+    fontFamily: 'Lobster Two, cursive',
   }
   return (
     <Tag style={{ ...props.style, ...fontStyle }} {...props}>
@@ -20,10 +30,5 @@ LogoText.propTypes = {
   strong: PropTypes.string,
   color: PropTypes.string,
 }
-// LogoText.defaultProps = {
-//   fontSize: 30,
-//   color: 'black',
-//   fontWeight: 'bold',
-// }
 
 export default LogoText
