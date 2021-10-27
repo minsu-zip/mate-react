@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, Checkbox } from 'antd'
+import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import AntButton from '@AntDesign/AntButton'
 import './index.css'
@@ -7,6 +7,8 @@ import PutMyPw from '@api/PutMyPw'
 import PutMyInformation from '@api/PutMyInformation'
 import styled from '@emotion/styled'
 import axios from 'axios'
+
+const API_END_POINT = 'http://13.209.30.200'
 
 const Image = styled.img`
   width: 300px;
@@ -41,21 +43,20 @@ const HorizontalLoginForm = () => {
   useEffect(() => {
     console.log('=== useEffect first ===')
     const fetchArticles = async () => {
-      const articleData = await getImage()
-      console.log(articleData, 'articledata')
+      const articleData = await GetAuthUser()
       setimageGetProps(articleData)
     }
     fetchArticles()
   }, [])
 
-  const getImage = async (articleDataUrl) => {
+  const GetAuthUser = async (articleDataUrl) => {
     const BearerToken = `Bearer ${sessionStorage
       .getItem('userInformation')
       .replace(/\"/gi, '')}`
 
     return await axios({
       method: 'get',
-      url: `http://13.209.30.200/auth-user`,
+      url: `${API_END_POINT}/auth-user`,
       headers: {
         Authorization: BearerToken,
       },
@@ -66,7 +67,6 @@ const HorizontalLoginForm = () => {
     })
       .then((response) => response.data)
       .then(({ image }) => {
-        console.log('getImage 이미지 가져오기 작동')
         return image
       })
       .catch((error) => {
@@ -74,7 +74,7 @@ const HorizontalLoginForm = () => {
       })
   }
 
-  getImage()
+  GetAuthUser()
 
   useEffect(() => {
     forceUpdate({})
@@ -84,15 +84,9 @@ const HorizontalLoginForm = () => {
     modifyInformation(values)
   }
 
-  const [textValue, setTextVaule] = useState('')
   const [imageUpload, setImageUpload] = useState()
 
-  const inputHandle = (e) => {
-    setTextVaule(e)
-    console.log(textValue)
-  }
-
-  const setPostCreate = async () => {
+  const PostUploadPhoto = async () => {
     const formData = new FormData()
     formData.append('isCover', false)
     formData.append('image', imageUpload)
@@ -103,7 +97,7 @@ const HorizontalLoginForm = () => {
 
     await axios({
       method: 'post',
-      url: `http://13.209.30.200/users/upload-photo`,
+      url: `${API_END_POINT}/users/upload-photo`,
       headers: {
         Authorization: BearerToken,
       },
@@ -116,9 +110,7 @@ const HorizontalLoginForm = () => {
         console.log(error)
       })
   }
-  const getImageUrl = () => {
-    console.log('getImageUrl')
-  }
+
   const onImgChange = (e) => {
     e.preventDefault()
     setImageUpload(e.target.files[0])
@@ -146,7 +138,7 @@ const HorizontalLoginForm = () => {
         </Div>
 
         <Div>
-          <Button type="primary" onClick={setPostCreate}>
+          <Button type="primary" onClick={PostUploadPhoto}>
             생성
           </Button>
         </Div>
