@@ -9,14 +9,14 @@ const useHover = () => {
 
   useEffect(() => {
     const element = ref.current
-    if (element) {
-      element.addEventListener('mouseover', handleMouseOver)
-      element.addEventListener('mouseout', handleMouseOut)
+    if (!element) return
 
-      return () => {
-        element.removeEventListener('mouseover')
-        element.removeEventListener('mouseout')
-      }
+    element.addEventListener('mouseover', handleMouseOver)
+    element.addEventListener('mouseout', handleMouseOut)
+
+    return () => {
+      element.removeEventListener('mouseover', handleMouseOver)
+      element.removeEventListener('mouseout', handleMouseOut)
     }
   }, [ref, handleMouseOver, handleMouseOut])
 
