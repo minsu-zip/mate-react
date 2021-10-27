@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import AntTextArea from '@components/AntDesign/AntTextArea'
-
+import { useHistory } from 'react-router-dom'
 import { Button } from 'antd'
 import axios from 'axios'
 import styled from '@emotion/styled'
 
 const PostCreateContainer = styled.div`
-  width: 80%;
-  display: inline-block;
+  width: 70%;
 `
 const Div = styled.div`
   margin: 10px;
@@ -16,9 +15,10 @@ const Div = styled.div`
 const PostCreatePage = () => {
   const [textValue, setTextVaule] = useState('')
   const [imageUpload, setImageUpload] = useState()
+  const [submitting, setSubmitting] = useState(false)
 
   const inputHandle = (e) => {
-    setTextVaule(e)
+    setTextVaule(e.target.value)
   }
 
   const setPostCreate = async () => {
@@ -26,6 +26,8 @@ const PostCreatePage = () => {
     formData.append('image', imageUpload)
     formData.append('title', textValue)
     formData.append('channelId', '616a200d22996f0bc94f6db5')
+
+    setSubmitting(true)
 
     await axios({
       method: 'post',
@@ -39,7 +41,14 @@ const PostCreatePage = () => {
     }).catch((error) => {
       console.log(error)
     })
+
+    setSubmitting(false)
+    setTextVaule('')
+    handleOnClick()
   }
+
+  const history = useHistory()
+  const handleOnClick = useCallback(() => history.push('/posts'), [history])
 
   const onImgChange = (e) => {
     e.preventDefault()
@@ -63,7 +72,12 @@ const PostCreatePage = () => {
         </Div>
 
         <Div>
-          <Button type="primary" onClick={setPostCreate}>
+          <Button
+            htmlType="submit"
+            loading={submitting}
+            type="primary"
+            onClick={setPostCreate}
+          >
             생성
           </Button>
         </Div>
