@@ -2,7 +2,7 @@
   font-size: 80px;
   text-align: center;
 }
-.registerForm {
+.mypage-form {
   max-width: auto;
   max-height: auto;
   display: flex;
@@ -19,7 +19,7 @@
   width: 100%;
 }
 
-.ant-input-affix-wrapper {
+.ant-col {
   width: 500px;
 }
 

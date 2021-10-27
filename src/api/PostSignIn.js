@@ -8,7 +8,10 @@ export default async function PostSignIn({ id, pw }) {
       email: id,
       password: pw,
     })
-    sessionStorage.setItem('userInformation', JSON.stringify(response.data))
+    sessionStorage.setItem(
+      'userInformation',
+      JSON.stringify(response.data.token),
+    )
     alert('정상작동')
     isProblem = false
     return isProblem

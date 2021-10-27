@@ -6,10 +6,17 @@ const AntButton = ({
   size = 'default',
   className = '',
   htmlType = '',
+  onClick = '',
 }) => {
   return (
     <>
-      <Button type={type} size={size} className={className} htmlType={htmlType}>
+      <Button
+        type={type}
+        size={size}
+        className={className}
+        htmlType={htmlType}
+        onClick={onClick}
+      >
         {text}
       </Button>
     </>

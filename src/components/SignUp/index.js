@@ -1,6 +1,6 @@
 import { Form, Input, InputNumber, Button } from 'antd'
 import './index.css'
-import { UserOutlined, LockOutlined } from '@ant-design/icons'
+import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
 import PostSignUp from '@api/PostSignUp'
 const layout = {
   labelCol: {
@@ -38,27 +38,42 @@ const Register = () => {
       validateMessages={validateMessages}
       className="registerForm"
     >
+      <div class="main_title">𝓶𝓪𝓽𝓮</div>
       <Form.Item
-        name={['user', 'email']}
-        label="Email"
-        rules={[
-          {
-            type: 'email',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item name={['user', 'fullName']} label="fullName">
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name={['user', 'password']}
-        label="password"
+        name="username"
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: 'Please input your Username!',
+          },
+        ]}
+      >
+        <Input
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          placeholder="Username"
+        />
+      </Form.Item>
+      <Form.Item
+        name="Email"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Email!',
+          },
+        ]}
+      >
+        <Input
+          prefix={<MailOutlined className="site-form-item-icon" />}
+          type="email"
+          placeholder="Email"
+        />
+      </Form.Item>
+      <Form.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Password!',
           },
         ]}
       >
@@ -68,6 +83,7 @@ const Register = () => {
           placeholder="Password"
         />
       </Form.Item>
+
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         <Button type="primary" htmlType="submit">
           Submit
