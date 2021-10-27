@@ -7,6 +7,8 @@ import PutMyPw from '@api/PutMyPw'
 import PutMyInformation from '@api/PutMyInformation'
 import styled from '@emotion/styled'
 import axios from 'axios'
+import GetAuthUser from '@api/GetAuthUser'
+import PostUploadPhoto from '@api/PostUploadPhoto'
 
 const API_END_POINT = 'http://13.209.30.200'
 
@@ -49,31 +51,6 @@ const HorizontalLoginForm = () => {
     fetchArticles()
   }, [])
 
-  const GetAuthUser = async (articleDataUrl) => {
-    const BearerToken = `Bearer ${sessionStorage
-      .getItem('userInformation')
-      .replace(/\"/gi, '')}`
-
-    return await axios({
-      method: 'get',
-      url: `${API_END_POINT}/auth-user`,
-      headers: {
-        Authorization: BearerToken,
-      },
-      body: {
-        isCover: false,
-        image: articleDataUrl,
-      },
-    })
-      .then((response) => response.data)
-      .then(({ image }) => {
-        return image
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
   GetAuthUser()
 
   useEffect(() => {
@@ -86,29 +63,8 @@ const HorizontalLoginForm = () => {
 
   const [imageUpload, setImageUpload] = useState()
 
-  const PostUploadPhoto = async () => {
-    const formData = new FormData()
-    formData.append('isCover', false)
-    formData.append('image', imageUpload)
-
-    const BearerToken = `Bearer ${sessionStorage
-      .getItem('userInformation')
-      .replace(/\"/gi, '')}`
-
-    await axios({
-      method: 'post',
-      url: `${API_END_POINT}/users/upload-photo`,
-      headers: {
-        Authorization: BearerToken,
-      },
-      data: formData,
-    })
-      .then((response) => {
-        alert('이미지 업로드')
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  const PostUploadPhotoHandler = () => {
+    PostUploadPhoto(imageUpload)
   }
 
   const onImgChange = (e) => {
@@ -138,7 +94,7 @@ const HorizontalLoginForm = () => {
         </Div>
 
         <Div>
-          <Button type="primary" onClick={PostUploadPhoto}>
+          <Button type="primary" onClick={PostUploadPhotoHandler}>
             생성
           </Button>
         </Div>
