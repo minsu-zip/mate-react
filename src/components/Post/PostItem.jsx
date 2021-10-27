@@ -14,6 +14,10 @@ const PostItem = React.memo(({ item, pageState }) => {
   const [commentLength, setCommentLength] = useState(item.comments.length)
 
   useEffect(() => {
+    setCommentLength(item.comments.length)
+  }, [item])
+
+  useEffect(() => {
     setCommentState(false)
   }, [pageState])
 
