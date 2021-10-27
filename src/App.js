@@ -15,9 +15,9 @@ import styled from '@emotion/styled'
 // import Footer from '@components/Footer'
 
 const Container = styled.div`
-  /* display: flex; */
   width: 100%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 `
 
 const App = () => {
