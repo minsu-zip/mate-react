@@ -13,7 +13,7 @@ const PostList = () => {
       `http://13.209.30.200/posts/channel/616a200d22996f0bc94f6db5?offset&limit`,
     )
 
-    const postData = data.map(({ title, author, comments, image }) => {
+    const postData = data.map(({ title, author, comments, image, _id }) => {
       return {
         title: author.email,
         content: title,
@@ -21,6 +21,7 @@ const PostList = () => {
         avatar: 'https://joeschmoe.io/api/v1/random',
         href: 'https://ant.design',
         image,
+        id: _id,
       }
     })
 
