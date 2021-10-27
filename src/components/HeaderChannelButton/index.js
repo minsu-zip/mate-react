@@ -1,4 +1,4 @@
-const HeaderChannelButton = ({ name }) => {
+const HeaderChannelButton = ({ name, channelId }) => {
   const style = {
     height: 40,
     padding: '0px 10px 0px 10px',
@@ -9,7 +9,11 @@ const HeaderChannelButton = ({ name }) => {
     borderRadius: 10,
     backgroundColor: '#FCFFA6',
   }
-  return <button style={style}>{name}</button>
+  return (
+    <button id={channelId} style={style}>
+      {name}
+    </button>
+  )
 }
 
 export default HeaderChannelButton
