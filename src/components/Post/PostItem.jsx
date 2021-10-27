@@ -1,8 +1,7 @@
 import { List, Avatar, Space, Button } from 'antd'
 import { MessageOutlined, LikeOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
-import CommentList from '@components/Comment/CommentList'
-
+import CommentContainer from '@components/Comment/CommentContainer'
 const IconText = ({ icon, text }) => (
   <Space>
     {React.createElement(icon)}
@@ -10,16 +9,17 @@ const IconText = ({ icon, text }) => (
   </Space>
 )
 
-const PostItem = ({ item, pageState }) => {
+const PostItem = React.memo(({ item, pageState }) => {
   const [commentState, setCommentState] = useState(false)
-
-  const commentHandle = () => {
-    if (item.comments.length > 0) setCommentState(!commentState)
-  }
+  const [commentLength, setCommentLength] = useState(item.comments.length)
 
   useEffect(() => {
     setCommentState(false)
   }, [pageState])
+
+  const increaseCommentLength = () => {
+    setCommentLength(commentLength + 1)
+  }
 
   return (
     <>
@@ -34,10 +34,10 @@ const PostItem = ({ item, pageState }) => {
           />,
           <Button
             icon={<MessageOutlined />}
-            onClick={commentHandle}
+            onClick={() => setCommentState(!commentState)}
             style={{ border: '0', paddingLeft: '0' }}
           >
-            <span>{item.comments.length}</span>
+            <span>{commentLength}</span>
           </Button>,
         ]}
         extra={
@@ -59,9 +59,19 @@ const PostItem = ({ item, pageState }) => {
         {item.content}
       </List.Item>
 
-      {commentState ? <CommentList comment={item.comments}></CommentList> : ''}
+      {commentState ? (
+        <div>
+          <CommentContainer
+            comment={item.comments}
+            postId={item.id}
+            increaseCommentLength={increaseCommentLength}
+          ></CommentContainer>
+        </div>
+      ) : (
+        ''
+      )}
     </>
   )
-}
+})
 
 export default PostItem
