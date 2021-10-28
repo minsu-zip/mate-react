@@ -1,10 +1,8 @@
 import axios from 'axios'
-
+import { getItem } from '@SessionStorage'
 const API_END_POINT = 'http://13.209.30.200'
 export default async function PutMyPw(pw) {
-  const BearerToken = `Bearer ${sessionStorage
-    .getItem('userInformation')
-    .replace(/\"/gi, '')}`
+  const BearerToken = `Bearer ${getItem('userInformation')}`
   try {
     await axios
       .put(
