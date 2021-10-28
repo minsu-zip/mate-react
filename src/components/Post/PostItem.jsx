@@ -45,15 +45,7 @@ const PostItem = React.memo(({ item, pageState }) => {
           </Button>,
         ]}
         extra={
-          <img
-            width={272}
-            alt="logo"
-            src={
-              item.image
-                ? item.image
-                : 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
-            }
-          />
+          item.image ? <img width={272} alt="logo" src={item.image} /> : ''
         }
       >
         <List.Item.Meta
