@@ -1,5 +1,5 @@
 import { Spin } from 'antd'
-const Loading = () => {
+const AntSpin = () => {
   return (
     <>
       <Spin />
@@ -7,4 +7,4 @@ const Loading = () => {
   )
 }
 
-export default Loading
+export default AntSpin

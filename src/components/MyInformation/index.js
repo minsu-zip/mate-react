@@ -17,7 +17,7 @@ const Image = styled.img`
   height: 300px;
   border-radius: 50%;
   background-color: skyblue;
-  background-image: url('${(props) => props.src}')
+  background-image: url('${(props) => props.src}');
   background-size: 500px;
   background-repeat: no-repeat;
 `
@@ -30,7 +30,8 @@ const modifyInformation = (values) => {
   const { userName, fullName, checkPw1, checkPw2 } = values
 
   if (checkPw1 !== checkPw2) {
-    console.log('동일한 비밀번호가 입력되지 않았습니다')
+    alert('비밀번호가 동일하지 않습니다')
+    return
   } else {
     PutMyPw(checkPw1)
     PutMyInformation(fullName, userName)
@@ -94,8 +95,8 @@ const HorizontalLoginForm = () => {
         </Div>
 
         <Div>
-          <Button type="primary" onClick={PostUploadPhotoHandler}>
-            생성
+          <Button type="primary" onClick={PostUploadPhoto}>
+            프로필 이미지 변경
           </Button>
         </Div>
         <Form.Item
@@ -158,7 +159,7 @@ const HorizontalLoginForm = () => {
         </Form.Item>
         <Form.Item className="login-form-bottom">
           <AntButton
-            text="수정 하기"
+            text="계정 정보 변경"
             type="primary"
             size="large"
             htmlType="submit"

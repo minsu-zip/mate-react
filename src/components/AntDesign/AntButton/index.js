@@ -3,6 +3,7 @@ import React from 'react'
 const AntButton = ({
   text,
   type,
+  shape,
   size = 'default',
   className = '',
   htmlType = '',

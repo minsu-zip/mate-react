@@ -1,11 +1,18 @@
 import React from 'react'
 import PostList from '@components/Post/PostList'
-import { Button } from 'antd'
+import styled from '@emotion/styled'
+import Header from '@components/Header'
+const PostContainer = styled.div`
+  width: 70%;
+`
 
 const PostsPage = () => {
   return (
     <>
-      <PostList></PostList>
+      <Header></Header>
+      <PostContainer>
+        <PostList></PostList>
+      </PostContainer>
     </>
   )
 }
