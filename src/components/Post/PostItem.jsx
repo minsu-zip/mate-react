@@ -1,8 +1,7 @@
 import { List, Avatar, Space, Button } from 'antd'
 import { MessageOutlined, LikeOutlined } from '@ant-design/icons'
-import React, { useState } from 'react'
-import CommentList from '@components/Comment/CommentList'
-
+import React, { useEffect, useState } from 'react'
+import CommentContainer from '@components/Comment/CommentContainer'
 const IconText = ({ icon, text }) => (
   <Space>
     {React.createElement(icon)}
@@ -10,16 +9,26 @@ const IconText = ({ icon, text }) => (
   </Space>
 )
 
-const PostItem = ({ item }) => {
+const PostItem = React.memo(({ item, pageState }) => {
   const [commentState, setCommentState] = useState(false)
+  const [commentLength, setCommentLength] = useState(item.comments.length)
 
-  const commentHandle = () => {
-    if (item.comments.length > 0) setCommentState(!commentState)
+  useEffect(() => {
+    setCommentLength(item.comments.length)
+  }, [item])
+
+  useEffect(() => {
+    setCommentState(false)
+  }, [pageState])
+
+  const increaseCommentLength = () => {
+    setCommentLength(commentLength + 1)
   }
 
   return (
     <>
       <List.Item
+        style={{ marginBottom: '10px' }}
         key={item.title}
         actions={[
           <IconText
@@ -29,35 +38,36 @@ const PostItem = ({ item }) => {
           />,
           <Button
             icon={<MessageOutlined />}
-            onClick={commentHandle}
+            onClick={() => setCommentState(!commentState)}
             style={{ border: '0', paddingLeft: '0' }}
           >
-            <span>{item.comments.length}</span>
+            <span>{commentLength}</span>
           </Button>,
         ]}
         extra={
-          <img
-            width={272}
-            alt="logo"
-            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-          />
+          item.image ? <img width={272} alt="logo" src={item.image} /> : ''
         }
       >
         <List.Item.Meta
           avatar={<Avatar src={item.avatar} />}
           title={<a href={item.href}>{item.title}</a>}
-          // description={item.description}
         />
         {item.content}
       </List.Item>
 
-      {commentState
-        ? item.comments.map((comment) => (
-            <CommentList key={comment._id} comment={comment}></CommentList>
-          ))
-        : ''}
+      {commentState ? (
+        <div>
+          <CommentContainer
+            comment={item.comments}
+            postId={item.id}
+            increaseCommentLength={increaseCommentLength}
+          ></CommentContainer>
+        </div>
+      ) : (
+        ''
+      )}
     </>
   )
-}
+})
 
 export default PostItem

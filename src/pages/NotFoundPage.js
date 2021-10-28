@@ -1,4 +1,5 @@
 import { Result, Button } from 'antd'
+import { Link } from 'react-router-dom'
 const NotFoundPage = () => {
   return (
     <div>
@@ -9,7 +10,7 @@ const NotFoundPage = () => {
         subTitle="Sorry, the page you visited does not exist."
         extra={
           <Button type="primary">
-            <a href="/">Back Home</a>
+            <Link to="/">Back home</Link>
           </Button>
         }
       />

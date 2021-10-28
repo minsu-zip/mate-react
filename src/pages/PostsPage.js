@@ -1,11 +1,17 @@
 import React from 'react'
 import PostList from '@components/Post/PostList'
-import { Button } from 'antd'
+import styled from '@emotion/styled'
+
+const PostContainer = styled.div`
+  width: 70%;
+`
 
 const PostsPage = () => {
   return (
     <>
-      <PostList></PostList>
+      <PostContainer>
+        <PostList></PostList>
+      </PostContainer>
     </>
   )
 }

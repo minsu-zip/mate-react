@@ -1,22 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Form, Input, Button, Checkbox } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.css'
 import PostSignIn from '@api/PostSignIn'
 import AntAlert from '@AntDesign/AntAlert'
 import AntButton from '@AntDesign/AntButton'
-
+import { useHistory } from 'react-router-dom'
 const Login = () => {
   const [form] = Form.useForm()
 
   const [isSignInProblem, setIsSignInProblem] = useState(false)
 
-  const onFinish = (values) => {
-    PostSignIn({ id: values.username, pw: values.password }).then((res) => {
-      setIsSignInProblem(res)
-    })
-    console.log('Finish:', values)
+  const onFinish = async (values) => {
+    await PostSignIn({ id: values.username, pw: values.password }).then(
+      (res) => {
+        setIsSignInProblem(res)
+      },
+    )
+    handleOnClick()
   }
+
+  const history = useHistory()
+  const handleOnClick = useCallback(() => history.push('/posts'), [history])
 
   return (
     <>
