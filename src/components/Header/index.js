@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
 import { Row, Col } from 'antd'
 import LogoText from '../LogoText'
 import HeaderSearchForm from '../HeaderSearchForm'
@@ -7,6 +8,7 @@ import HeaderDropBox from '../HeaderDropBox'
 // import useHover from '../../hooks/useHover'
 import HeaderLoginButton from '../HeaderLoginButton'
 import HeaderChannelButtons from '../HeaderChannelButtons'
+import GetAuthUser from '@api/GetAuthUser'
 import './index.css'
 
 const header = {
@@ -33,6 +35,16 @@ const channel = {
 
 const Header = () => {
   // const [ref, isHover] = useHover()
+
+  const [imageGetProps, setimageGetProps] = useState('')
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const { image } = await GetAuthUser()
+      setimageGetProps(image)
+    }
+    fetchArticles()
+  }, [])
+
   return (
     <>
       <Row className="header" gutter={[48, 0]} style={header}>
@@ -49,7 +61,7 @@ const Header = () => {
 
         <Col className="gutter-row" span={6}>
           <div style={Avatar}>
-            <HeaderAvatar />
+            <HeaderAvatar src={imageGetProps} />
             <HeaderDropBox />
           </div>
           {/* <HeaderLoginButton /> */}
