@@ -46,13 +46,12 @@ const HorizontalLoginForm = () => {
   useEffect(() => {
     console.log('=== useEffect first ===')
     const fetchArticles = async () => {
-      const articleData = await GetAuthUser()
-      setimageGetProps(articleData)
+      const { image } = await GetAuthUser()
+      console.log(image)
+      setimageGetProps(image)
     }
     fetchArticles()
   }, [])
-
-  GetAuthUser()
 
   useEffect(() => {
     forceUpdate({})
