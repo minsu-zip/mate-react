@@ -24,11 +24,9 @@ const validateMessages = {
     range: '${label} must be between ${min} and ${max}',
   },
 }
-/* eslint-enable no-template-curly-in-string */
 
 const Register = () => {
-  const onFinish = async ({ user }) => {
-    const { email, fullName, password } = user
+  const onFinish = async ({ email, fullName, password }) => {
     await PostSignUp({ email, fullName, password })
     handleOnClick()
   }
@@ -45,21 +43,21 @@ const Register = () => {
     >
       <div class="main_title">𝓶𝓪𝓽𝓮</div>
       <Form.Item
-        name="username"
+        name="fullName"
         rules={[
           {
             required: true,
-            message: 'Please input your Username!',
+            message: 'Please input your FullName!',
           },
         ]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username"
+          placeholder="FullName"
         />
       </Form.Item>
       <Form.Item
-        name="Email"
+        name="email"
         rules={[
           {
             required: true,
