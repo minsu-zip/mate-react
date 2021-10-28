@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { removeItem_UserInformation } from '@SessionStorage'
 const API_END_POINT = 'http://13.209.30.200'
 
 export default async function GetSignOut() {
@@ -10,7 +10,7 @@ export default async function GetSignOut() {
       .then((data) => {
         alert(data)
       })
-    sessionStorage.removeItem('useInformation')
+    removeItem_UserInformation('userInformation')
   } catch (error) {
     console.log(error)
   }
