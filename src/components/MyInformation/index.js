@@ -94,7 +94,7 @@ const HorizontalLoginForm = () => {
         </Div>
 
         <Div>
-          <Button type="primary" onClick={PostUploadPhoto}>
+          <Button type="primary" onClick={PostUploadPhotoHandler}>
             프로필 이미지 변경
           </Button>
         </Div>
