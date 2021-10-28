@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getItem_UserInformation } from '@SessionStorage'
+import { getItem } from '@SessionStorage'
 const API_END_POINT = 'http://13.209.30.200'
 
 export default async function PostUploadPhoto(imageUpload) {
@@ -7,7 +7,7 @@ export default async function PostUploadPhoto(imageUpload) {
   formData.append('isCover', false)
   formData.append('image', imageUpload)
 
-  const BearerToken = `Bearer ${getItem_UserInformation('userInformation')}`
+  const BearerToken = `Bearer ${getItem('userInformation')}`
 
   await axios({
     method: 'post',
