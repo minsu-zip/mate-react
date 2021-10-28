@@ -12,6 +12,7 @@ module.exports = {
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@api': path.resolve(__dirname, 'src/api'),
       '@AntDesign': path.resolve(__dirname, 'src/components/AntDesign'),
+      '@SessionStorage': path.resolve(__dirname, 'src/SessionStorage'),
     },
   },
 }
