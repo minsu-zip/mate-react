@@ -24,31 +24,31 @@ const App = () => {
   return (
     <div className="App">
       <DefaultTemplate></DefaultTemplate>
-      <Container>
-        <Switch>
-          <Route path="/" exact>
-            <SignInPage></SignInPage>
-          </Route>
-          <Route path="/posts" exact>
-            <PostsPage></PostsPage>
-          </Route>
-          <Route path="/home" exact>
-            <HomePage></HomePage>
-          </Route>
-          <Route path="/mypage" exact>
-            <MyPage></MyPage>
-          </Route>
-          <Route path="/register" exact>
-            <SignUpPage></SignUpPage>
-          </Route>
-          <Route path="/post/create" exact>
-            <PostCreatePage></PostCreatePage>
-          </Route>
-          <Route path="*" exact>
-            <NotFoundPage></NotFoundPage>
-          </Route>
-        </Switch>
-      </Container>
+
+      <Switch>
+        <Route path="/" exact>
+          <SignInPage></SignInPage>
+        </Route>
+        <Route path="/posts" exact>
+          <PostsPage></PostsPage>
+        </Route>
+        <Route path="/home" exact>
+          <HomePage></HomePage>
+        </Route>
+        <Route path="/mypage" exact>
+          <MyPage></MyPage>
+        </Route>
+        <Route path="/register" exact>
+          <SignUpPage></SignUpPage>
+        </Route>
+        <Route path="/post/create" exact>
+          <PostCreatePage></PostCreatePage>
+        </Route>
+        <Route path="*" exact>
+          <NotFoundPage></NotFoundPage>
+        </Route>
+      </Switch>
+
       {/* <Footer></Footer> */}
     </div>
   )

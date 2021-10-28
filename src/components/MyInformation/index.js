@@ -47,6 +47,7 @@ const HorizontalLoginForm = () => {
     console.log('=== useEffect first ===')
     const fetchArticles = async () => {
       const { image } = await GetAuthUser()
+      console.log(image)
       setimageGetProps(image)
     }
     fetchArticles()
