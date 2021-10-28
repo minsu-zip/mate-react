@@ -6,7 +6,7 @@ import HeaderAvatar from '../HeaderAvatar'
 import HeaderDropBox from '../HeaderDropBox'
 // import useHover from '../../hooks/useHover'
 import HeaderLoginButton from '../HeaderLoginButton'
-import HeaderChannelButton from '../HeaderChannelButton'
+import HeaderChannelButtons from '../HeaderChannelButtons'
 import './index.css'
 
 const header = {
@@ -56,10 +56,7 @@ const Header = () => {
         </Col>
       </Row>
       <Row className="headerChannelNav" gutter={[48, 0]} style={channel}>
-        <HeaderChannelButton id="61790be26e7b13674f9dd39b" name="음식" />
-        <HeaderChannelButton id="61729b42eaccb833ce222a52" name="스포츠" />
-        <HeaderChannelButton id="61790c416e7b13674f9dd43d" name="문화" />
-        <HeaderChannelButton id="616a200d22996f0bc94f6db5" name="론2팀" />
+        <HeaderChannelButtons />
       </Row>
     </>
   )
