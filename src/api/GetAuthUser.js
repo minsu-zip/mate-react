@@ -11,14 +11,10 @@ export default async function GetAuthUser(articleDataUrl) {
     headers: {
       Authorization: BearerToken,
     },
-    body: {
-      isCover: false,
-      image: articleDataUrl,
-    },
   })
     .then((response) => response.data)
-    .then(({ image }) => {
-      return image
+    .then((data) => {
+      return data
     })
     .catch((error) => {
       console.log(error)
