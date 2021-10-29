@@ -80,8 +80,9 @@ const HorizontalLoginForm = () => {
     const fetchArticles = async () => {
       const { image, _id } = await GetAuthUser()
       const postData = await GetPostAuther(_id)
-      await setPostDataState(postData)
-      await setimageGetProps(image)
+      console.log(image)
+      setPostDataState(postData, image)
+      setimageGetProps(image)
       console.log(postData)
     }
     fetchArticles()
@@ -134,22 +135,28 @@ const HorizontalLoginForm = () => {
         })}
       </Menu>
 
-      <ProfileContainer display={isProfileShow}>
-        <Card
-          style={{ width: 300 }}
-          cover={
-            <img
-              alt="example"
-              src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-            />
-          }
-        >
-          <Meta
-            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-            title="Card title"
-            description="This is the description"
-          />
-        </Card>
+      <ProfileContainer display={isProfileShow} className="mypage-form">
+        {postDataState.map(({ title, image }) => {
+          return (
+            <Card
+              style={{ width: 300 }}
+              cover={
+                <img
+                  alt="example"
+                  src={
+                    image
+                      ? image
+                      : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
+                  }
+                  width="200px"
+                  height="200px"
+                />
+              }
+            >
+              <Meta title={title} />
+            </Card>
+          )
+        })}
       </ProfileContainer>
       <SettingContainer display={isSettingShow}>
         <Form
