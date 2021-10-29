@@ -17,6 +17,16 @@ import GetAuthUser from '@api/GetAuthUser'
 import PostUploadPhoto from '@api/PostUploadPhoto'
 const { Meta } = Card
 
+const CardGrid = styled.div`
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: end;
+  align-items: end;
+  justify-items: center;
+  align-items: center;
+`
+
 const GetPostAuther = async (id) => {
   return await axios({
     method: 'get',
@@ -136,23 +146,25 @@ const HorizontalLoginForm = () => {
       </Menu>
 
       <ProfileContainer display={isProfileShow} className="profileContainer">
-        {postDataState.map(({ title, image, channel }) => {
-          return (
-            <Card
-              style={{ width: 300 }}
-              cover={
-                <Image
-                  alt="example"
-                  src={image ? image : 'https://via.placeholder.com/300.png'}
-                  width="200px"
-                  height="200px"
-                />
-              }
-            >
-              <Meta title={title} description={channel.name} />
-            </Card>
-          )
-        })}
+        <CardGrid>
+          {postDataState.map(({ title, image, channel }) => {
+            return (
+              <Card
+                style={{ width: 300 }}
+                cover={
+                  <Image
+                    alt="example"
+                    src={image ? image : 'https://via.placeholder.com/300.png'}
+                    width="200px"
+                    height="200px"
+                  />
+                }
+              >
+                <Meta title={title} description={channel.name} />
+              </Card>
+            )
+          })}
+        </CardGrid>
       </ProfileContainer>
 
       <SettingContainer display={isSettingShow}>
