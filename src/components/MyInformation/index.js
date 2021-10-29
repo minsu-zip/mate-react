@@ -71,8 +71,8 @@ const HorizontalLoginForm = () => {
   const [form] = Form.useForm()
   const [, forceUpdate] = useState({}) // To disable submit button at the beginning.
   const [imageGetProps, setimageGetProps] = useState('')
-  const [isProfileShow, setIsProfileShow] = useState(true)
-  const [isSettingShow, setIsSettingShow] = useState(false)
+  const [isProfileShow, setIsProfileShow] = useState(false)
+  const [isSettingShow, setIsSettingShow] = useState(true)
   const [postDataState, setPostDataState] = useState([])
 
   useEffect(() => {
@@ -108,8 +108,8 @@ const HorizontalLoginForm = () => {
   }
 
   const headerName = {
-    titleName: ['프로필', '설정'],
-    keyName: ['profile', 'setting'],
+    titleName: ['설정', '작성한 글'],
+    keyName: ['setting', 'profile'],
   }
 
   const clickHeaderHandler = ({ key }) => {
@@ -136,7 +136,7 @@ const HorizontalLoginForm = () => {
       </Menu>
 
       <ProfileContainer display={isProfileShow} className="mypage-form">
-        {postDataState.map(({ title, image }) => {
+        {postDataState.map(({ title, image, channel }) => {
           return (
             <Card
               style={{ width: 300 }}
@@ -153,7 +153,7 @@ const HorizontalLoginForm = () => {
                 />
               }
             >
-              <Meta title={title} />
+              <Meta title={title} description={channel.name} />
             </Card>
           )
         })}
