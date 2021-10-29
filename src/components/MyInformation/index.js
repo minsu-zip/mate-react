@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, Menu, Card, Avatar } from 'antd'
+import { Form, Input, Button, Menu, Card, Avatar, Col, Row } from 'antd'
 import {
   UserOutlined,
   LockOutlined,
@@ -135,19 +135,15 @@ const HorizontalLoginForm = () => {
         })}
       </Menu>
 
-      <ProfileContainer display={isProfileShow} className="mypage-form">
+      <ProfileContainer display={isProfileShow} className="profileContainer">
         {postDataState.map(({ title, image, channel }) => {
           return (
             <Card
               style={{ width: 300 }}
               cover={
-                <img
+                <Image
                   alt="example"
-                  src={
-                    image
-                      ? image
-                      : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-                  }
+                  src={image ? image : 'https://via.placeholder.com/300.png'}
                   width="200px"
                   height="200px"
                 />
@@ -158,6 +154,7 @@ const HorizontalLoginForm = () => {
           )
         })}
       </ProfileContainer>
+
       <SettingContainer display={isSettingShow}>
         <Form
           name="normal_login"
