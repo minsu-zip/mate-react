@@ -2,15 +2,18 @@ import { Comment, Avatar, Form, Button, List, Input } from 'antd'
 import moment from 'moment'
 import React, { useState, useEffect } from 'react'
 import CommentItem from './CommentItem'
+import { getItem } from '@SessionStorage'
 import axios from 'axios'
 const { TextArea } = Input
 
 const CommentList = ({ comments }) => (
-  <List
-    dataSource={comments}
-    itemLayout="horizontal"
-    renderItem={(props) => <CommentItem item={props} />}
-  />
+  <>
+    <List
+      dataSource={comments}
+      itemLayout="horizontal"
+      renderItem={(props) => <CommentItem item={props} />}
+    />
+  </>
 )
 
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
@@ -36,15 +39,21 @@ const CommentContainer = React.memo(
     const [comments, setComments] = useState([])
     const [submitting, setSubmitting] = useState(false)
     const [value, setValue] = useState('')
+    const userEmail = getItem('userEmail')
+    const userImage = getItem('userImage')
+    console.log(comment)
 
     useEffect(() => {
       if (comment.length <= 0) return
       const commentData = comment.map(({ comment, author, createdAt }) => {
         return {
           author: author.email,
-          avatar: 'https://joeschmoe.io/api/v1/random',
+          avatar: author.image
+            ? author.image
+            : 'https://joeschmoe.io/api/v1/random',
           content: <p>{comment}</p>,
           datetime: createdAt,
+          id: author._id,
         }
       })
 
@@ -55,6 +64,9 @@ const CommentContainer = React.memo(
       if (!value) {
         return
       }
+
+      const token = getItem('userInformation')
+
       setSubmitting(true)
 
       setTimeout(async () => {
@@ -62,29 +74,25 @@ const CommentContainer = React.memo(
           method: 'post',
           url: `http://13.209.30.200/comments/create`,
           headers: {
-            Authorization:
-              'Bearer ' +
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYxNzE4NjBhYjYzN2JjMTExOTdkZThhOCIsImVtYWlsIjoia2h3OTcwNDIxQGtha2FvLmNvbSJ9LCJpYXQiOjE2MzUyNTgyMDV9.PCHDllZkpZ2bXV89cRBig4UrZ8EHC-tj8wTxMlrXlos',
+            Authorization: 'Bearer ' + token,
           },
           data: {
             comment: value,
             postId: postId,
           },
+        }).catch((error) => {
+          console.log(error)
         })
-          .then((response) => {
-            console.log(response)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
 
         setSubmitting(false)
         setValue('')
         setComments([
           ...comments,
           {
-            author: 'khw970421@kakao.com',
-            avatar: 'https://joeschmoe.io/api/v1/random',
+            author: userEmail,
+            avatar: userImage
+              ? userImage
+              : 'https://joeschmoe.io/api/v1/random',
             content: <p>{value}</p>,
             datetime: moment().fromNow(),
           },
@@ -103,7 +111,14 @@ const CommentContainer = React.memo(
         {comments.length > 0 && <CommentList comments={comments} />}
         <Comment
           avatar={
-            <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />
+            <>
+              <Avatar
+                src={
+                  userImage ? userImage : 'https://joeschmoe.io/api/v1/random'
+                }
+                alt="Han Solo"
+              />
+            </>
           }
           content={
             <Editor
