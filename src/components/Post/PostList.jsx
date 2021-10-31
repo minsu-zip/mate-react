@@ -18,7 +18,9 @@ const PostList = () => {
         title: author.email,
         content: title,
         comments: comments.length > 0 ? comments : '',
-        avatar: 'https://joeschmoe.io/api/v1/random',
+        avatar: author.image
+          ? author.image
+          : 'https://joeschmoe.io/api/v1/random',
         href: 'https://ant.design',
         image,
         id: _id,
