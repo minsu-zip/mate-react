@@ -17,7 +17,7 @@ const Login = () => {
         setIsSignInProblem(res)
       },
     )
-    handleOnClick()
+    if (isSignInProblem) handleOnClick()
   }
 
   const history = useHistory()
