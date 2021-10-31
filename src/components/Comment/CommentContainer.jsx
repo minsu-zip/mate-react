@@ -41,11 +41,10 @@ const CommentContainer = React.memo(
     const [value, setValue] = useState('')
     const userEmail = getItem('userEmail')
     const userImage = getItem('userImage')
-    console.log(comment)
 
     useEffect(() => {
       if (comment.length <= 0) return
-      const commentData = comment.map(({ comment, author, createdAt }) => {
+      const commentData = comment.map(({ comment, author, createdAt, _id }) => {
         return {
           author: author.email,
           avatar: author.image
@@ -54,6 +53,7 @@ const CommentContainer = React.memo(
           content: <p>{comment}</p>,
           datetime: createdAt,
           id: author._id,
+          commentId: _id,
         }
       })
 
