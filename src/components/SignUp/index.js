@@ -1,4 +1,4 @@
-import { Form, Input, InputNumber, Button } from 'antd'
+import { Form, Input, InputNumber, Button, message } from 'antd'
 import './index.css'
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
 import PostSignUp from '@api/PostSignUp'
@@ -27,6 +27,9 @@ const validateMessages = {
 
 const Register = () => {
   const onFinish = async ({ email, fullName, password }) => {
+    await message
+      .loading('회원 가입 등록 중...', 1.5)
+      .then(() => message.success('회원가입 완료', 2.5))
     await PostSignUp({ email, fullName, password })
     handleOnClick()
   }

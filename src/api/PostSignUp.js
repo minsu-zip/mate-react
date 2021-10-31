@@ -7,7 +7,6 @@ export default async function PostSignUp({ email, fullName, password }) {
       fullName,
       password,
     })
-    alert('회원 가입이 완료되었습니다')
   } catch (error) {
     alert('회원 가입 중 문제가 발생하였습니다')
   }

@@ -9,9 +9,11 @@ import {
   SignInPage,
   SignUpPage,
   PostCreatePage,
+  AdminPage,
 } from '@pages'
 import DefaultTemplate from '@components/template/DefaultTemplate'
 import styled from '@emotion/styled'
+
 // import Footer from '@components/Footer'
 
 const App = () => {
@@ -36,6 +38,9 @@ const App = () => {
         </Route>
         <Route path="/post/create" exact>
           <PostCreatePage></PostCreatePage>
+        </Route>
+        <Route path="/admin" exact>
+          <AdminPage></AdminPage>
         </Route>
         <Route path="*" exact>
           <NotFoundPage></NotFoundPage>

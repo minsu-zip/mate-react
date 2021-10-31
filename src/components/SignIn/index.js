@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react'
-import { Form, Input, Button, Checkbox } from 'antd'
+import React, { useState, useCallback, useEffect } from 'react'
+import { Form, Input, Button, Checkbox, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import './index.css'
 import PostSignIn from '@api/PostSignIn'
@@ -9,16 +9,21 @@ import { useHistory } from 'react-router-dom'
 const Login = () => {
   const [form] = Form.useForm()
 
-  const [isSignInProblem, setIsSignInProblem] = useState(false)
+  const [SignInProblem, setIsSignInProblem] = useState('start')
 
   const onFinish = async (values) => {
+    await message.loading('로그인 접속 중...', 1.5)
     await PostSignIn({ id: values.username, pw: values.password }).then(
       (res) => {
-        setIsSignInProblem(res)
+        res ? setIsSignInProblem('problem') : setIsSignInProblem('noProblem')
       },
     )
-    if (isSignInProblem) handleOnClick()
+    // handleOnClick()
   }
+
+  useEffect(() => {
+    if (SignInProblem === 'noProblem') handleOnClick()
+  }, [SignInProblem])
 
   const history = useHistory()
   const handleOnClick = useCallback(() => history.push('/posts'), [history])
@@ -63,7 +68,7 @@ const Login = () => {
             placeholder="Password"
           />
         </Form.Item>
-        {isSignInProblem ? (
+        {SignInProblem === 'problem' ? (
           <AntAlert
             message={'Error'}
             description={'계정 정보가 틀립니다!'}
