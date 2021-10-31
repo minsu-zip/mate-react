@@ -1,3 +1,5 @@
+import GetChannelInfo from '@api/GetChannelInfo'
+
 const HeaderChannelButtons = () => {
   const style = {
     height: 40,
@@ -9,19 +11,14 @@ const HeaderChannelButtons = () => {
     borderRadius: 10,
     backgroundColor: '#FCFFA6',
   }
-  const channels = [
-    { name: '음식', id: '61790be26e7b13674f9dd39b' },
-    { name: '스포츠', id: '61729b42eaccb833ce222a52' },
-    { name: '문화', id: '61790c416e7b13674f9dd43d' },
-    { name: '론2팀', id: '616a200d22996f0bc94f6db5' },
-  ]
+
+  const channels = GetChannelInfo()
 
   const showName = (e) => {
-    alert(e.target.textContent)
+    alert(e.target.className)
   }
-
   return channels.map((channel) => (
-    <button id={channel.id} style={style} onClick={showName}>
+    <button className={channel._id} style={style} onClick={showName}>
       {channel.name}
     </button>
   ))
