@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, Menu, Card, Avatar, Col, Row } from 'antd'
+import {
+  Form,
+  Input,
+  Button,
+  Menu,
+  Card,
+  Avatar,
+  Col,
+  Row,
+  message,
+} from 'antd'
 import {
   UserOutlined,
   LockOutlined,
@@ -72,6 +82,9 @@ const modifyInformation = (values) => {
     alert('비밀번호가 동일하지 않습니다')
     return
   } else {
+    message
+      .loading('개인정보 수정 중...', 1.5)
+      .then(() => message.success('수정 완료', 2.5))
     PutMyPw(checkPw1)
     PutMyInformation(fullName, userName)
   }
@@ -91,11 +104,12 @@ const HorizontalLoginForm = () => {
       const { image, _id } = await GetAuthUser()
       const postData = await GetPostAuther(_id)
       console.log(image)
-      setPostDataState(postData, image)
+      setPostDataState(postData)
       setimageGetProps(image)
       console.log(postData)
     }
     fetchArticles()
+    console.log(postDataState)
   }, [])
 
   useEffect(() => {
@@ -110,6 +124,9 @@ const HorizontalLoginForm = () => {
 
   const PostUploadPhotoHandler = () => {
     PostUploadPhoto(imageUpload)
+    message
+      .loading('사진 업로드 중...', 1.5)
+      .then(() => message.success('사진 업로드 완료', 2.5))
   }
 
   const onImgChange = (e) => {
@@ -147,23 +164,27 @@ const HorizontalLoginForm = () => {
 
       <ProfileContainer display={isProfileShow} className="profileContainer">
         <CardGrid>
-          {postDataState.map(({ title, image, channel }) => {
-            return (
-              <Card
-                style={{ width: 300 }}
-                cover={
-                  <Image
-                    alt="example"
-                    src={image ? image : 'https://via.placeholder.com/300.png'}
-                    width="200px"
-                    height="200px"
-                  />
-                }
-              >
-                <Meta title={title} description={channel.name} />
-              </Card>
-            )
-          })}
+          {postDataState.length !== 0
+            ? postDataState.map(({ title, image, channel }) => {
+                return (
+                  <Card
+                    style={{ width: 300 }}
+                    cover={
+                      <Image
+                        alt="example"
+                        src={
+                          image ? image : 'https://via.placeholder.com/300.png'
+                        }
+                        width="200px"
+                        height="200px"
+                      />
+                    }
+                  >
+                    <Meta title={title} description={channel.name} />
+                  </Card>
+                )
+              })
+            : ''}
         </CardGrid>
       </ProfileContainer>
 
@@ -177,7 +198,13 @@ const HorizontalLoginForm = () => {
           onFinish={onFinish}
         >
           <Div>
-            <Image src={imageGetProps}></Image>
+            <Image
+              src={
+                imageGetProps
+                  ? imageGetProps
+                  : 'https://via.placeholder.com/300.png'
+              }
+            ></Image>
             <input
               type="file"
               className="imgInput"
