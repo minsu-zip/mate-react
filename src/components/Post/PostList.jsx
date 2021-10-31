@@ -13,19 +13,23 @@ const PostList = () => {
       `http://13.209.30.200/posts/channel/616a200d22996f0bc94f6db5?offset&limit`,
     )
 
-    const postData = data.map(({ title, author, comments, image, _id }) => {
-      return {
-        title: author.email,
-        content: title,
-        comments: comments.length > 0 ? comments : '',
-        avatar: author.image
-          ? author.image
-          : 'https://joeschmoe.io/api/v1/random',
-        href: 'https://ant.design',
-        image,
-        id: _id,
-      }
-    })
+    const postData = data.map(
+      ({ title, author, comments, image, imagePublicId, _id }) => {
+        return {
+          title: author.email,
+          content: title,
+          comments: comments.length > 0 ? comments : '',
+          avatar: author.image
+            ? author.image
+            : 'https://joeschmoe.io/api/v1/random',
+          href: 'https://ant.design',
+          imagePublicId,
+          image,
+          postId: _id,
+          authorId: author._id,
+        }
+      },
+    )
 
     setPostList(postData)
   }
