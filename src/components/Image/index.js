@@ -71,7 +71,7 @@ const Image = ({
 Image.propTypes = {
   lazy: PropTypes.bool,
   threshold: PropTypes.number,
-  src: PropTypes.string.isRequired,
+  // src: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
