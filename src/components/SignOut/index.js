@@ -1,17 +1,14 @@
 import { Link } from 'react-router-dom'
 import GetSignOut from '@api/GetSignOut'
-import styled from '@emotion/styled'
 
-const Button = styled.button`
-  color: black;
-`
-
-const SignIn = () => {
+const SignOut = ({ style }) => {
   return (
     <Link to="/">
-      <Button onClick={GetSignOut}>로그아웃 버튼</Button>
+      <button onClick={GetSignOut} style={style}>
+        Logout
+      </button>
     </Link>
   )
 }
 
-export default SignIn
+export default SignOut

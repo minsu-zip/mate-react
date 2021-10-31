@@ -1,3 +1,5 @@
+import SignOut from '../SignOut'
+import MyPage from '../MyPageButton'
 const HeaderDropBox = () => {
   const divStyle = {
     display: 'flex',
@@ -13,8 +15,8 @@ const HeaderDropBox = () => {
   }
   return (
     <div style={divStyle}>
-      <button style={buttonStyle}>MyPage</button>
-      <button style={buttonStyle}>Logout</button>
+      <MyPage style={buttonStyle} />
+      <SignOut style={buttonStyle} />
     </div>
   )
 }
