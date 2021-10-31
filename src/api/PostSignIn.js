@@ -10,7 +10,6 @@ export default async function PostSignIn({ id, pw }) {
       password: pw,
     })
     setItem('userInformation', response)
-    alert('정상작동')
     isProblem = false
     return isProblem
   } catch (error) {

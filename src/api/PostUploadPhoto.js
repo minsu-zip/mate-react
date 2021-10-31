@@ -17,9 +17,7 @@ export default async function PostUploadPhoto(imageUpload) {
     },
     data: formData,
   })
-    .then((response) => {
-      alert('이미지 업로드')
-    })
+    .then((response) => {})
     .catch((error) => {
       console.log(error)
     })

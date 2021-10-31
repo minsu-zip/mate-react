@@ -19,6 +19,10 @@
   width: 100%;
 }
 
+.profileContainer {
+  background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
+}
+
 .ant-col {
   width: 500px;
 }
@@ -37,4 +41,8 @@
 
 .login-form-bottom {
   text-align: center;
+}
+
+.ant-card {
+  margin: 30px;
 }
