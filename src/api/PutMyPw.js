@@ -18,7 +18,7 @@ export default async function PutMyPw(pw) {
         },
       )
       .then((res) => res.data)
-      .then((data) => alert(data))
+      .then((data) => {})
   } catch (error) {
     console.log(error)
   }
