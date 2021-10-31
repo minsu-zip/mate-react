@@ -16,17 +16,10 @@ import styled from '@emotion/styled'
 
 // import Footer from '@components/Footer'
 
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-`
-
 const App = () => {
   return (
     <div className="App">
       <DefaultTemplate></DefaultTemplate>
-
       <Switch>
         <Route path="/" exact>
           <SignInPage></SignInPage>
