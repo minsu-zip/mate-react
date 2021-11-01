@@ -14,19 +14,22 @@ const Div = styled.div`
   margin: 10px;
 `
 
-const PostCreatePage = () => {
+const PostCreatePage = React.memo(() => {
   const location = useLocation()
   const history = useHistory()
 
   const postId = location?.search?.substr(1)
   const postState = location?.state
+  const check = postState.updateCheck
+
+  const channelId = postState.channelId
+  console.log(channelId)
 
   const [textValue, setTextVaule] = useState(
     postState?.value ? postState?.value : '',
   )
   const [imageUpload, setImageUpload] = useState()
   const [submitting, setSubmitting] = useState(false)
-
   const [imgRemove, setImgRemove] = useState(false)
 
   const setPostCreate = async () => {
@@ -35,7 +38,7 @@ const PostCreatePage = () => {
 
     formData.append('image', imageUpload)
     formData.append('title', textValue)
-    formData.append('channelId', '616a200d22996f0bc94f6db5')
+    formData.append('channelId', channelId)
 
     setSubmitting(true)
 
@@ -69,7 +72,7 @@ const PostCreatePage = () => {
 
     formData.append('postId', postId)
     formData.append('title', textValue)
-    formData.append('channelId', '616a200d22996f0bc94f6db5')
+    formData.append('channelId', channelId)
 
     setSubmitting(true)
 
@@ -112,7 +115,7 @@ const PostCreatePage = () => {
             onChange={onImgChange}
           ></input>
         </Div>
-        {postState ? (
+        {check ? (
           <Div>
             <Button type="danger" onClick={() => setImgRemove(true)}>
               기존 이미지 삭제
@@ -130,7 +133,7 @@ const PostCreatePage = () => {
         </Div>
 
         <Div>
-          {postState ? (
+          {check ? (
             <Button
               htmlType="submit"
               loading={submitting}
@@ -153,6 +156,6 @@ const PostCreatePage = () => {
       </PostCreateContainer>
     </>
   )
-}
+})
 
 export default PostCreatePage
