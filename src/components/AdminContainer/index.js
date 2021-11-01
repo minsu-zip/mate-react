@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Form,
   Input,
@@ -19,6 +19,7 @@ import GetOnlineUsers from '@api/GetOnlineUsers'
 import './index.css'
 import axios from 'axios'
 import styled from '@emotion/styled'
+import { useHistory } from 'react-router-dom'
 const API_END_POINT = 'http://13.209.30.200'
 const { Meta } = Card
 const { Search } = Input
@@ -48,6 +49,9 @@ const Admin = () => {
   const [getOnlineUserState, setGetOnlineUserState] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const history = useHistory()
+  const NotFound = useCallback(() => history.push('/NotFound'), [history])
+
   const onChange = (checked) => {
     setLoading(!checked)
   }
@@ -55,6 +59,9 @@ const Admin = () => {
   const onlineFirstCheck = { false: 0, true: 1 }
 
   useEffect(() => {
+    if (!sessionStorage.getItem('admin')) {
+      NotFound()
+    }
     const fetchUsers = async () => {
       const allData = await GetUsers()
       const sortAllData = allData.sort(

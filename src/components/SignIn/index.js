@@ -26,7 +26,10 @@ const Login = () => {
 
   useEffect(() => {
     if (SignInProblem === 'noProblem') handleOnClick()
-    else if (SignInProblem === 'noProblemAdmin') handleOnClickAdmin()
+    else if (SignInProblem === 'noProblemAdmin') {
+      handleOnClickAdmin()
+      sessionStorage.setItem('admin', true)
+    }
   }, [SignInProblem])
 
   const history = useHistory()
