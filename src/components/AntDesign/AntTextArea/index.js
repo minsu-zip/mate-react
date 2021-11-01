@@ -3,10 +3,15 @@ import React, { useState } from 'react'
 
 const { TextArea } = Input
 
-const AntTextArea = ({ inputHandle, width }) => {
+const AntTextArea = ({ inputHandle, width, value }) => {
   return (
     <>
-      <TextArea rows={8} onChange={inputHandle} style={{ width: width }} />
+      <TextArea
+        rows={8}
+        onChange={inputHandle}
+        style={{ width: width }}
+        value={value}
+      />
     </>
   )
 }

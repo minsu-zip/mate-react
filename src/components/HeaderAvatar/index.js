@@ -20,6 +20,7 @@ const AvatarWrapper = styled.div`
     transition: opacity 0.2s ease-out;
   }
 `
+
 const Avatar = ({
   lazy,
   threshold,
@@ -32,15 +33,18 @@ const Avatar = ({
   ...props
 }) => {
   const [loaded, setLoaded] = useState(false)
+
   useEffect(() => {
     const image = new Image()
     image.src = src
     image.onload = () => setLoaded(true)
   }, [src])
+
   const divStyle = {
     marginRight: 30,
     textAlign: 'right',
   }
+
   return (
     <AvatarWrapper {...props} style={divStyle} shape={shape}>
       <ImageComponent

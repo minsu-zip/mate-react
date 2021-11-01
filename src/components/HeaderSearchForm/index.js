@@ -14,12 +14,12 @@ const HeaderSearchForm = ({ onSubmit }) => {
     e.preventDefault()
     onSubmit && onSubmit()
   }
-  const inputRef = useRef()
+  // const inputRef = useRef()
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Input ref={inputRef} />
-      <Button onClick={() => inputRef.current.focus()}>Focus</Button>
+      <Input />
+      <Button>Focus</Button>
     </Form>
   )
 }
