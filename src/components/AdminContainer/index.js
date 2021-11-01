@@ -139,6 +139,7 @@ const Admin = () => {
                                 ? coverImage
                                 : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
                             }
+                            height="250px"
                           />
                         }
                       >
