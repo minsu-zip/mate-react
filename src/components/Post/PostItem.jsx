@@ -4,6 +4,7 @@ import {
   LikeOutlined,
   DeleteOutlined,
   FormOutlined,
+  DislikeOutlined,
 } from '@ant-design/icons'
 import React, { useEffect, useState, useCallback } from 'react'
 import { getItem } from '@SessionStorage'
@@ -23,117 +24,178 @@ const IconStyle = {
   paddingLeft: '0',
 }
 
-const PostItem = React.memo(({ item, pageState, deletePostHandle }) => {
-  const [commentState, setCommentState] = useState(false)
-  const [commentLength, setCommentLength] = useState(item.comments.length)
+const PostItem = React.memo(
+  ({ item, pageState, deletePostHandle, selectChannel }) => {
+    console.log(item)
+    const [commentState, setCommentState] = useState(false)
+    const [commentLength, setCommentLength] = useState(item.comments.length)
+    const [likeLength, setLikeLength] = useState(item.likes.length)
+    const [likeState, setLikeState] = useState(true)
 
-  const userId = getItem('userId')
-  const token = getItem('userInformation')
+    const userId = getItem('userId')
+    const token = getItem('userInformation')
 
-  useEffect(() => {
-    setCommentLength(item.comments.length)
-  }, [item])
+    useEffect(() => {
+      item.likes.filter((like) => {
+        if (like.user === userId) setLikeState(false)
+      })
+    }, [])
 
-  useEffect(() => {
-    setCommentState(false)
-  }, [pageState])
+    useEffect(() => {
+      setCommentLength(item.comments.length)
+      setLikeLength(item.likes.length)
+    }, [item])
 
-  const increaseCommentLength = () => {
-    setCommentLength(commentLength + 1)
-  }
+    useEffect(() => {
+      setCommentState(false)
+    }, [pageState])
 
-  const removePost = async () => {
-    await axios({
-      method: 'delete',
-      url: 'http://13.209.30.200/posts/delete',
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-      data: {
-        id: item.postId,
-      },
-    })
-    deletePostHandle()
-  }
+    const increaseCommentLength = () => {
+      setCommentLength(commentLength + 1)
+    }
 
-  const updatePost = () => {
-    handleOnClick()
-  }
+    const likeButton = async () => {
+      await axios({
+        method: 'post',
+        url: 'http://13.209.30.200/likes/create',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        data: {
+          postId: item.postId,
+        },
+      })
+      setLikeLength(likeLength + 1)
+      setLikeState(!likeState)
+    }
 
-  const history = useHistory()
+    const likeCancelButton = async () => {
+      const likeId = item.likes.find((like) => like.user === userId)
 
-  const handleOnClick = useCallback(
-    () =>
+      await axios({
+        method: 'delete',
+        url: 'http://13.209.30.200/likes/delete',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        data: {
+          id: likeId._id,
+        },
+      })
+      setLikeLength(likeLength - 1)
+      setLikeState(!likeState)
+    }
+
+    const removePost = async () => {
+      await axios({
+        method: 'delete',
+        url: 'http://13.209.30.200/posts/delete',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        data: {
+          id: item.postId,
+        },
+      })
+      deletePostHandle()
+    }
+
+    const updatePost = () => {
+      handleOnClick()
+    }
+
+    const history = useHistory()
+
+    const handleOnClick = () =>
       history.push({
         pathname: '/post/create',
         search: item.postId,
-        state: { value: item.content, imagePublicId: item.imagePublicId },
-      }),
-    [history],
-  )
+        state: {
+          value: item.content,
+          imagePublicId: item.imagePublicId,
+          channelId: selectChannel,
+          updateCheck: true,
+        },
+      })
 
-  return (
-    <>
-      <List.Item
-        style={{ marginBottom: '10px' }}
-        key={item.title}
-        actions={[
-          <IconText
-            icon={LikeOutlined}
-            text="156"
-            key="list-vertical-like-o"
-          />,
-          <Button
-            icon={<MessageOutlined />}
-            onClick={() => setCommentState(!commentState)}
-            style={IconStyle}
-          >
-            <span>{commentLength}</span>
-          </Button>,
+    return (
+      <>
+        <List.Item
+          style={{ marginBottom: '10px' }}
+          key={item.title}
+          actions={[
+            likeState ? (
+              <Button
+                icon={<LikeOutlined />}
+                key="list-vertical-like-o"
+                onClick={likeButton}
+                style={IconStyle}
+              >
+                <span>{likeLength}</span>
+              </Button>
+            ) : (
+              <Button
+                icon={<DislikeOutlined />}
+                key="list-vertical-like-o"
+                onClick={likeCancelButton}
+                style={IconStyle}
+              >
+                <span>{likeLength}</span>
+              </Button>
+            ),
 
-          item.authorId === userId ? (
             <Button
-              icon={<DeleteOutlined />}
-              onClick={removePost}
+              icon={<MessageOutlined />}
+              onClick={() => setCommentState(!commentState)}
               style={IconStyle}
-            />
-          ) : (
-            ''
-          ),
-          item.authorId === userId ? (
-            <Button
-              icon={<FormOutlined />}
-              onClick={updatePost}
-              style={IconStyle}
-            />
-          ) : (
-            ''
-          ),
-        ]}
-        extra={
-          item.image ? <img width={272} alt="logo" src={item.image} /> : ''
-        }
-      >
-        <List.Item.Meta
-          avatar={<Avatar src={item.avatar} />}
-          title={item.title}
-        />
-        {item.content}
-      </List.Item>
+            >
+              <span>{commentLength}</span>
+            </Button>,
 
-      {commentState ? (
-        <div>
-          <CommentContainer
-            comment={item.comments}
-            postId={item.postId}
-            increaseCommentLength={increaseCommentLength}
-          ></CommentContainer>
-        </div>
-      ) : (
-        ''
-      )}
-    </>
-  )
-})
+            item.authorId === userId ? (
+              <Button
+                icon={<DeleteOutlined />}
+                onClick={removePost}
+                style={IconStyle}
+              />
+            ) : (
+              ''
+            ),
+            item.authorId === userId ? (
+              <Button
+                icon={<FormOutlined />}
+                onClick={updatePost}
+                style={IconStyle}
+              />
+            ) : (
+              ''
+            ),
+          ]}
+          extra={
+            item.image ? <img width={272} alt="logo" src={item.image} /> : ''
+          }
+        >
+          <List.Item.Meta
+            avatar={<Avatar src={item.avatar} />}
+            title={item.title}
+          />
+          {item.content}
+        </List.Item>
+
+        {commentState ? (
+          <div>
+            <CommentContainer
+              comment={item.comments}
+              postId={item.postId}
+              increaseCommentLength={increaseCommentLength}
+            ></CommentContainer>
+          </div>
+        ) : (
+          ''
+        )}
+      </>
+    )
+  },
+)
 
 export default PostItem
