@@ -17,11 +17,11 @@ import axios from 'axios'
 import styled from '@emotion/styled'
 const API_END_POINT = 'http://13.209.30.200'
 const { Meta } = Card
-const ProfileContainer = styled.div`
+const AllUsersContainer = styled.div`
   display: ${(props) => (props.display ? 'block' : 'none')};
 `
 
-const SettingContainer = styled.div`
+const OnlineUsersContainer = styled.div`
   display: ${(props) => (props.display ? 'block' : 'none')};
 `
 
@@ -116,7 +116,7 @@ const Admin = () => {
         })}
       </Menu>
 
-      <ProfileContainer display={isAllUsersShow} className="profileContainer">
+      <AllUsersContainer display={isAllUsersShow} className="profileContainer">
         <CardGrid>
           {getAllUserState.length !== 0
             ? getAllUserState.map(
@@ -163,8 +163,8 @@ const Admin = () => {
               )
             : ''}
         </CardGrid>
-      </ProfileContainer>
-      <SettingContainer display={isOnlineUsersShow}>
+      </AllUsersContainer>
+      <OnlineUsersContainer display={isOnlineUsersShow}>
         <CardGrid>
           {getOnlineUserState.length !== 0
             ? getOnlineUserState.map(
@@ -205,7 +205,7 @@ const Admin = () => {
               )
             : ''}
         </CardGrid>
-      </SettingContainer>
+      </OnlineUsersContainer>
     </>
   )
 }
