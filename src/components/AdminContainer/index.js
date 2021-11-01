@@ -12,6 +12,9 @@ import {
   Image,
   Switch,
 } from 'antd'
+import GetUsers from '@api/GetUsers'
+
+import GetOnlineUsers from '@api/GetOnlineUsers'
 
 import './index.css'
 import axios from 'axios'
@@ -37,34 +40,6 @@ const CardGrid = styled.div`
   align-items: center;
 `
 
-const GetUsers = async () => {
-  return await axios({
-    method: 'get',
-    url: `${API_END_POINT}/users/get-users`,
-  })
-    .then((response) => response.data)
-    .then((data) => {
-      return data
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-}
-
-const GetOnlineUsers = async () => {
-  return await axios({
-    method: 'get',
-    url: `${API_END_POINT}/users/online-users`,
-  })
-    .then((response) => response.data)
-    .then((data) => {
-      return data
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-}
-
 const Admin = () => {
   const [isAllUsersShow, setIsAllUsersShow] = useState(true)
   const [isOnlineUsersShow, setIsOnlineUsersShow] = useState(false)
@@ -77,13 +52,13 @@ const Admin = () => {
     setLoading(!checked)
   }
 
-  const dic = { false: 0, true: 1 }
+  const onlineFirstCheck = { false: 0, true: 1 }
 
   useEffect(() => {
     const fetchUsers = async () => {
       const allData = await GetUsers()
       const sortAllData = allData.sort(
-        (a, b) => dic[b.isOnline] - dic[a.isOnline],
+        (a, b) => onlineFirstCheck[b.isOnline] - onlineFirstCheck[a.isOnline],
       )
       setGetCopyAllUserState(sortAllData)
       setGetAllUserState(sortAllData)
