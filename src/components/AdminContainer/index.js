@@ -122,7 +122,12 @@ const Admin = () => {
             ? getAllUserState.map(
                 ({ isOnline, fullName, email, image, coverImage }) => {
                   return (
-                    <>
+                    <div>
+                      <Switch
+                        checked={isOnline}
+                        checkedChildren="online"
+                        unCheckedChildren="offline"
+                      />
                       <Card
                         style={{ width: 300, marginTop: 16 }}
                         loading={loading}
@@ -151,7 +156,7 @@ const Admin = () => {
                           description={email}
                         />
                       </Card>
-                    </>
+                    </div>
                   )
                 },
               )
