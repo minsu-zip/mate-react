@@ -1,0 +1,19 @@
+.onlineUsersContainer {
+  max-width: auto;
+  max-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
+}
+
+.allUsersContainer {
+  max-width: auto;
+  max-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
+}

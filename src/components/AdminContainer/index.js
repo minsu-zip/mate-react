@@ -13,6 +13,7 @@ import {
   Switch,
 } from 'antd'
 
+import './index.css'
 import axios from 'axios'
 import styled from '@emotion/styled'
 const API_END_POINT = 'http://13.209.30.200'
@@ -116,7 +117,7 @@ const Admin = () => {
         })}
       </Menu>
 
-      <AllUsersContainer display={isAllUsersShow} className="profileContainer">
+      <AllUsersContainer display={isAllUsersShow} className="allUsersContainer">
         <CardGrid>
           {getAllUserState.length !== 0
             ? getAllUserState.map(
@@ -164,7 +165,10 @@ const Admin = () => {
             : ''}
         </CardGrid>
       </AllUsersContainer>
-      <OnlineUsersContainer display={isOnlineUsersShow}>
+      <OnlineUsersContainer
+        display={isOnlineUsersShow}
+        className="onlineUsersContainer"
+      >
         <CardGrid>
           {getOnlineUserState.length !== 0
             ? getOnlineUserState.map(
