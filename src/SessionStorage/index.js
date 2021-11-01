@@ -13,5 +13,5 @@ export const setItem = (target, response) => {
 }
 
 export const removeItem = (target) => {
-  sessionStorage.setItem(target)
+  sessionStorage.removeItem(target)
 }
