@@ -15,7 +15,10 @@ const Login = () => {
     await message.loading('로그인 접속 중...', 1.5)
     await PostSignIn({ id: values.username, pw: values.password }).then(
       (res) => {
-        res ? setIsSignInProblem('problem') : setIsSignInProblem('noProblem')
+        if (res.isProblem) setIsSignInProblem('problem')
+        else if (!res.isProblem && res.isAdmin)
+          setIsSignInProblem('noProblemAdmin')
+        else if (!res.isProblem && !res.isAdmin) setIsSignInProblem('noProblem')
       },
     )
     // handleOnClick()
@@ -23,10 +26,14 @@ const Login = () => {
 
   useEffect(() => {
     if (SignInProblem === 'noProblem') handleOnClick()
+    else if (SignInProblem === 'noProblemAdmin') handleOnClickAdmin()
   }, [SignInProblem])
 
   const history = useHistory()
   const handleOnClick = useCallback(() => history.push('/posts'), [history])
+  const handleOnClickAdmin = useCallback(() => history.push('/admin'), [
+    history,
+  ])
 
   return (
     <>
