@@ -77,11 +77,16 @@ const Admin = () => {
     setLoading(!checked)
   }
 
+  const dic = { false: 0, true: 1 }
+
   useEffect(() => {
     const fetchUsers = async () => {
       const allData = await GetUsers()
-      setGetCopyAllUserState(allData)
-      setGetAllUserState(allData)
+      const sortAllData = allData.sort(
+        (a, b) => dic[b.isOnline] - dic[a.isOnline],
+      )
+      setGetCopyAllUserState(sortAllData)
+      setGetAllUserState(sortAllData)
       onChange(true)
       const onlineData = await GetOnlineUsers()
       setGetOnlineUserState(onlineData)
