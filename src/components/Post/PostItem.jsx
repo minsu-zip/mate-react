@@ -4,6 +4,7 @@ import {
   LikeOutlined,
   DeleteOutlined,
   FormOutlined,
+  DislikeOutlined,
 } from '@ant-design/icons'
 import React, { useEffect, useState, useCallback } from 'react'
 import { getItem } from '@SessionStorage'
@@ -29,12 +30,20 @@ const PostItem = React.memo(
     const [commentState, setCommentState] = useState(false)
     const [commentLength, setCommentLength] = useState(item.comments.length)
     const [likeLength, setLikeLength] = useState(item.likes.length)
+    const [likeState, setLikeState] = useState(true)
 
     const userId = getItem('userId')
     const token = getItem('userInformation')
 
     useEffect(() => {
+      item.likes.filter((like) => {
+        if (like.user === userId) setLikeState(false)
+      })
+    }, [])
+
+    useEffect(() => {
       setCommentLength(item.comments.length)
+      setLikeLength(item.likes.length)
     }, [item])
 
     useEffect(() => {
@@ -57,6 +66,24 @@ const PostItem = React.memo(
         },
       })
       setLikeLength(likeLength + 1)
+      setLikeState(!likeState)
+    }
+
+    const likeCancelButton = async () => {
+      const likeId = item.likes.find((like) => like.user === userId)
+
+      await axios({
+        method: 'delete',
+        url: 'http://13.209.30.200/likes/delete',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        data: {
+          id: likeId._id,
+        },
+      })
+      setLikeLength(likeLength - 1)
+      setLikeState(!likeState)
     }
 
     const removePost = async () => {
@@ -97,14 +124,26 @@ const PostItem = React.memo(
           style={{ marginBottom: '10px' }}
           key={item.title}
           actions={[
-            <Button
-              icon={<LikeOutlined />}
-              key="list-vertical-like-o"
-              onClick={likeButton}
-              style={IconStyle}
-            >
-              <span>{likeLength}</span>
-            </Button>,
+            likeState ? (
+              <Button
+                icon={<LikeOutlined />}
+                key="list-vertical-like-o"
+                onClick={likeButton}
+                style={IconStyle}
+              >
+                <span>{likeLength}</span>
+              </Button>
+            ) : (
+              <Button
+                icon={<DislikeOutlined />}
+                key="list-vertical-like-o"
+                onClick={likeCancelButton}
+                style={IconStyle}
+              >
+                <span>{likeLength}</span>
+              </Button>
+            ),
+
             <Button
               icon={<MessageOutlined />}
               onClick={() => setCommentState(!commentState)}
