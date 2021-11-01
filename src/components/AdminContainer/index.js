@@ -18,6 +18,7 @@ import axios from 'axios'
 import styled from '@emotion/styled'
 const API_END_POINT = 'http://13.209.30.200'
 const { Meta } = Card
+const { Search } = Input
 const AllUsersContainer = styled.div`
   display: ${(props) => (props.display ? 'block' : 'none')};
 `
@@ -68,6 +69,7 @@ const Admin = () => {
   const [isAllUsersShow, setIsAllUsersShow] = useState(true)
   const [isOnlineUsersShow, setIsOnlineUsersShow] = useState(false)
   const [getAllUserState, setGetAllUserState] = useState([])
+  const [getCopyAllUserState, setGetCopyAllUserState] = useState([])
   const [getOnlineUserState, setGetOnlineUserState] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -78,6 +80,7 @@ const Admin = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       const allData = await GetUsers()
+      setGetCopyAllUserState(allData)
       setGetAllUserState(allData)
       onChange(true)
       const onlineData = await GetOnlineUsers()
@@ -103,6 +106,28 @@ const Admin = () => {
     }
   }
 
+  const changeUserHanlder = ({ target }) => {
+    if (target.value === '') {
+      setGetAllUserState(getCopyAllUserState)
+    }
+  }
+
+  const searchUserHandler = (e) => {
+    let target
+    const isTargetExist = getAllUserState.some(
+      ({ isOnline, fullName, email, image, coverImage }) => {
+        target = [{ isOnline, fullName, email, image, coverImage }]
+        return e === fullName
+      },
+    )
+    if (isTargetExist) {
+      setGetAllUserState(target)
+    } else {
+      message.warning('존재하지 않는 유저의 이름을 입력했습니다')
+    }
+    console.log(isTargetExist, target)
+  }
+
   return (
     <>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
@@ -118,51 +143,55 @@ const Admin = () => {
       </Menu>
 
       <AllUsersContainer display={isAllUsersShow} className="allUsersContainer">
+        <Search
+          className="searchContainer"
+          placeholder="fullName 검색"
+          enterButton="Search"
+          size="large"
+          onChange={changeUserHanlder}
+          onSearch={searchUserHandler}
+        />
         <CardGrid>
-          {getAllUserState.length !== 0
-            ? getAllUserState.map(
-                ({ isOnline, fullName, email, image, coverImage }) => {
-                  return (
-                    <div>
-                      <Switch
-                        checked={isOnline}
-                        checkedChildren="online"
-                        unCheckedChildren="offline"
-                      />
-                      <Card
-                        style={{ width: 300, marginTop: 16 }}
-                        loading={loading}
-                        cover={
-                          <img
-                            alt="example"
-                            src={
-                              coverImage
-                                ? coverImage
-                                : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-                            }
-                            height="250px"
-                          />
+          {getAllUserState.map(
+            ({ isOnline, fullName, email, image, coverImage }) => {
+              return (
+                <div>
+                  <Switch
+                    checked={isOnline}
+                    checkedChildren="online"
+                    unCheckedChildren="offline"
+                  />
+                  <Card
+                    style={{ width: 300, marginTop: 16 }}
+                    loading={loading}
+                    cover={
+                      <img
+                        alt="example"
+                        src={
+                          coverImage
+                            ? coverImage
+                            : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
                         }
-                      >
-                        <Meta
-                          avatar={
-                            <Avatar
-                              src={
-                                image
-                                  ? image
-                                  : 'https://joeschmoe.io/api/v1/random'
-                              }
-                            />
+                        height="250px"
+                      />
+                    }
+                  >
+                    <Meta
+                      avatar={
+                        <Avatar
+                          src={
+                            image ? image : 'https://joeschmoe.io/api/v1/random'
                           }
-                          title={fullName}
-                          description={email}
                         />
-                      </Card>
-                    </div>
-                  )
-                },
+                      }
+                      title={fullName}
+                      description={email}
+                    />
+                  </Card>
+                </div>
               )
-            : ''}
+            },
+          )}
         </CardGrid>
       </AllUsersContainer>
       <OnlineUsersContainer
