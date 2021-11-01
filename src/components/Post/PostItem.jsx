@@ -23,117 +23,140 @@ const IconStyle = {
   paddingLeft: '0',
 }
 
-const PostItem = React.memo(({ item, pageState, deletePostHandle }) => {
-  const [commentState, setCommentState] = useState(false)
-  const [commentLength, setCommentLength] = useState(item.comments.length)
+const PostItem = React.memo(
+  ({ item, pageState, deletePostHandle, selectChannel }) => {
+    console.log(item)
+    const [commentState, setCommentState] = useState(false)
+    const [commentLength, setCommentLength] = useState(item.comments.length)
+    const [likeLength, setLikeLength] = useState(item.likes.length)
 
-  const userId = getItem('userId')
-  const token = getItem('userInformation')
+    const userId = getItem('userId')
+    const token = getItem('userInformation')
 
-  useEffect(() => {
-    setCommentLength(item.comments.length)
-  }, [item])
+    useEffect(() => {
+      setCommentLength(item.comments.length)
+    }, [item])
 
-  useEffect(() => {
-    setCommentState(false)
-  }, [pageState])
+    useEffect(() => {
+      setCommentState(false)
+    }, [pageState])
 
-  const increaseCommentLength = () => {
-    setCommentLength(commentLength + 1)
-  }
+    const increaseCommentLength = () => {
+      setCommentLength(commentLength + 1)
+    }
 
-  const removePost = async () => {
-    await axios({
-      method: 'delete',
-      url: 'http://13.209.30.200/posts/delete',
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-      data: {
-        id: item.postId,
-      },
-    })
-    deletePostHandle()
-  }
+    const likeButton = async () => {
+      await axios({
+        method: 'post',
+        url: 'http://13.209.30.200/likes/create',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        data: {
+          postId: item.postId,
+        },
+      })
+      setLikeLength(likeLength + 1)
+    }
 
-  const updatePost = () => {
-    handleOnClick()
-  }
+    const removePost = async () => {
+      await axios({
+        method: 'delete',
+        url: 'http://13.209.30.200/posts/delete',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        data: {
+          id: item.postId,
+        },
+      })
+      deletePostHandle()
+    }
 
-  const history = useHistory()
+    const updatePost = () => {
+      handleOnClick()
+    }
 
-  const handleOnClick = useCallback(
-    () =>
+    const history = useHistory()
+
+    const handleOnClick = () =>
       history.push({
         pathname: '/post/create',
         search: item.postId,
-        state: { value: item.content, imagePublicId: item.imagePublicId },
-      }),
-    [history],
-  )
+        state: {
+          value: item.content,
+          imagePublicId: item.imagePublicId,
+          channelId: selectChannel,
+          updateCheck: true,
+        },
+      })
 
-  return (
-    <>
-      <List.Item
-        style={{ marginBottom: '10px' }}
-        key={item.title}
-        actions={[
-          <IconText
-            icon={LikeOutlined}
-            text="156"
-            key="list-vertical-like-o"
-          />,
-          <Button
-            icon={<MessageOutlined />}
-            onClick={() => setCommentState(!commentState)}
-            style={IconStyle}
-          >
-            <span>{commentLength}</span>
-          </Button>,
-
-          item.authorId === userId ? (
+    return (
+      <>
+        <List.Item
+          style={{ marginBottom: '10px' }}
+          key={item.title}
+          actions={[
             <Button
-              icon={<DeleteOutlined />}
-              onClick={removePost}
+              icon={<LikeOutlined />}
+              key="list-vertical-like-o"
+              onClick={likeButton}
               style={IconStyle}
-            />
-          ) : (
-            ''
-          ),
-          item.authorId === userId ? (
+            >
+              <span>{likeLength}</span>
+            </Button>,
             <Button
-              icon={<FormOutlined />}
-              onClick={updatePost}
+              icon={<MessageOutlined />}
+              onClick={() => setCommentState(!commentState)}
               style={IconStyle}
-            />
-          ) : (
-            ''
-          ),
-        ]}
-        extra={
-          item.image ? <img width={272} alt="logo" src={item.image} /> : ''
-        }
-      >
-        <List.Item.Meta
-          avatar={<Avatar src={item.avatar} />}
-          title={item.title}
-        />
-        {item.content}
-      </List.Item>
+            >
+              <span>{commentLength}</span>
+            </Button>,
 
-      {commentState ? (
-        <div>
-          <CommentContainer
-            comment={item.comments}
-            postId={item.postId}
-            increaseCommentLength={increaseCommentLength}
-          ></CommentContainer>
-        </div>
-      ) : (
-        ''
-      )}
-    </>
-  )
-})
+            item.authorId === userId ? (
+              <Button
+                icon={<DeleteOutlined />}
+                onClick={removePost}
+                style={IconStyle}
+              />
+            ) : (
+              ''
+            ),
+            item.authorId === userId ? (
+              <Button
+                icon={<FormOutlined />}
+                onClick={updatePost}
+                style={IconStyle}
+              />
+            ) : (
+              ''
+            ),
+          ]}
+          extra={
+            item.image ? <img width={272} alt="logo" src={item.image} /> : ''
+          }
+        >
+          <List.Item.Meta
+            avatar={<Avatar src={item.avatar} />}
+            title={item.title}
+          />
+          {item.content}
+        </List.Item>
+
+        {commentState ? (
+          <div>
+            <CommentContainer
+              comment={item.comments}
+              postId={item.postId}
+              increaseCommentLength={increaseCommentLength}
+            ></CommentContainer>
+          </div>
+        ) : (
+          ''
+        )}
+      </>
+    )
+  },
+)
 
 export default PostItem
