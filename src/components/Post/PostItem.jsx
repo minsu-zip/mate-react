@@ -4,7 +4,7 @@ import {
   LikeOutlined,
   DeleteOutlined,
   FormOutlined,
-  DislikeOutlined,
+  LikeFilled,
 } from '@ant-design/icons'
 import React, { useEffect, useState, useCallback } from 'react'
 import { getItem } from '@SessionStorage'
@@ -27,7 +27,7 @@ const IconStyle = {
 const PostItem = React.memo(
   ({ item, pageState, deletePostHandle, selectChannel }) => {
     console.log(item)
-    const [commentState, setCommentState] = useState(false)
+    const [commentState, setCommentState] = useState(true)
     const [commentLength, setCommentLength] = useState(item.comments.length)
     const [likeLength, setLikeLength] = useState(item.likes.length)
     const [likeState, setLikeState] = useState(true)
@@ -65,12 +65,14 @@ const PostItem = React.memo(
           postId: item.postId,
         },
       })
-      setLikeLength(likeLength + 1)
-      setLikeState(!likeState)
+      // setLikeLength(likeLength + 1)
+      // setLikeState(!likeState)
+      history.go(0)
     }
 
     const likeCancelButton = async () => {
       const likeId = item.likes.find((like) => like.user === userId)
+      console.log(likeId._id)
 
       await axios({
         method: 'delete',
@@ -135,7 +137,7 @@ const PostItem = React.memo(
               </Button>
             ) : (
               <Button
-                icon={<DislikeOutlined />}
+                icon={<LikeFilled />}
                 key="list-vertical-like-o"
                 onClick={likeCancelButton}
                 style={IconStyle}
