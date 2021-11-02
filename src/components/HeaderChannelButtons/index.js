@@ -1,6 +1,6 @@
-import GetChannelInfo from '@api/GetChannelInfo'
+import React from 'react'
 
-const HeaderChannelButtons = () => {
+const HeaderChannelButtons = ({ channelList, channelClick }) => {
   const style = {
     height: 40,
     padding: '0px 10px 0px 10px',
@@ -12,15 +12,22 @@ const HeaderChannelButtons = () => {
     backgroundColor: '#FCFFA6',
   }
 
-  const channels = GetChannelInfo()
-
-  const showName = (e) => {
-    alert(e.target.className)
-  }
-  return channels.map((channel) => (
-    <button className={channel._id} style={style} onClick={showName}>
-      {channel.name}
-    </button>
-  ))
+  return (
+    <>
+      {channelList.map((channel) => (
+        <button className={channel._id} style={style} onClick={channelClick}>
+          {channel.name === '론 2팀'
+            ? '자유게시판'
+            : channel.name === 'ron2CulturalLife'
+            ? '문화생활'
+            : channel.name === 'ron2Sport'
+            ? '스포츠'
+            : channel.name === 'ron2Food'
+            ? '음식'
+            : ''}
+        </button>
+      ))}
+    </>
+  )
 }
 export default HeaderChannelButtons

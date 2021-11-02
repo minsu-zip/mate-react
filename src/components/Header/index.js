@@ -67,9 +67,6 @@ const Header = () => {
           {/* <HeaderLoginButton /> */}
         </Col>
       </Row>
-      <Row className="headerChannelNav" gutter={[48, 0]} style={channel}>
-        <HeaderChannelButtons />
-      </Row>
     </>
   )
 }
