@@ -131,6 +131,12 @@ const HorizontalLoginForm = () => {
 
   const onImgChange = (e) => {
     e.preventDefault()
+    let reader = new FileReader()
+    reader.onload = function (event) {
+      setimageGetProps(event.target.result)
+    }
+
+    reader.readAsDataURL(e.target.files[0])
     setImageUpload(e.target.files[0])
   }
 
