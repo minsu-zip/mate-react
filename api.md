@@ -1,7 +1,7 @@
 # 소셜 네트워크 프로젝트
 
 React 혹은 Vue.js를 이용하여 소셜 네트워크 서비스를 구현합니다. 기본적인 서버 API는 제공되며 디자인과 아키텍처는 자유롭게 작성합니다.
-
+​
 데이터 중 채널은 서버에서 제공하는 것만 사용할 수 있습니다. 제공되는 채널은 다음과 같습니다.
 
 - React
@@ -10,11 +10,13 @@ React 혹은 Vue.js를 이용하여 소셜 네트워크 서비스를 구현합�
 - 맛집
 - 질의응답
 - 각 팀 채널
-
-> 서버 API는 모든 팀이 공용으로 사용합니다. 작성한 데이터가 다른 사용자에게 노출될 수 있으니 주의해주세요!
+  ​
+  > 서버 API는 모든 팀이 공용으로 사용합니다. 작성한 데이터가 다른 사용자에게 노출될 수 있으니 주의해주세요!
+  > ​
 
 ## 기본 요구사항
 
+​
 **필수**
 
 - 사용자는 회원가입과 로그인을 할 수 있습니다.
@@ -40,6 +42,7 @@ React 혹은 Vue.js를 이용하여 소셜 네트워크 서비스를 구현합�
 - 인증된 사용자는 다른 가입자에게 메시지를 보낼 수 있습니다.
 - 인증된 사용자는 자신에게 온 메시지 목록을 확인 할 수 있습니다.
 - 인증된 사용자는 특정 사용자와의 메시지 대화 내역을 확인 할 수 있습니다.
+  ​
 
 ## 보너스 요구사항
 
@@ -47,10 +50,12 @@ React 혹은 Vue.js를 이용하여 소셜 네트워크 서비스를 구현합�
 - 다크 모드를 적용해보세요.
 - WebSocket을 이용하여 다른 사용자의 메시지를 실시간으로 받아보세요.
 - WebSocket을 이용하여 알림을 받고 알림을 Context와 localStorage로 관리해보세요.
+  ​
 
 ## API 안내
 
 API Host는 `http://13.209.30.200` 입니다. API 사용에 문제가 있다면 문의바랍니다.
+​
 
 - 주의할 점으로 API에 예외처리가 안되어있는 경우가 있습니다. 이 경우 프론트엔드에서 Form Validation을 해주시면 됩니다.
 - 응답이 모델로 되어있는 경우 하단 모델 안내를 확인해주세요.
@@ -58,6 +63,7 @@ API Host는 `http://13.209.30.200` 입니다. API 사용에 문제가 있다면 
 - Nullable<Type>으로 적혀있는 경우 null이 내려올 수 있는 필드입니다.
 - []는 리스트 타입입니다.
 - API URL에 중괄호로 감싸져 있는 부분은 Path Variable 입니다.
+  ​
 
 ### 인증
 
@@ -66,6 +72,7 @@ API Host는 `http://13.209.30.200` 입니다. API 사용에 문제가 있다면 
 사용자가 이메일과 비밀번호로 서비스에 로그인합니다.
 
 > POST /login
+> ​
 
 ##### Request Body
 
@@ -87,11 +94,14 @@ API Host는 `http://13.209.30.200` 입니다. API 사용에 문제가 있다면 
 }
 ```
 
+​
+
 #### 회원가입
 
 사용자가 이메일과 비밀번호로 서비스에 가입합니다.
 
 > POST /signup
+> ​
 
 ##### Request Body
 
@@ -114,17 +124,21 @@ API Host는 `http://13.209.30.200` 입니다. API 사용에 문제가 있다면 
 }
 ```
 
+​
+
 #### 로그아웃
 
 사용자가 로그아웃 합니다.
 
 > POST /logout
+> ​
 
 #### 인증 확인
 
 사용자가 인증이 되었는지 확인합니다.
 
 > GET /auth-user
+> ​
 
 ##### Request Header
 
@@ -132,11 +146,15 @@ API Host는 `http://13.209.30.200` 입니다. API 사용에 문제가 있다면 
 Authorization: bearer JWT토큰
 ```
 
+​
+
 ##### Response
 
 ```
 User
 ```
+
+​
 
 ### 사용자
 
@@ -153,17 +171,22 @@ offset: Optional<Number>
 limit: Optional<Number>
 ```
 
+​
+
 ##### Response
 
 ```
 User[]
 ```
+
+​
 
 #### 현재 접속 중인 사용자 목록
 
 현재 접속 중인 사용자 목록을 불러옵니다.
 
 > GET /users/online-users
+> ​
 
 ##### Response
 
@@ -171,11 +194,14 @@ User[]
 User[]
 ```
 
+​
+
 #### 사용자 정보
 
 특정 사용자 정보를 불러옵니다.
 
 > GET /users/{userId}
+> ​
 
 ##### Response
 
@@ -183,17 +209,22 @@ User[]
 User
 ```
 
+​
+
 #### 프로필 이미지 변경
 
 나의 프로필 이미지를 변경합니다.
 
 > POST /users/upload-photo
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -205,23 +236,30 @@ isCover: false
 image: Binary
 ```
 
+​
+
 ##### Response
 
 ```
 User
 ```
 
+​
+
 #### 커버 이미지 변경
 
 나의 커버 이미지를 변경합니다.
 
 > POST /users/upload-photo
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -233,25 +271,34 @@ isCover: true
 image: Binary
 ```
 
+​
+
 ##### Response
 
 ```
 User
 ```
 
+​
+
 ### 설정
+
+​
 
 #### 내 정보 변경
 
 나의 정보를 변경합니다.
 
 > PUT /settings/update-user
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -262,23 +309,30 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ##### Response
 
 ```
 User
 ```
 
+​
+
 #### 비밀번호 변경
 
 내 계정 비밀번호를 변경합니다.
 
 > PUT /settings/update-password
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -288,6 +342,8 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ### 채널
 
 #### 채널 목록
@@ -295,6 +351,7 @@ Authorization: bearer JWT토큰
 채널 목록을 불러옵니다.
 
 > GET /channels
+> ​
 
 ##### Response
 
@@ -302,17 +359,22 @@ Authorization: bearer JWT토큰
 Channel[]
 ```
 
+​
+
 #### 채널 정보
 
 특정 채널 정보를 불러옵니다.
 
 > GET /channels/{channelName}
+> ​
 
 ##### Response
 
 ```
 Channel
 ```
+
+​
 
 ### 포스트
 
@@ -321,6 +383,7 @@ Channel
 특정 채널의 포스트 목록을 불러옵니다.
 
 > GET /posts/channel/{channelId}
+> ​
 
 ##### Request Params
 
@@ -329,17 +392,22 @@ offset: Optional<Number>
 limit: Optional<Number>
 ```
 
+​
+
 ##### Response
 
 ```
 Post[]
 ```
+
+​
 
 #### 특정 사용자의 포스트 목록
 
 특정 사용자의 포스트 목록을 불러옵니다.
 
 > GET /posts/author/{authorId}
+> ​
 
 ##### Request Params
 
@@ -348,23 +416,30 @@ offset: Optional<Number>
 limit: Optional<Number>
 ```
 
+​
+
 ##### Response
 
 ```
 Post[]
 ```
 
+​
+
 #### 특정 채널에 포스트 작성하기
 
 특정 채널에 포스트를 작성합니다.
 
 > POST /posts/create
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -376,11 +451,14 @@ image: Binary | null,
 channelId: String
 ```
 
+​
+
 #### 특정 포스트 상세 보기
 
 특정 포스트의 정보를 불러옵니다.
 
-> GET /posts/{postId}
+> POST /posts/{postId}
+> ​
 
 ##### Response
 
@@ -388,17 +466,22 @@ channelId: String
 Post
 ```
 
+​
+
 #### 내가 작성한 포스트 수정하기
 
 내가 작성한 포스트를 수정합니다.
 
 > PUT /posts/update
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -413,17 +496,22 @@ imageToDeletePublicId: Optional<String>
 channelId: String
 ```
 
+​
+
 #### 내가 작성한 포스트 삭제하기
 
 내가 작성한 포스트를 삭제합니다.
 
 > DELETE /posts/delete
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -433,6 +521,8 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ### 좋아요
 
 #### 특정 포스트 좋아요
@@ -440,12 +530,15 @@ Authorization: bearer JWT토큰
 특정 포스트에 좋아요합니다.
 
 > POST /likes/create
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -455,23 +548,30 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ##### Response
 
 ```
 Like
 ```
 
+​
+
 #### 특정 포스트 좋아요 취소
 
 특정 포스트에 좋아요한 것을 취소합니다.
 
 > DELETE /likes/delete
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -481,11 +581,15 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ##### Response
 
 ```
 Like
 ```
+
+​
 
 ### 댓글
 
@@ -494,12 +598,15 @@ Like
 특정 포스트에 댓글을 작성합니다.
 
 > POST /comments/create
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -510,23 +617,30 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ##### Response
 
 ```
 Comment
 ```
 
+​
+
 #### 특정 포스트에 작성한 내 댓글 지우기
 
 특정 포스트에 작성한 내 댓글을 삭제합니다.
 
 > DELETE /comments/delete
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -536,11 +650,15 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ##### Response
 
 ```
 Comment
 ```
+
+​
 
 ### 알림
 
@@ -549,12 +667,15 @@ Comment
 나의 알림 목록을 불러옵니다.
 
 > GET /notifications
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Response
 
@@ -562,31 +683,39 @@ Authorization: bearer JWT토큰
 Notification[]
 ```
 
+​
+
 #### 알림 확인 처리
 
 나에게 온 알림을 읽음처리 합니다.
 
 > GET /notifications/seen
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 #### 알림 생성
 
 상대방에게 알림을 보냅니다.
 
 > POST /notifications/create
-
-원래는 서버에서 해주는게 맞는 작업이지만 API 호출로 알림을 보낼 수 있도록 작성했습니다.
+> ​
+> 원래는 서버에서 해주는게 맞는 작업이지만 API 호출로 알림을 보낼 수 있도록 작성했습니다.
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -597,6 +726,7 @@ Authorization: bearer JWT토큰
 - LIKE일 경우엔 좋아요 id
 - MESSAGE일 경우엔 메시지 id
   `postId`는 type이 FOLLOW일 경우엔 null로 보내주세요.
+  ​
 
 ```json
 {
@@ -607,11 +737,15 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ##### Response
 
 ```
 Notification
 ```
+
+​
 
 ### 팔로우
 
@@ -620,12 +754,15 @@ Notification
 특정 유저를 팔로우합니다.
 
 > POST /follow/create
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -635,23 +772,30 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ##### Response
 
 ```
 Follow
 ```
 
+​
+
 #### 특정 유저 언팔
 
 특정 유저를 언팔합니다.
 
 > DELETE /follow/delete
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -661,11 +805,15 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ##### Response
 
 ```
 Follow
 ```
+
+​
 
 ### 메시지
 
@@ -674,12 +822,15 @@ Follow
 나와 메시지함을 불러옵니다.
 
 > GET /messages/conversations
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Response
 
@@ -687,17 +838,22 @@ Authorization: bearer JWT토큰
 Conversation[]
 ```
 
+​
+
 #### 특정 사용자와 소통한 메시지 목록
 
 특정 사용자와 소통한 메시지 목록을 불러옵니다.
 
 > GET /messages
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Params
 
@@ -705,23 +861,30 @@ Authorization: bearer JWT토큰
 userId: String
 ```
 
+​
+
 ##### Response
 
 ```
 Message[]
 ```
 
+​
+
 #### 특정 사용자에게 메시지 전송
 
 특정 사용자에게 메시지를 전송합니다.
 
 > POST /messages/create
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -732,23 +895,30 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ##### Response
 
 ```
 Message
 ```
 
+​
+
 #### 메시지 확인 처리
 
 특정 사용자와 나눈 메시지를 읽음처리 합니다.
 
 > PUT /messages/update-seen
+> ​
 
 ##### Request Header
 
 ```
 Authorization: bearer JWT토큰
 ```
+
+​
 
 ##### Request Body
 
@@ -758,6 +928,8 @@ Authorization: bearer JWT토큰
 }
 ```
 
+​
+
 ## 검색
 
 #### 사용자 검색
@@ -765,6 +937,7 @@ Authorization: bearer JWT토큰
 사용자를 검색합니다.
 
 > GET /search/users/{query}
+> ​
 
 ##### Response
 
@@ -772,11 +945,14 @@ Authorization: bearer JWT토큰
 User[]
 ```
 
+​
+
 #### 전체 검색 (포스트, 사용자)
 
 포스트와 사용자를 검색합니다.
 
 > GET /search/all/{query}
+> ​
 
 ##### Response
 
@@ -784,11 +960,14 @@ User[]
 (User | Post)[]
 ```
 
+​
+
 ## WebSocket 안내
 
 ### on
 
 클라이언트가 서버에게 데이터를 받습니다.
+​
 
 #### SEND_MESSAGE
 
@@ -798,6 +977,8 @@ User[]
 Message[]
 ```
 
+​
+
 #### CREATE_NOTIFICATION_REQUEST
 
 실시간으로 생성된 알림을 받습니다.
@@ -806,9 +987,12 @@ Message[]
 Notification[]
 ```
 
+​
+
 ### emit
 
 클라이언트가 서버에게 데이터를 보냅니다.
+​
 
 #### CREATE_MESSAGE
 
@@ -816,15 +1000,20 @@ Notification[]
 Message
 ```
 
+​
+
 #### CREATE_NOTIFICATION
 
 ```
 Notification
 ```
 
+​
+
 ## 모델 안내
 
 API에 따라 모델 필드에서 일부분이 빠진 상태로 내려올 수 있습니다. `ex) 로그인 후 내려오는 User에는 프로필 이미지와 커버 이미지 필드가 제거됩니다.`
+​
 
 ### User
 
@@ -860,6 +1049,8 @@ API에 따라 모델 필드에서 일부분이 빠진 상태로 내려올 수 �
 }
 ```
 
+​
+
 ### Channel
 
 ```json
@@ -873,6 +1064,8 @@ API에 따라 모델 필드에서 일부분이 빠진 상태로 내려올 수 �
   "updatedAt": String
 }
 ```
+
+​
 
 ### Post
 
@@ -891,6 +1084,8 @@ API에 따라 모델 필드에서 일부분이 빠진 상태로 내려올 수 �
 }
 ```
 
+​
+
 ### Like
 
 ```json
@@ -902,6 +1097,8 @@ API에 따라 모델 필드에서 일부분이 빠진 상태로 내려올 수 �
   "updatedAt": String
 }
 ```
+
+​
 
 ### Comment
 
@@ -915,6 +1112,8 @@ API에 따라 모델 필드에서 일부분이 빠진 상태로 내려올 수 �
   "updatedAt": String
 }
 ```
+
+​
 
 ### Notification
 
@@ -933,6 +1132,8 @@ API에 따라 모델 필드에서 일부분이 빠진 상태로 내려올 수 �
 }
 ```
 
+​
+
 ### Follow
 
 ```json
@@ -944,6 +1145,8 @@ API에 따라 모델 필드에서 일부분이 빠진 상태로 내려올 수 �
   "updatedAt": String
 }
 ```
+
+​
 
 ### Conversation
 
@@ -957,6 +1160,8 @@ API에 따라 모델 필드에서 일부분이 빠진 상태로 내려올 수 �
   "createdAt": String
 }
 ```
+
+​
 
 ### Message
 
