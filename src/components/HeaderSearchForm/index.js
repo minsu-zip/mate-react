@@ -9,16 +9,18 @@ const Form = styled.form`
   box-shadow: 0 0 4px rgba(0, 0);
 `
 
-const HeaderSearchForm = ({ onSubmit }) => {
+const HeaderSearchForm = ({ onClickSearchBtn, onSubmit, searchValue }) => {
+  console.log(searchValue, 'HeaderSearchForm')
   const handleSubmit = (e) => {
     e.preventDefault()
+    onClickSearchBtn(e.target[0].value)
     onSubmit && onSubmit()
   }
   // const inputRef = useRef()
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Input />
+      <Input searchValue={searchValue} name="misaka" />
       <Button>Focus</Button>
     </Form>
   )

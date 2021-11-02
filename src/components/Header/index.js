@@ -33,9 +33,9 @@ const channel = {
   flexWrap: 'nowrap',
 }
 
-const Header = () => {
+const Header = ({ searchValue, onClickSearchBtn }) => {
   // const [ref, isHover] = useHover()
-
+  console.log(searchValue, 'Header')
   const [imageGetProps, setimageGetProps] = useState('')
   useEffect(() => {
     const fetchArticles = async () => {
@@ -55,7 +55,10 @@ const Header = () => {
         </Col>
         <Col className="gutter-row" span={12}>
           <div style={padding}>
-            <HeaderSearchForm />
+            <HeaderSearchForm
+              onClickSearchBtn={onClickSearchBtn}
+              searchValue={searchValue}
+            />
           </div>
         </Col>
 
