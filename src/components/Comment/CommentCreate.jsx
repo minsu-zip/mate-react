@@ -23,7 +23,7 @@ const CommentCreate = ({ postId, Refresh }) => {
     setTimeout(() => {
       axios({
         method: 'post',
-        url: `http://13.209.30.200/comments/create`,
+        url: `https://learn.programmers.co.kr/comments/create`,
         headers: {
           Authorization:
             'Bearer ' +

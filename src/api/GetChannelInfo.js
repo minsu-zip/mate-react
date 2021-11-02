@@ -1,7 +1,7 @@
 import axios from 'axios'
 import useAsync from '../hooks/useAsync'
 
-const baseUrl = 'http://13.209.30.200'
+const baseUrl = 'https://learn.programmers.co.kr'
 const GetChannelInfo = async () => {
   const { data } = await axios.get(`${baseUrl}/channels`)
 

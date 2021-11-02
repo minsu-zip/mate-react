@@ -51,7 +51,7 @@ const GetPostAuther = async (id) => {
     })
 }
 
-const API_END_POINT = 'http://13.209.30.200'
+const API_END_POINT = 'https://learn.programmers.co.kr'
 
 const Image = styled.img`
   width: 300px;
