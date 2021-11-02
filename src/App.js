@@ -1,8 +1,7 @@
 import './App.css'
 import { Route, Switch } from 'react-router'
+import PrivateRoute from '@components/Route/PrivateRoute'
 import {
-  LoginPage,
-  HomePage,
   PostsPage,
   MyPage,
   NotFoundPage,
@@ -11,43 +10,28 @@ import {
   PostCreatePage,
   AdminPage,
 } from '@pages'
-import DefaultTemplate from '@components/template/DefaultTemplate'
-import styled from '@emotion/styled'
-
-// import Footer from '@components/Footer'
 
 const App = () => {
   return (
     <div className="App">
-      <DefaultTemplate></DefaultTemplate>
       <Switch>
         <Route path="/" exact>
           <SignInPage></SignInPage>
         </Route>
-        <Route path="/posts" exact>
-          <PostsPage></PostsPage>
-        </Route>
-        <Route path="/home" exact>
-          <HomePage></HomePage>
-        </Route>
-        <Route path="/mypage" exact>
-          <MyPage></MyPage>
-        </Route>
+
         <Route path="/register" exact>
           <SignUpPage></SignUpPage>
         </Route>
-        <Route path="/post/create" exact>
-          <PostCreatePage></PostCreatePage>
-        </Route>
-        <Route path="/admin" exact>
-          <AdminPage></AdminPage>
-        </Route>
+
+        <PrivateRoute component={PostsPage} path="/posts" exact />
+        <PrivateRoute component={PostCreatePage} path="/post/create" exact />
+        <PrivateRoute component={MyPage} path="/mypage" exact />
+        <PrivateRoute component={AdminPage} path="/admin" exact />
+
         <Route path="*" exact>
           <NotFoundPage></NotFoundPage>
         </Route>
       </Switch>
-
-      {/* <Footer></Footer> */}
     </div>
   )
 }
