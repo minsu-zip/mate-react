@@ -10,8 +10,7 @@ export default async function GetSignOut() {
       .then((data) => {
         alert(data)
       })
-    removeItem('userInformation')
-    removeItem('admin')
+    removeItem()
   } catch (error) {
     console.log(error)
   }

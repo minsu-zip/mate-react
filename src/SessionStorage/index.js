@@ -12,6 +12,6 @@ export const setItem = (target, response) => {
   sessionStorage.setItem('userImage', JSON.stringify(response.data.user.image))
 }
 
-export const removeItem = (target) => {
-  sessionStorage.removeItem(target)
+export const removeItem = () => {
+  sessionStorage.clear()
 }
