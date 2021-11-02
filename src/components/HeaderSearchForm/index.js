@@ -10,7 +10,6 @@ const Form = styled.form`
 `
 
 const HeaderSearchForm = ({ onClickSearchBtn, onSubmit, searchValue }) => {
-  console.log(searchValue, 'HeaderSearchForm')
   const handleSubmit = (e) => {
     e.preventDefault()
     onClickSearchBtn(e.target[0].value)
@@ -20,7 +19,7 @@ const HeaderSearchForm = ({ onClickSearchBtn, onSubmit, searchValue }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Input searchValue={searchValue} name="misaka" />
+      <Input searchValue={searchValue} />
       <Button>Focus</Button>
     </Form>
   )

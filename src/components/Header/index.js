@@ -35,7 +35,6 @@ const channel = {
 
 const Header = ({ searchValue, onClickSearchBtn }) => {
   // const [ref, isHover] = useHover()
-  console.log(searchValue, 'Header')
   const [imageGetProps, setimageGetProps] = useState('')
   useEffect(() => {
     const fetchArticles = async () => {
