@@ -15,7 +15,7 @@ import {
 
 import axios from 'axios'
 import styled from '@emotion/styled'
-const API_END_POINT = 'http://13.209.30.200'
+const API_END_POINT = 'https://learn.programmers.co.kr'
 const { Meta } = Card
 const ProfileContainer = styled.div`
   display: ${(props) => (props.display ? 'block' : 'none')};
