@@ -25,6 +25,9 @@ import styled from '@emotion/styled'
 import axios from 'axios'
 import GetAuthUser from '@api/GetAuthUser'
 import PostUploadPhoto from '@api/PostUploadPhoto'
+import { getRequest, postRequest, putRequest } from '@api/index.js'
+import { getItem } from '@SessionStorage'
+
 const { Meta } = Card
 
 const CardGrid = styled.div`
@@ -77,7 +80,7 @@ const Div = styled.div`
 
 const modifyInformation = (values) => {
   const { userName, fullName, checkPw1, checkPw2 } = values
-
+  const BearerToken = `Bearer ${getItem('userInformation')}`
   if (checkPw1 !== checkPw2) {
     alert('비밀번호가 동일하지 않습니다')
     return
@@ -85,8 +88,27 @@ const modifyInformation = (values) => {
     message
       .loading('개인정보 수정 중...', 1.5)
       .then(() => message.success('수정 완료', 2.5))
-    PutMyPw(checkPw1)
-    PutMyInformation(fullName, userName)
+    putRequest('settings/update-password', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: BearerToken,
+      },
+      data: {
+        password: checkPw1,
+      },
+    })
+    console.log(checkPw1, '!!!!!!!!!!!!!!!!!!!!')
+    // putRequest(fullName, userName)
+    putRequest('settings/update-user', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: BearerToken,
+      },
+      data: {
+        fullName,
+        username: userName,
+      },
+    })
   }
 }
 
@@ -101,7 +123,12 @@ const HorizontalLoginForm = () => {
   useEffect(() => {
     console.log('=== useEffect first ===')
     const fetchArticles = async () => {
-      const { image, _id } = await GetAuthUser()
+      const BearerToken = `Bearer ${getItem('userInformation')}`
+      const { image, _id } = await getRequest('auth-user', {
+        headers: {
+          Authorization: BearerToken,
+        },
+      })
       const postData = await GetPostAuther(_id)
       console.log(image)
       setPostDataState(postData)
@@ -123,7 +150,17 @@ const HorizontalLoginForm = () => {
   const [imageUpload, setImageUpload] = useState()
 
   const PostUploadPhotoHandler = () => {
-    PostUploadPhoto(imageUpload)
+    const formData = new FormData()
+    formData.append('isCover', false)
+    formData.append('image', imageUpload)
+    const BearerToken = `Bearer ${getItem('userInformation')}`
+
+    postRequest('users/upload-photo', {
+      headers: {
+        Authorization: BearerToken,
+      },
+      data: formData,
+    })
     message
       .loading('사진 업로드 중...', 1.5)
       .then(() => message.success('사진 업로드 완료', 2.5))

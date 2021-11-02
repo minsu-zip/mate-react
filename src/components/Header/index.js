@@ -10,6 +10,8 @@ import HeaderLoginButton from '../HeaderLoginButton'
 import HeaderChannelButtons from '../HeaderChannelButtons'
 import GetAuthUser from '@api/GetAuthUser'
 import './index.css'
+import { getRequest } from '@api/index.js'
+import { getItem } from '@SessionStorage'
 
 const header = {
   border: '1px solid lightgray',
@@ -38,7 +40,12 @@ const Header = ({ searchValue, onClickSearchBtn }) => {
   const [imageGetProps, setimageGetProps] = useState('')
   useEffect(() => {
     const fetchArticles = async () => {
-      const { image } = await GetAuthUser()
+      const BearerToken = `Bearer ${getItem('userInformation')}`
+      const { image } = await getRequest('users/online-users', {
+        headers: {
+          Authorization: BearerToken,
+        },
+      })
       setimageGetProps(image)
     }
     fetchArticles()

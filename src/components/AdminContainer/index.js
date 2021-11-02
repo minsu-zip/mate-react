@@ -12,9 +12,8 @@ import {
   Image,
   Switch,
 } from 'antd'
-import GetUsers from '@api/GetUsers'
-
-import GetOnlineUsers from '@api/GetOnlineUsers'
+import { getRequest } from '@api/index.js'
+import { getItem } from '@SessionStorage'
 
 import './index.css'
 import axios from 'axios'
@@ -63,20 +62,18 @@ const Admin = () => {
       NotFound()
     }
     const fetchUsers = async () => {
-      const allData = await GetUsers()
+      const allData = await getRequest('users/get-users')
       const sortAllData = allData.sort(
         (a, b) => onlineFirstCheck[b.isOnline] - onlineFirstCheck[a.isOnline],
       )
       setGetCopyAllUserState(sortAllData)
       setGetAllUserState(sortAllData)
       onChange(true)
-      const onlineData = await GetOnlineUsers()
+      const onlineData = await getRequest('users/online-users')
       setGetOnlineUserState(onlineData)
     }
     fetchUsers()
   }, [])
-
-  GetUsers()
 
   const headerName = {
     titleName: ['유저 목록', '접속중인 유저 목록'],

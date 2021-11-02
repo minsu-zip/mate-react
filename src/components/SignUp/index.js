@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
 import PostSignUp from '@api/PostSignUp'
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
+import { postRequest } from '@api/index.js'
 const layout = {
   labelCol: {
     span: 8,
@@ -30,7 +31,9 @@ const Register = () => {
     await message
       .loading('회원 가입 등록 중...', 1.5)
       .then(() => message.success('회원가입 완료', 2.5))
-    await PostSignUp({ email, fullName, password })
+    await postRequest('signup', {
+      data: { email, fullName, password },
+    })
     handleOnClick()
   }
   const history = useHistory()
