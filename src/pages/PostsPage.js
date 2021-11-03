@@ -15,9 +15,7 @@ import MyPage from '@components/MyPageButton'
 
 const { Header, Content, Footer } = Layout
 const { Search } = Input
-const API_END_POINT = 'http://13.209.30.200'
-
-const onSearch = (value) => console.log(value)
+const API_END_POINT = 'https://learn.programmers.co.kr'
 
 const HeaderContainer = styled.div`
   display: flex;

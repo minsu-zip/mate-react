@@ -12,7 +12,7 @@ const CommentItem = React.memo(({ item }) => {
     const token = getItem('userInformation')
     await axios({
       method: 'delete',
-      url: 'http://13.209.30.200/comments/delete',
+      url: 'https://learn.programmers.co.kr/comments/delete',
       headers: {
         Authorization: 'Bearer ' + token,
       },

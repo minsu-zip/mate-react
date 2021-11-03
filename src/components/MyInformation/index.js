@@ -69,7 +69,7 @@ const GetPostAuther = async (id) => {
     })
 }
 
-const API_END_POINT = 'http://13.209.30.200'
+const API_END_POINT = 'https://learn.programmers.co.kr'
 
 const Image = styled.img`
   width: 300px;
@@ -112,7 +112,6 @@ const modifyInformation = (values) => {
         password: checkPw1,
       },
     })
-    console.log(checkPw1, '!!!!!!!!!!!!!!!!!!!!')
     // putRequest(fullName, userName)
     putRequest('settings/update-user', {
       headers: {
@@ -136,7 +135,6 @@ const HorizontalLoginForm = () => {
   const [postDataState, setPostDataState] = useState([])
 
   useEffect(() => {
-    console.log('=== useEffect first ===')
     const fetchArticles = async () => {
       const BearerToken = `Bearer ${getItem('userInformation')}`
       const { image, _id } = await getRequest('auth-user', {
@@ -145,13 +143,11 @@ const HorizontalLoginForm = () => {
         },
       })
       const postData = await GetPostAuther(_id)
-      console.log(image)
+
       setPostDataState(postData)
       setimageGetProps(image)
-      console.log(postData)
     }
     fetchArticles()
-    console.log(postDataState)
   }, [])
 
   useEffect(() => {

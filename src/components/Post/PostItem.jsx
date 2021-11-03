@@ -63,7 +63,7 @@ const PostItem = React.memo(
     const likeButton = async () => {
       const { data } = await axios({
         method: 'post',
-        url: 'http://13.209.30.200/likes/create',
+        url: 'https://learn.programmers.co.kr/likes/create',
         headers: {
           Authorization: 'Bearer ' + token,
         },
@@ -83,7 +83,7 @@ const PostItem = React.memo(
 
       await axios({
         method: 'delete',
-        url: 'http://13.209.30.200/likes/delete',
+        url: 'https://learn.programmers.co.kr/likes/delete',
         headers: {
           Authorization: 'Bearer ' + token,
         },
@@ -98,7 +98,7 @@ const PostItem = React.memo(
     const removePost = async () => {
       await axios({
         method: 'delete',
-        url: 'http://13.209.30.200/posts/delete',
+        url: 'https://learn.programmers.co.kr/posts/delete',
         headers: {
           Authorization: 'Bearer ' + token,
         },

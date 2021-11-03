@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { removeItem, getItem, setItem } from '@SessionStorage'
 import { message } from 'antd'
-const API_END_POINT = 'http://13.209.30.200'
+const API_END_POINT = 'https://learn.programmers.co.kr'
 const adminId = '617fabc8f4da0a041dfc80fd'
 
 const getRequest = async (url, options = {}) => {

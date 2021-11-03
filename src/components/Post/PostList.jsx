@@ -13,7 +13,7 @@ const PostList = React.memo(({ selectChannel }) => {
 
   const getPostList = async () => {
     const { data } = await axios.get(
-      `http://13.209.30.200/posts/channel/${selectChannel}?offset&limit`,
+      `https://learn.programmers.co.kr/posts/channel/${selectChannel}?offset&limit`,
     )
 
     const postData = data.map(

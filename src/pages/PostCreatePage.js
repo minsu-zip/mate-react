@@ -44,7 +44,7 @@ const PostCreatePage = React.memo(() => {
 
     await axios({
       method: 'post',
-      url: `http://13.209.30.200/posts/create`,
+      url: `https://learn.programmers.co.kr/posts/create`,
       headers: {
         Authorization: 'Bearer ' + token,
       },
@@ -78,7 +78,7 @@ const PostCreatePage = React.memo(() => {
 
     await axios({
       method: 'put',
-      url: `http://13.209.30.200/posts/update`,
+      url: `https://learn.programmers.co.kr/posts/update`,
       headers: {
         Authorization: 'Bearer ' + token,
       },
