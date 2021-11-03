@@ -46,7 +46,7 @@ const ChannelButton = styled.div`
 const PostsPage = () => {
   const history = useHistory()
   const [channelList, setChannelList] = useState([])
-  const [selectChannel, setSelectChannel] = useState('616a200d22996f0bc94f6db5')
+  const [selectChannel, setSelectChannel] = useState('6182ac21e1ecd063dabf101a')
   let searchChannelId
   useEffect(() => {
     GetChannelInfo().then((res) => {
@@ -90,7 +90,7 @@ const PostsPage = () => {
             />
 
             <Search
-              placeholder="input search text"
+              placeholder="search Channel"
               onSearch={onClickSearchBtn}
               style={{
                 width: 400,

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { setItem } from '@SessionStorage'
 import { removeItem } from '../SessionStorage'
 const API_END_POINT = 'https://learn.programmers.co.kr'
-const adminId = '617fabc8f4da0a041dfc80fd'
+const adminId = '6182b87f41316567ffd9b437'
 export default async function PostSignIn({ id, pw }) {
   let isProblem
   let isAdmin = false
