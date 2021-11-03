@@ -26,8 +26,6 @@ const IconStyle = {
 
 const PostItem = React.memo(
   ({ item, pageState, selectChannel, onClickDeleteBtn }) => {
-    console.log(item)
-
     const [commentState, setCommentState] = useState(true)
     const [commentLength, setCommentLength] = useState(item.comments.length)
     const [likeLength, setLikeLength] = useState(item.likes.length)
@@ -36,9 +34,6 @@ const PostItem = React.memo(
 
     const userId = getItem('userId')
     const token = getItem('userInformation')
-
-    // console.log(item.likes)
-    // console.log(userId)
 
     useEffect(() => {
       item.likes.filter((like) => {
@@ -80,9 +75,6 @@ const PostItem = React.memo(
     }
 
     const likeCancelButton = async () => {
-      //const likeId = item.likes.find((like) => like.user === userId)
-      //console.log(likeId._id)
-
       await axios({
         method: 'delete',
         url: 'https://learn.programmers.co.kr/likes/delete',

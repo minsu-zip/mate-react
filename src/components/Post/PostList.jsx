@@ -41,8 +41,10 @@ const PostList = React.memo(({ selectChannel }) => {
   }
 
   useEffect(() => {
-    getPostList()
-    setPageState(!pageState)
+    if (!!selectChannel) {
+      getPostList()
+      setPageState(!pageState)
+    }
   }, [selectChannel])
 
   const history = useHistory()
