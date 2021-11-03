@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Form,
   Input,
@@ -12,12 +12,21 @@ import {
   Image,
   Switch,
 } from 'antd'
+import { getRequest } from '@api/index.js'
+import { getItem } from '@SessionStorage'
 
+import './index.css'
 import axios from 'axios'
 import styled from '@emotion/styled'
+import { useHistory } from 'react-router-dom'
 const API_END_POINT = 'http://13.209.30.200'
 const { Meta } = Card
-const ProfileContainer = styled.div`
+const { Search } = Input
+const AllUsersContainer = styled.div`
+  display: ${(props) => (props.display ? 'block' : 'none')};
+`
+
+const OnlineUsersContainer = styled.div`
   display: ${(props) => (props.display ? 'block' : 'none')};
 `
 
@@ -31,40 +40,40 @@ const CardGrid = styled.div`
   align-items: center;
 `
 
-const GetUsers = async () => {
-  return await axios({
-    method: 'get',
-    url: `${API_END_POINT}/users/get-users`,
-  })
-    .then((response) => response.data)
-    .then((data) => {
-      return data
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-}
-
 const Admin = () => {
   const [isAllUsersShow, setIsAllUsersShow] = useState(true)
   const [isOnlineUsersShow, setIsOnlineUsersShow] = useState(false)
-  const [getDataState, setGetDataState] = useState([])
+  const [getAllUserState, setGetAllUserState] = useState([])
+  const [getCopyAllUserState, setGetCopyAllUserState] = useState([])
+  const [getOnlineUserState, setGetOnlineUserState] = useState([])
   const [loading, setLoading] = useState(true)
+
+  const history = useHistory()
+  const NotFound = useCallback(() => history.push('/NotFound'), [history])
 
   const onChange = (checked) => {
     setLoading(!checked)
   }
 
+  const onlineFirstCheck = { false: 0, true: 1 }
+
   useEffect(() => {
+    if (!sessionStorage.getItem('admin')) {
+      NotFound()
+    }
     const fetchUsers = async () => {
-      const data = await GetUsers()
-      setGetDataState(data)
+      const allData = await getRequest('users/get-users')
+      const sortAllData = allData.sort(
+        (a, b) => onlineFirstCheck[b.isOnline] - onlineFirstCheck[a.isOnline],
+      )
+      setGetCopyAllUserState(sortAllData)
+      setGetAllUserState(sortAllData)
       onChange(true)
+      const onlineData = await getRequest('users/online-users')
+      setGetOnlineUserState(onlineData)
     }
     fetchUsers()
   }, [])
-
-  GetUsers()
 
   const headerName = {
     titleName: ['유저 목록', '접속중인 유저 목록'],
@@ -81,6 +90,28 @@ const Admin = () => {
     }
   }
 
+  const changeUserHanlder = ({ target }) => {
+    if (target.value === '') {
+      setGetAllUserState(getCopyAllUserState)
+    }
+  }
+
+  const searchUserHandler = (e) => {
+    let target
+    const isTargetExist = getAllUserState.some(
+      ({ isOnline, fullName, email, image, coverImage }) => {
+        target = [{ isOnline, fullName, email, image, coverImage }]
+        return e === fullName
+      },
+    )
+    if (isTargetExist) {
+      setGetAllUserState(target)
+    } else {
+      message.warning('존재하지 않는 유저의 이름을 입력했습니다')
+    }
+    console.log(isTargetExist, target)
+  }
+
   return (
     <>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
@@ -95,10 +126,65 @@ const Admin = () => {
         })}
       </Menu>
 
-      <ProfileContainer display={isAllUsersShow} className="profileContainer">
+      <AllUsersContainer display={isAllUsersShow} className="allUsersContainer">
+        <Search
+          className="searchContainer"
+          placeholder="fullName 검색"
+          enterButton="Search"
+          size="large"
+          onChange={changeUserHanlder}
+          onSearch={searchUserHandler}
+        />
         <CardGrid>
-          {getDataState.length !== 0
-            ? getDataState.map(
+          {getAllUserState.map(
+            ({ isOnline, fullName, email, image, coverImage }) => {
+              return (
+                <div>
+                  <Switch
+                    checked={isOnline}
+                    checkedChildren="online"
+                    unCheckedChildren="offline"
+                  />
+                  <Card
+                    style={{ width: 300, marginTop: 16 }}
+                    loading={loading}
+                    cover={
+                      <img
+                        alt="example"
+                        src={
+                          coverImage
+                            ? coverImage
+                            : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
+                        }
+                        height="250px"
+                      />
+                    }
+                  >
+                    <Meta
+                      avatar={
+                        <Avatar
+                          src={
+                            image ? image : 'https://joeschmoe.io/api/v1/random'
+                          }
+                        />
+                      }
+                      title={fullName}
+                      description={email}
+                    />
+                  </Card>
+                </div>
+              )
+            },
+          )}
+        </CardGrid>
+      </AllUsersContainer>
+      <OnlineUsersContainer
+        display={isOnlineUsersShow}
+        className="onlineUsersContainer"
+      >
+        <CardGrid>
+          {getOnlineUserState.length !== 0
+            ? getOnlineUserState.map(
                 ({ isOnline, fullName, email, image, coverImage }) => {
                   return (
                     <>
@@ -136,7 +222,7 @@ const Admin = () => {
               )
             : ''}
         </CardGrid>
-      </ProfileContainer>
+      </OnlineUsersContainer>
     </>
   )
 }

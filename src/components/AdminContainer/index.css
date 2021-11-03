@@ -1,0 +1,26 @@
+.onlineUsersContainer {
+  max-width: auto;
+  max-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.allUsersContainer {
+  max-width: auto;
+  max-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchContainer {
+  width: 300px;
+  margin: 30px;
+}
+
+.ant-btn-lg {
+  margin: 0;
+}
