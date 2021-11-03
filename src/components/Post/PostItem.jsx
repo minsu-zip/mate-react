@@ -26,20 +26,26 @@ const IconStyle = {
 
 const PostItem = React.memo(
   ({ item, pageState, deletePostHandle, selectChannel }) => {
-    console.log(item)
     const [commentState, setCommentState] = useState(true)
     const [commentLength, setCommentLength] = useState(item.comments.length)
     const [likeLength, setLikeLength] = useState(item.likes.length)
     const [likeState, setLikeState] = useState(true)
+    const [likeId, setLikeId] = useState()
 
     const userId = getItem('userId')
     const token = getItem('userInformation')
 
+    // console.log(item.likes)
+    // console.log(userId)
+
     useEffect(() => {
       item.likes.filter((like) => {
-        if (like.user === userId) setLikeState(false)
+        if (like.user === userId) {
+          setLikeState(false)
+          setLikeId(like._id)
+        }
       })
-    }, [])
+    }, [item])
 
     useEffect(() => {
       setCommentLength(item.comments.length)
@@ -55,9 +61,9 @@ const PostItem = React.memo(
     }
 
     const likeButton = async () => {
-      await axios({
+      const { data } = await axios({
         method: 'post',
-        url: 'http://13.209.30.200/likes/create',
+        url: 'https://learn.programmers.co.kr/likes/create',
         headers: {
           Authorization: 'Bearer ' + token,
         },
@@ -65,23 +71,24 @@ const PostItem = React.memo(
           postId: item.postId,
         },
       })
-      // setLikeLength(likeLength + 1)
-      // setLikeState(!likeState)
-      history.go(0)
+      setLikeId(data._id)
+
+      setLikeLength(likeLength + 1)
+      setLikeState(!likeState)
     }
 
     const likeCancelButton = async () => {
-      const likeId = item.likes.find((like) => like.user === userId)
-      console.log(likeId._id)
+      //const likeId = item.likes.find((like) => like.user === userId)
+      //console.log(likeId._id)
 
       await axios({
         method: 'delete',
-        url: 'http://13.209.30.200/likes/delete',
+        url: 'https://learn.programmers.co.kr/likes/delete',
         headers: {
           Authorization: 'Bearer ' + token,
         },
         data: {
-          id: likeId._id,
+          id: likeId,
         },
       })
       setLikeLength(likeLength - 1)
@@ -91,7 +98,7 @@ const PostItem = React.memo(
     const removePost = async () => {
       await axios({
         method: 'delete',
-        url: 'http://13.209.30.200/posts/delete',
+        url: 'https://learn.programmers.co.kr/posts/delete',
         headers: {
           Authorization: 'Bearer ' + token,
         },
@@ -123,7 +130,7 @@ const PostItem = React.memo(
     return (
       <>
         <List.Item
-          style={{ marginBottom: '10px' }}
+          style={{ marginBottom: '10px', boxShadow: '0px 0px 15px #c0c0c0' }}
           key={item.title}
           actions={[
             likeState ? (

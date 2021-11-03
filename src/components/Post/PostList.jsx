@@ -4,15 +4,17 @@ import axios from 'axios'
 import PostItem from './PostItem'
 import { EditTwoTone } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
-const PostList = ({ selectChannel }) => {
-  const [postList, setPostList] = useState([])
+import { Input } from 'antd'
+const { Search } = Input
 
-  console.log(selectChannel)
+const PostList = React.memo(({ selectChannel }) => {
+  const [postList, setPostList] = useState([])
+  const [postCopy, setPostCopy] = useState([])
+
   const getPostList = async () => {
     const { data } = await axios.get(
-      `http://13.209.30.200/posts/channel/${selectChannel}?offset&limit`,
+      `https://learn.programmers.co.kr/posts/channel/${selectChannel}?offset&limit`,
     )
-    console.log(data)
 
     const postData = data.map(
       ({ title, author, comments, image, imagePublicId, _id, likes }) => {
@@ -34,6 +36,7 @@ const PostList = ({ selectChannel }) => {
     )
 
     setPostList(postData)
+    setPostCopy(postData)
   }
 
   useEffect(() => {
@@ -58,14 +61,29 @@ const PostList = ({ selectChannel }) => {
     })
   const [pageState, setPageState] = useState(false)
 
+  const onSearch = (value) => {
+    if (value === '') {
+      setPostList(postCopy)
+    } else {
+      const result = postList.filter((post) => post.content.includes(value))
+      setPostList(result)
+    }
+  }
+
   return (
     <>
+      <Search
+        placeholder="content search"
+        onSearch={onSearch}
+        style={{ marginTop: '20px', width: '80%' }}
+      />
+
       <Button
         shape="circle"
         size="large"
         icon={<EditTwoTone />}
         onClick={handleOnClick}
-        style={{ float: 'right', marginRight: '20px' }}
+        style={{ float: 'right', marginRight: '20px', marginTop: '20px' }}
       />
 
       <List
@@ -90,6 +108,5 @@ const PostList = ({ selectChannel }) => {
       />
     </>
   )
-}
-
+})
 export default PostList

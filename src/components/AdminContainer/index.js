@@ -19,7 +19,7 @@ import './index.css'
 import axios from 'axios'
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
-const API_END_POINT = 'http://13.209.30.200'
+const API_END_POINT = 'https://learn.programmers.co.kr'
 const { Meta } = Card
 const { Search } = Input
 const AllUsersContainer = styled.div`
@@ -109,7 +109,6 @@ const Admin = () => {
     } else {
       message.warning('존재하지 않는 유저의 이름을 입력했습니다')
     }
-    console.log(isTargetExist, target)
   }
 
   return (

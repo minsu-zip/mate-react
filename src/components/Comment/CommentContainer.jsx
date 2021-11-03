@@ -72,7 +72,7 @@ const CommentContainer = React.memo(
       setTimeout(async () => {
         await axios({
           method: 'post',
-          url: `http://13.209.30.200/comments/create`,
+          url: `https://learn.programmers.co.kr/comments/create`,
           headers: {
             Authorization: 'Bearer ' + token,
           },

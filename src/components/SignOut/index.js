@@ -5,7 +5,7 @@ const SignOut = () => {
   return (
     <Link to="/">
       <Button
-        style={{ margin: '10px 5px 10px 5px' }}
+        style={{ margin: '10px 5px 10px 5px', fontSize: '12px' }}
         onClick={() => {
           getRequest('logout')
         }}

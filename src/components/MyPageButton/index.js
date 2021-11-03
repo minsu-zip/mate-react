@@ -10,7 +10,10 @@ const MyPageButton = ({ style }) => {
     //   MyPage
     // </button>
 
-    <Button style={{ margin: '10px 5px 10px 5px' }} onClick={moveToMyPage}>
+    <Button
+      style={{ margin: '10px 5px 10px 5px', fontSize: '12px' }}
+      onClick={moveToMyPage}
+    >
       MyPage
     </Button>
   )
