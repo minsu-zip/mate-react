@@ -25,7 +25,9 @@ const IconStyle = {
 }
 
 const PostItem = React.memo(
-  ({ item, pageState, deletePostHandle, selectChannel }) => {
+  ({ item, pageState, selectChannel, onClickDeleteBtn }) => {
+    console.log(item)
+
     const [commentState, setCommentState] = useState(true)
     const [commentLength, setCommentLength] = useState(item.comments.length)
     const [likeLength, setLikeLength] = useState(item.likes.length)
@@ -106,7 +108,8 @@ const PostItem = React.memo(
           id: item.postId,
         },
       })
-      deletePostHandle()
+      const postId = item.postId
+      onClickDeleteBtn(postId)
     }
 
     const updatePost = () => {

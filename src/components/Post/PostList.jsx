@@ -45,21 +45,20 @@ const PostList = React.memo(({ selectChannel }) => {
 
   const history = useHistory()
 
-  const removeEvent = useCallback(() => {
-    history.push('/posts')
-    history.go(0)
-  }, [history])
-
-  const deletePostHandle = () => {
-    removeEvent()
-  }
-
   const handleOnClick = () =>
     history.push({
       pathname: '/post/create',
       state: { channelId: selectChannel, updateCheck: false },
     })
   const [pageState, setPageState] = useState(false)
+
+  const onClickDeleteBtn = (removeId) => {
+    setPostList(
+      postList.filter(({ postId }) => {
+        return postId !== removeId ? true : false
+      }),
+    )
+  }
 
   const onSearch = (value) => {
     if (value === '') {
@@ -102,7 +101,7 @@ const PostList = React.memo(({ selectChannel }) => {
             item={item}
             pageState={pageState}
             selectChannel={selectChannel}
-            deletePostHandle={deletePostHandle}
+            onClickDeleteBtn={onClickDeleteBtn}
           ></PostItem>
         )}
       />
