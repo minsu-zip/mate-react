@@ -28,6 +28,21 @@ import PostUploadPhoto from '@api/PostUploadPhoto'
 import { getRequest, postRequest, putRequest } from '@api/index.js'
 import { getItem } from '@SessionStorage'
 
+const ProfileImageChangeBtn = styled.button`
+  width: 200px;
+  padding: 10px 10px;
+  background-color: #9bffdc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+`
+
+const InformationChangeBtn = styled.button`
+  width: 200px;
+  padding: 10px 10px;
+  background-color: #ffebaa;
+  border-radius: 10px;
+`
+
 const { Meta } = Card
 
 const CardGrid = styled.div`
@@ -243,9 +258,7 @@ const HorizontalLoginForm = () => {
           <Div>
             <Image
               src={
-                imageGetProps
-                  ? imageGetProps
-                  : 'https://via.placeholder.com/300.png'
+                imageGetProps ? imageGetProps : 'https://ifh.cc/g/4Wfpx7.png'
               }
             ></Image>
             <input
@@ -258,9 +271,9 @@ const HorizontalLoginForm = () => {
           </Div>
 
           <Div>
-            <Button type="primary" onClick={PostUploadPhotoHandler}>
+            <ProfileImageChangeBtn onClick={PostUploadPhotoHandler}>
               프로필 이미지 변경
-            </Button>
+            </ProfileImageChangeBtn>
           </Div>
           <Form.Item
             name="userName"
@@ -321,13 +334,7 @@ const HorizontalLoginForm = () => {
             />
           </Form.Item>
           <Form.Item className="login-form-bottom">
-            <AntButton
-              text="계정 정보 변경"
-              type="primary"
-              size="large"
-              htmlType="submit"
-              className="login-form-button"
-            />
+            <InformationChangeBtn>계정 정보 변경</InformationChangeBtn>
           </Form.Item>
         </Form>
       </SettingContainer>
