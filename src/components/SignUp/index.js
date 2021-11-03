@@ -29,8 +29,8 @@ const validateMessages = {
 const Register = () => {
   const onFinish = async ({ email, fullName, password }) => {
     await message
-      .loading('회원 가입 등록 중...', 1.5)
-      .then(() => message.success('회원가입 완료', 2.5))
+      .loading('회원 가입 등록 중...', 1)
+      .then(() => message.success('회원가입 완료', 1))
     await postRequest('signup', {
       data: { email, fullName, password },
     })
