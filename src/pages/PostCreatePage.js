@@ -8,7 +8,8 @@ import { getItem } from '@SessionStorage'
 import { useLocation } from 'react-router'
 
 const PostCreateContainer = styled.div`
-  width: 70%;
+  width: 60%;
+  margin-top: 20px;
 `
 const Div = styled.div`
   margin: 10px;
@@ -23,7 +24,6 @@ const PostCreatePage = React.memo(() => {
   const check = postState.updateCheck
 
   const channelId = postState.channelId
-  console.log(channelId)
 
   const [textValue, setTextVaule] = useState(
     postState?.value ? postState?.value : '',
@@ -44,7 +44,7 @@ const PostCreatePage = React.memo(() => {
 
     await axios({
       method: 'post',
-      url: `http://13.209.30.200/posts/create`,
+      url: `https://learn.programmers.co.kr/posts/create`,
       headers: {
         Authorization: 'Bearer ' + token,
       },
@@ -78,7 +78,7 @@ const PostCreatePage = React.memo(() => {
 
     await axios({
       method: 'put',
-      url: `http://13.209.30.200/posts/update`,
+      url: `https://learn.programmers.co.kr/posts/update`,
       headers: {
         Authorization: 'Bearer ' + token,
       },
@@ -105,55 +105,64 @@ const PostCreatePage = React.memo(() => {
 
   return (
     <>
-      <PostCreateContainer>
-        <Div>
-          <input
-            type="file"
-            className="imgInput"
-            accept="image/*"
-            name="file"
-            onChange={onImgChange}
-          ></input>
-        </Div>
-        {check ? (
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <PostCreateContainer>
           <Div>
-            <Button type="danger" onClick={() => setImgRemove(true)}>
-              기존 이미지 삭제
-            </Button>
+            <input
+              type="file"
+              className="imgInput"
+              accept="image/*"
+              name="file"
+              onChange={onImgChange}
+            ></input>
           </Div>
-        ) : (
-          ''
-        )}
-        <Div>
-          <AntTextArea
-            inputHandle={inputHandle}
-            width="70%"
-            value={textValue}
-          ></AntTextArea>
-        </Div>
-
-        <Div>
           {check ? (
-            <Button
-              htmlType="submit"
-              loading={submitting}
-              type="primary"
-              onClick={setPostUpdate}
-            >
-              업데이트
-            </Button>
+            <Div>
+              <Button type="danger" onClick={() => setImgRemove(true)}>
+                기존 이미지 삭제
+              </Button>
+            </Div>
           ) : (
-            <Button
-              htmlType="submit"
-              loading={submitting}
-              type="primary"
-              onClick={setPostCreate}
-            >
-              생성
-            </Button>
+            ''
           )}
-        </Div>
-      </PostCreateContainer>
+          <Div>
+            <AntTextArea
+              inputHandle={inputHandle}
+              width="100%"
+              value={textValue}
+            ></AntTextArea>
+          </Div>
+
+          <Div>
+            {check ? (
+              <Button
+                htmlType="submit"
+                loading={submitting}
+                type="primary"
+                onClick={setPostUpdate}
+              >
+                업데이트
+              </Button>
+            ) : (
+              <Button
+                htmlType="submit"
+                loading={submitting}
+                type="primary"
+                onClick={setPostCreate}
+              >
+                생성
+              </Button>
+            )}
+          </Div>
+        </PostCreateContainer>
+      </div>
     </>
   )
 })

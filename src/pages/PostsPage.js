@@ -12,12 +12,11 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import SignOut from '@components/SignOut'
 import MyPage from '@components/MyPageButton'
+import './postsPage.css'
 
 const { Header, Content, Footer } = Layout
 const { Search } = Input
-const API_END_POINT = 'http://13.209.30.200'
-
-const onSearch = (value) => console.log(value)
+const API_END_POINT = 'https://learn.programmers.co.kr'
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -82,19 +81,27 @@ const PostsPage = () => {
     <>
       <>
         <div
-          style={{ backgroundColor: '#E2E2E2', padding: '10px 0px 10px 0px' }}
+          style={{ backgroundColor: '#f1f1f1', padding: '10px 0px 10px 0px' }}
         >
           <HeaderContainer>
-            <img src="https://ifh.cc/g/XTsvNi.png" style={{ height: '70px' }} />
+            <img
+              src="https://ifh.cc/g/XTsvNi.png"
+              style={{ height: '70px', marginLeft: '50px' }}
+            />
 
             <Search
               placeholder="input search text"
               onSearch={onClickSearchBtn}
-              style={{ width: 400, backgroundColor: 'white' }}
+              style={{
+                width: 400,
+                backgroundColor: 'white',
+                // marginLeft: '50px',
+                marginRight: '120px',
+              }}
             />
-            <div>
-              <Avatar size={64} src={userImg} />
 
+            <div id="myProfileIcon" style={{ marginRight: '30px' }}>
+              <Avatar size={64} src={userImg} />
               <MyPage />
               <SignOut />
             </div>
