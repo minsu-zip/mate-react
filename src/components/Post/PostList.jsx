@@ -53,14 +53,11 @@ const PostList = React.memo(({ selectChannel }) => {
   const [pageState, setPageState] = useState(false)
 
   const onClickDeleteBtn = (removeId) => {
-    console.log(removeId)
-    console.log(postList)
     setPostList(
       postList.filter(({ postId }) => {
         return postId !== removeId ? true : false
       }),
     )
-    console.log(postList)
   }
 
   const onSearch = (value) => {
