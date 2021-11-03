@@ -10,6 +10,7 @@ const { Search } = Input
 const PostList = React.memo(({ selectChannel }) => {
   const [postList, setPostList] = useState([])
   const [postCopy, setPostCopy] = useState([])
+  const [pageState, setPageState] = useState(false)
 
   const getPostList = async () => {
     const { data } = await axios.get(
@@ -41,6 +42,7 @@ const PostList = React.memo(({ selectChannel }) => {
 
   useEffect(() => {
     getPostList()
+    setPageState(!pageState)
   }, [selectChannel])
 
   const history = useHistory()
@@ -50,7 +52,6 @@ const PostList = React.memo(({ selectChannel }) => {
       pathname: '/post/create',
       state: { channelId: selectChannel, updateCheck: false },
     })
-  const [pageState, setPageState] = useState(false)
 
   const onClickDeleteBtn = (removeId) => {
     setPostList(
