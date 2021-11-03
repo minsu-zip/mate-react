@@ -95,13 +95,20 @@ const PostsPage = () => {
               style={{
                 width: 400,
                 backgroundColor: 'white',
-                // marginLeft: '50px',
-                marginRight: '120px',
+                marginLeft: '30px',
+                marginRight: '100px',
               }}
             />
 
             <div id="myProfileIcon" style={{ marginRight: '30px' }}>
-              <Avatar size={64} src={userImg} />
+              <Avatar
+                size={64}
+                src={
+                  userImg !== 'undefined'
+                    ? userImg
+                    : 'https://ifh.cc/g/4Wfpx7.png'
+                }
+              />
               <MyPage />
               <SignOut />
             </div>
