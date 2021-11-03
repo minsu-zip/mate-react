@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom'
-import GetSignOut from '@api/GetSignOut'
-
-const SignOut = ({ style }) => {
+import { getRequest } from '@api/index.js'
+import { Button } from 'antd'
+const SignOut = () => {
   return (
     <Link to="/">
-      <button onClick={GetSignOut} style={style}>
+      <Button
+        style={{ margin: '10px 5px 10px 5px' }}
+        onClick={() => {
+          getRequest('logout')
+        }}
+      >
         Logout
-      </button>
+      </Button>
     </Link>
   )
 }

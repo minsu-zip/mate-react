@@ -9,18 +9,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
-}
-.login-form-forgot {
-}
-.ant-col-rtl .login-form-forgot {
-}
-.login-form-button {
-  width: 100%;
 }
 
-.profileContainer {
-  background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
+.login-form-button {
+  width: 100%;
 }
 
 .ant-col {

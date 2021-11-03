@@ -9,7 +9,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
 }
 .login-form-forgot {
 }
@@ -38,3 +37,12 @@
 .login-form-bottom {
   text-align: center;
 }
+
+/* .ant-input-affix-wrapper {
+  border-radius: 10px;
+  background-color: #ededed;
+}
+
+.ant-input {
+  background-color: #ededed;
+} */
