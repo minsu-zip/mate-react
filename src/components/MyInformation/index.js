@@ -235,7 +235,11 @@ const HorizontalLoginForm = () => {
                       />
                     }
                   >
-                    {/* <Meta title={title} description={channel.name} /> */}
+                    {channel?.name ? (
+                      <Meta title={title} description={channel.name} />
+                    ) : (
+                      ''
+                    )}
                   </Card>
                 )
               })
