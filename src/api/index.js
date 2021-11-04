@@ -32,7 +32,7 @@ const postRequest = async (url, options = {}) => {
     url: `${API_END_POINT}/${url}`,
     ...options,
   })
-    .then((response) => response)
+    .then((response) => setItem('userImage', response.data.image))
     .catch((error) => {
       console.log(error)
     })
