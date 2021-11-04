@@ -160,7 +160,8 @@ const HorizontalLoginForm = () => {
 
   const [imageUpload, setImageUpload] = useState()
 
-  const PostUploadPhotoHandler = () => {
+  const PostUploadPhotoHandler = (e) => {
+    e.preventDefault()
     const formData = new FormData()
     formData.append('isCover', false)
     formData.append('image', imageUpload)
@@ -234,7 +235,7 @@ const HorizontalLoginForm = () => {
                       />
                     }
                   >
-                    <Meta title={title} description={channel.name} />
+                    {/* <Meta title={title} description={channel.name} /> */}
                   </Card>
                 )
               })
