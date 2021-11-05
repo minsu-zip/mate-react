@@ -52,19 +52,26 @@ React, Emotion, AntDesign, StoryBook, Axios, Route
 
 ### 페이지 UI
 
-회원가입 페이지![](https://i.imgur.com/CUXUNHh.png)
+회원가입 페이지
+![](https://i.imgur.com/CUXUNHh.png)
 
-로그인 페이지![](https://i.imgur.com/eMNzVuD.png)
+로그인 페이지
+![](https://i.imgur.com/eMNzVuD.png)
 
-마이 페이지![](https://i.imgur.com/8CDjoPH.png)
+마이 페이지
+![](https://i.imgur.com/8CDjoPH.png)
 
-포스트 및 댓글 페이지![](https://i.imgur.com/rrARgu5.png)
+포스트 및 댓글 페이지
+![](https://i.imgur.com/rrARgu5.png)
 
-내가 쓴 게시글 페이지![](https://i.imgur.com/ElKtLze.png)
+내가 쓴 게시글 페이지
+![](https://i.imgur.com/ElKtLze.png)
 
-게시글 작성 페이지![](https://i.imgur.com/yb0vUs6.png)
+게시글 작성 페이지
+![](https://i.imgur.com/yb0vUs6.png)
 
-관지라 페이지 ![](https://i.imgur.com/xyrgfDA.png)
+관지라 페이지
+![](https://i.imgur.com/xyrgfDA.png)
 
 ### 배포
 
