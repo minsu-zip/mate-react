@@ -2,7 +2,7 @@
 
 
 <img src="https://i.imgur.com/4FqKUyK.png" height= '100px'/>
-MATE(취미 공유 사이트)
+## MATE(취미 공유 사이트)
 <a href="https://vigorous-lalande-d3f76a.netlify.app/"><strong>배포용 사이트 보러가기 »</strong></a>
 
 
