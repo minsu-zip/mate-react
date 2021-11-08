@@ -2,9 +2,9 @@
 
 
 <img src="https://i.imgur.com/4FqKUyK.png" height= '100px'/>
-## MATE(취미 공유 사이트)
+MATE(취미 공유 사이트)
 <a href="https://vigorous-lalande-d3f76a.netlify.app/"><strong>배포용 사이트 보러가기 »</strong></a>
-
+<br>
 
 * MATE는 코로나 19의 여파로 원격 수업 및 재택 근무의 증가로 인해, 기존과 다르게 새로운 문화생활을 즐길 수 있는 플랫폼이 필요했습니다.
 * 온°오프라인으로 '나'와 같은 취미를 가진 사람들과 정보를 공유하고 함께 즐길 친구를 찾고 소모임을 만들 수 있는 플랫폼입니다.
