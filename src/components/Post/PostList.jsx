@@ -1,23 +1,31 @@
 import { List, Button } from 'antd'
 import React, { useState, useEffect, useCallback } from 'react'
-import axios from 'axios'
 import PostItem from './PostItem'
 import { EditTwoTone } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import { Input } from 'antd'
+import { getPost } from '@api/axoisApi'
 const { Search } = Input
 
 const PostList = React.memo(({ selectChannel }) => {
+  const history = useHistory()
+
   const [postList, setPostList] = useState([])
   const [postCopy, setPostCopy] = useState([])
   const [pageState, setPageState] = useState(false)
 
-  const getPostList = async () => {
-    const { data } = await axios.get(
-      `https://learn.programmers.co.kr/posts/channel/${selectChannel}?offset&limit`,
-    )
+  useEffect(() => {
+    ;(async () => {
+      const rawPost = await getPost(selectChannel)
+      const postData = getList(rawPost)
+      setPostList(postData)
+      setPostCopy(postData)
+      setPageState(!pageState)
+    })()
+  }, [selectChannel])
 
-    const postData = data.map(
+  const getList = (rawPost) => {
+    const postData = rawPost.map(
       ({ title, author, comments, image, imagePublicId, _id, likes }) => {
         return {
           title: author.email,
@@ -35,19 +43,8 @@ const PostList = React.memo(({ selectChannel }) => {
         }
       },
     )
-
-    setPostList(postData)
-    setPostCopy(postData)
+    return postData
   }
-
-  useEffect(() => {
-    if (!!selectChannel) {
-      getPostList()
-      setPageState(!pageState)
-    }
-  }, [selectChannel])
-
-  const history = useHistory()
 
   const handleOnClick = () =>
     history.push({
