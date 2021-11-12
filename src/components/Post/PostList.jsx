@@ -4,7 +4,8 @@ import PostItem from './PostItem'
 import { EditTwoTone } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import { Input } from 'antd'
-import { getPost } from '@api/axoisApi'
+import { getPost } from '@apis/services/post'
+
 const { Search } = Input
 
 const PostList = React.memo(({ selectChannel }) => {

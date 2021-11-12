@@ -1,9 +1,8 @@
-import { initApi, authApi } from './axiosInstance'
-import axios from 'axios'
+import { defaultInstance, authInstance } from '@apis/utils'
 
 export const getPost = async (selectChannel) => {
   try {
-    const { data } = await initApi.get(
+    const { data } = await defaultInstance.get(
       `posts/channel/${selectChannel}?offset&limit`,
     )
     return data
