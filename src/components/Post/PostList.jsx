@@ -4,7 +4,8 @@ import PostItem from './PostItem'
 import { EditTwoTone } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import { Input } from 'antd'
-import { getPost } from '@apis/services/post'
+import { getPost } from '@apis/api/post'
+import { getPostList } from '@apis/services/post'
 
 const { Search } = Input
 
@@ -17,35 +18,15 @@ const PostList = React.memo(({ selectChannel }) => {
 
   useEffect(() => {
     ;(async () => {
-      const rawPost = await getPost(selectChannel)
-      const postData = getList(rawPost)
-      setPostList(postData)
-      setPostCopy(postData)
+      await getPost(selectChannel)
+        .then(getPostList)
+        .then((res) => {
+          setPostList(res)
+          setPostCopy(res)
+        })
       setPageState(!pageState)
     })()
   }, [selectChannel])
-
-  const getList = (rawPost) => {
-    const postData = rawPost.map(
-      ({ title, author, comments, image, imagePublicId, _id, likes }) => {
-        return {
-          title: author.email,
-          content: title,
-          comments: comments.length > 0 ? comments : '',
-          avatar: author.image
-            ? author.image
-            : 'https://joeschmoe.io/api/v1/random',
-          href: 'https://ant.design',
-          imagePublicId,
-          image,
-          postId: _id,
-          authorId: author._id,
-          likes,
-        }
-      },
-    )
-    return postData
-  }
 
   const handleOnClick = () =>
     history.push({
