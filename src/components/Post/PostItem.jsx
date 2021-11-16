@@ -11,7 +11,8 @@ import { getItem } from '@SessionStorage'
 import CommentContainer from '@components/Comment/CommentContainer'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
-import { likeComment, likeCancelComment } from '@apis/services/comment'
+import { likeComment, likeCancelComment } from '@apis/api/comment'
+import { deletePost } from '@apis/api/post'
 
 const IconStyle = {
   border: '0',
@@ -19,7 +20,7 @@ const IconStyle = {
 }
 
 const PostItem = React.memo(
-  ({ item, pageState, selectChannel, onClickDeleteBtn }) => {
+  ({ item, pageState, selectChannel, onDeletePostButton }) => {
     const [commentState, setCommentState] = useState(true)
     const [commentLength, setCommentLength] = useState(item.comments.length)
     const [likeLength, setLikeLength] = useState(item.likes.length)
@@ -68,19 +69,12 @@ const PostItem = React.memo(
       })()
     }
 
-    const removePost = async () => {
-      await axios({
-        method: 'delete',
-        url: 'https://learn.programmers.co.kr/posts/delete',
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-        data: {
-          id: item.postId,
-        },
-      })
-      const postId = item.postId
-      onClickDeleteBtn(postId)
+    const deletePostButton = () => {
+      ;(async () => {
+        await deletePost({ id: item.postId })
+      })()
+
+      onDeletePostButton(item.postId)
     }
 
     const updatePost = () => {
@@ -138,7 +132,7 @@ const PostItem = React.memo(
             item.authorId === userId ? (
               <Button
                 icon={<DeleteOutlined />}
-                onClick={removePost}
+                onClick={deletePostButton}
                 style={IconStyle}
               />
             ) : (

@@ -8,6 +8,13 @@ export const getPost = async (selectChannel) => {
     return data
   } catch (error) {
     console.log(error)
-    return
+  }
+}
+
+export const deletePost = async (id) => {
+  try {
+    await authInstance.delete('posts/delete', { data: id })
+  } catch (error) {
+    console.log(error)
   }
 }
