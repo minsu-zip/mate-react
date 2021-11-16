@@ -34,7 +34,7 @@ const PostList = React.memo(({ selectChannel }) => {
       state: { channelId: selectChannel, updateCheck: false },
     })
 
-  const onClickDeleteBtn = (removeId) => {
+  const onDeletePostButton = (removeId) => {
     setPostList(
       postList.filter(({ postId }) => {
         return postId !== removeId ? true : false
@@ -83,7 +83,7 @@ const PostList = React.memo(({ selectChannel }) => {
             item={item}
             pageState={pageState}
             selectChannel={selectChannel}
-            onClickDeleteBtn={onClickDeleteBtn}
+            onDeletePostButton={onDeletePostButton}
           ></PostItem>
         )}
       />
