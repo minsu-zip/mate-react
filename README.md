@@ -81,16 +81,20 @@
 #### 메인 페이지
 - 채널, 유저, 게시글 검색 기능
 - 채널에 따른 게시글 목록 표시
-<img src='https://i.imgur.com/d6GaNFB.gif' />
+![](https://i.imgur.com/d6GaNFB.gif)
+
 
 #### 게시글 CRUD
 ![](https://i.imgur.com/rmAq7pf.gif)
 
+
 #### 좋아요 + 댓글 CRD
 ![](https://i.imgur.com/LTChFDk.gif)
 
+
 #### 마이 페이지
 ![](https://i.imgur.com/6ZGK4dJ.gif)
+
 
 #### 관리자 페이지
 ![](https://i.imgur.com/X8UIUXD.gif)
