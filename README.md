@@ -2,9 +2,10 @@
 
 
 <img src="https://i.imgur.com/4FqKUyK.png" height= '100px'/>
-MATE(취미 공유 사이트)
+
+### MATE(취미 공유 사이트)
 <a href="https://vigorous-lalande-d3f76a.netlify.app/"><strong>배포용 사이트 보러가기 »</strong></a>
-<br>
+
 
 * MATE는 코로나 19의 여파로 원격 수업 및 재택 근무의 증가로 인해, 기존과 다르게 새로운 문화생활을 즐길 수 있는 플랫폼이 필요했습니다.
 * 온°오프라인으로 '나'와 같은 취미를 가진 사람들과 정보를 공유하고 함께 즐길 친구를 찾고 소모임을 만들 수 있는 플랫폼입니다.
@@ -58,19 +59,41 @@ MATE(취미 공유 사이트)
     * 좋아요, 좋아요 취소
 * 댓글
     * 댓글 달기, 댓글 지우기
-* 채널 & 포스트
-    * 채널에 따른 포스트 목록 표시
-    * 포스트 CRUD 기능
+* 채널 & 게시글
+    * 채널에 따른 게시글 목록 표시
+    * 게시글 CRUD 기능
 * 검색
     * 유저 검색
     * 채널 검색
-    * 포스트 검색
+    * 게시글 검색
 
 ### 💻 디렉토리 구성도 및 기능
 ![](https://i.imgur.com/5b8KwvY.png)
 
 ### 😃 유저 시퀀스 다이어그램
-<img src="https://i.imgur.com/ePIQOA6.png" height='1200px' />
+<img src="https://i.imgur.com/ePIQOA6.png" height='900px' />
+
+### 결과 화면
+
+#### 회원가입, 로그인 페이지
+![](https://i.imgur.com/YcYsCt7.gif)
+
+#### 메인 페이지
+- 채널, 유저, 게시글 검색 기능
+- 채널에 따른 게시글 목록 표시
+![](https://i.imgur.com/d6GaNFB.gif)
+
+#### 게시글 CRUD
+![](https://i.imgur.com/rmAq7pf.gif)
+
+#### 좋아요 + 댓글 CRD
+![](https://i.imgur.com/LTChFDk.gif)
+
+#### 마이 페이지
+![](https://i.imgur.com/6ZGK4dJ.gif)
+
+#### 관리자 페이지
+![](https://i.imgur.com/X8UIUXD.gif)
 
 
 ### 📌 API
