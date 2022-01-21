@@ -46,6 +46,12 @@
 * 개발자에게 자유도를 부여하여 자유롭게 컴포넌트 관리
 * 필수 기능 개발을 목표로 기능 중심적 개발
 
+### 💻 디렉토리 구성도 및 기능
+![](https://i.imgur.com/5b8KwvY.png)
+
+### 😃 유저 시퀀스 다이어그램
+<img src="https://i.imgur.com/ePIQOA6.png" height='900px' />
+
 ### ⭐️ 주요 기능
 * 인증
     * 회원가입, 로그인, 로그아웃
@@ -67,20 +73,12 @@
     * 채널 검색
     * 게시글 검색
 
-### 💻 디렉토리 구성도 및 기능
-![](https://i.imgur.com/5b8KwvY.png)
-
-### 😃 유저 시퀀스 다이어그램
-<img src="https://i.imgur.com/ePIQOA6.png" height='900px' />
-
 ### 결과 화면
 
 #### 회원가입, 로그인 페이지
 ![로그인](https://user-images.githubusercontent.com/52727782/150543033-98404b6f-91d0-4aff-8417-b0e39281fcec.gif)
 
 #### 메인 페이지
-- 채널, 유저, 게시글 검색 기능
-- 채널에 따른 게시글 목록 표시
 ![메인화면](https://user-images.githubusercontent.com/52727782/150542965-4182a901-ef1f-4e28-a3b0-beb90bf8b8e4.gif)
 
 #### 게시글 CRUD
