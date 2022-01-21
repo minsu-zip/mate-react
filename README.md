@@ -95,7 +95,6 @@
 #### 관리자 페이지
 ![](https://i.imgur.com/X8UIUXD.gif)
 
-
 ### 📌 API
 programmers 데브코스 교육과정에서 자체 제작 API 사용
 
