@@ -76,28 +76,24 @@
 ### 결과 화면
 
 #### 회원가입, 로그인 페이지
-![](https://i.imgur.com/YcYsCt7.gif)
+![로그인](https://user-images.githubusercontent.com/52727782/150543033-98404b6f-91d0-4aff-8417-b0e39281fcec.gif)
 
 #### 메인 페이지
 - 채널, 유저, 게시글 검색 기능
 - 채널에 따른 게시글 목록 표시
-![](https://i.imgur.com/d6GaNFB.gif)
-
+![메인화면](https://user-images.githubusercontent.com/52727782/150542965-4182a901-ef1f-4e28-a3b0-beb90bf8b8e4.gif)
 
 #### 게시글 CRUD
-![](https://i.imgur.com/rmAq7pf.gif)
-
+![포스트CRUD](https://user-images.githubusercontent.com/52727782/150542943-596d8db3-d90d-4631-9f40-62a602f1fbd6.gif)
 
 #### 좋아요 + 댓글 CRD
-![](https://i.imgur.com/LTChFDk.gif)
-
+![좋아요댓글](https://user-images.githubusercontent.com/52727782/150542935-43627f34-187c-46bc-8a04-df77dacf9f57.gif)
 
 #### 마이 페이지
-![](https://i.imgur.com/6ZGK4dJ.gif)
-
+![마이페이지](https://user-images.githubusercontent.com/52727782/150542839-f419df4a-bce3-4f32-b651-93e88cc1187b.gif)
 
 #### 관리자 페이지
-![](https://i.imgur.com/X8UIUXD.gif)
+![관리자페이지](https://user-images.githubusercontent.com/52727782/150542825-aa310191-dc86-420c-9549-59ae93e1b99f.gif)
 
 ### 📌 API
 programmers 데브코스 교육과정에서 자체 제작 API 사용
