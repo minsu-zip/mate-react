@@ -81,7 +81,7 @@
 #### 메인 페이지
 - 채널, 유저, 게시글 검색 기능
 - 채널에 따른 게시글 목록 표시
-![](https://i.imgur.com/d6GaNFB.gif)
+<img src='https://i.imgur.com/d6GaNFB.gif' />
 
 #### 게시글 CRUD
 ![](https://i.imgur.com/rmAq7pf.gif)
