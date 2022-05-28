@@ -1,53 +1,32 @@
 import { List, Button } from 'antd'
 import React, { useState, useEffect, useCallback } from 'react'
-import axios from 'axios'
 import PostItem from './PostItem'
 import { EditTwoTone } from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import { Input } from 'antd'
+import { getPost } from '@apis/api/post'
+import { getPostList } from '@apis/services/post'
+
 const { Search } = Input
 
 const PostList = React.memo(({ selectChannel }) => {
+  const history = useHistory()
+
   const [postList, setPostList] = useState([])
   const [postCopy, setPostCopy] = useState([])
   const [pageState, setPageState] = useState(false)
 
-  const getPostList = async () => {
-    const { data } = await axios.get(
-      `https://learn.programmers.co.kr/posts/channel/${selectChannel}?offset&limit`,
-    )
-
-    const postData = data.map(
-      ({ title, author, comments, image, imagePublicId, _id, likes }) => {
-        return {
-          title: author.email,
-          content: title,
-          comments: comments.length > 0 ? comments : '',
-          avatar: author.image
-            ? author.image
-            : 'https://joeschmoe.io/api/v1/random',
-          href: 'https://ant.design',
-          imagePublicId,
-          image,
-          postId: _id,
-          authorId: author._id,
-          likes,
-        }
-      },
-    )
-
-    setPostList(postData)
-    setPostCopy(postData)
-  }
-
   useEffect(() => {
-    if (!!selectChannel) {
-      getPostList()
+    ;(async () => {
+      await getPost(selectChannel)
+        .then(getPostList)
+        .then((res) => {
+          setPostList(res)
+          setPostCopy(res)
+        })
       setPageState(!pageState)
-    }
+    })()
   }, [selectChannel])
-
-  const history = useHistory()
 
   const handleOnClick = () =>
     history.push({
@@ -55,7 +34,7 @@ const PostList = React.memo(({ selectChannel }) => {
       state: { channelId: selectChannel, updateCheck: false },
     })
 
-  const onClickDeleteBtn = (removeId) => {
+  const onDeletePostButton = (removeId) => {
     setPostList(
       postList.filter(({ postId }) => {
         return postId !== removeId ? true : false
@@ -104,7 +83,7 @@ const PostList = React.memo(({ selectChannel }) => {
             item={item}
             pageState={pageState}
             selectChannel={selectChannel}
-            onClickDeleteBtn={onClickDeleteBtn}
+            onDeletePostButton={onDeletePostButton}
           ></PostItem>
         )}
       />

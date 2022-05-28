@@ -11,6 +11,7 @@ module.exports = {
       '@contexts': path.resolve(__dirname, 'src/contexts'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@api': path.resolve(__dirname, 'src/api'),
+      '@apis': path.resolve(__dirname, 'src/apis'),
       '@AntDesign': path.resolve(__dirname, 'src/components/AntDesign'),
       '@SessionStorage': path.resolve(__dirname, 'src/SessionStorage'),
     },

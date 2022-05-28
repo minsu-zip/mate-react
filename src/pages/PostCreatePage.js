@@ -2,10 +2,9 @@ import React, { useState, useCallback } from 'react'
 import AntTextArea from '@components/AntDesign/AntTextArea'
 import { useHistory } from 'react-router-dom'
 import { Button } from 'antd'
-import axios from 'axios'
 import styled from '@emotion/styled'
-import { getItem } from '@SessionStorage'
 import { useLocation } from 'react-router'
+import { postCreate, postUpdate } from '@apis/api/post'
 
 const PostCreateContainer = styled.div`
   width: 60%;
@@ -32,36 +31,23 @@ const PostCreatePage = React.memo(() => {
   const [submitting, setSubmitting] = useState(false)
   const [imgRemove, setImgRemove] = useState(false)
 
-  const setPostCreate = async () => {
-    const token = getItem('userInformation')
+  const setPostCreate = () => {
     const formData = new FormData()
-
     formData.append('image', imageUpload)
     formData.append('title', textValue)
     formData.append('channelId', channelId)
 
     setSubmitting(true)
-
-    await axios({
-      method: 'post',
-      url: `https://learn.programmers.co.kr/posts/create`,
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-      data: formData,
-    }).catch((error) => {
-      console.log(error)
-    })
-
-    setSubmitting(false)
-    setTextVaule('')
-    handleOnClick()
+    ;(async () => {
+      await postCreate(formData)
+      setSubmitting(false)
+      setTextVaule('')
+      handleOnClick()
+    })()
   }
 
-  const setPostUpdate = async () => {
-    const token = getItem('userInformation')
+  const setPostUpdate = () => {
     const formData = new FormData()
-
     if (imgRemove && postState.imagePublicId) {
       formData.append('imageToDeletePublicId', postState.imagePublicId)
     }
@@ -69,27 +55,17 @@ const PostCreatePage = React.memo(() => {
     if (imageUpload) {
       formData.append('image', imageUpload)
     }
-
     formData.append('postId', postId)
     formData.append('title', textValue)
     formData.append('channelId', channelId)
 
     setSubmitting(true)
-
-    await axios({
-      method: 'put',
-      url: `https://learn.programmers.co.kr/posts/update`,
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-      data: formData,
-    }).catch((error) => {
-      console.log(error)
-    })
-
-    setSubmitting(false)
-    setTextVaule('')
-    handleOnClick()
+    ;(async () => {
+      await postUpdate(formData)
+      setSubmitting(false)
+      setTextVaule('')
+      handleOnClick()
+    })()
   }
 
   const handleOnClick = useCallback(() => history.push('/posts'), [history])

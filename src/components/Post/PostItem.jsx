@@ -11,13 +11,8 @@ import { getItem } from '@SessionStorage'
 import CommentContainer from '@components/Comment/CommentContainer'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
-
-const IconText = ({ icon, text }) => (
-  <Space>
-    {React.createElement(icon)}
-    {text}
-  </Space>
-)
+import { likeComment, likeCancelComment } from '@apis/api/comment'
+import { deletePost } from '@apis/api/post'
 
 const IconStyle = {
   border: '0',
@@ -25,7 +20,7 @@ const IconStyle = {
 }
 
 const PostItem = React.memo(
-  ({ item, pageState, selectChannel, onClickDeleteBtn }) => {
+  ({ item, pageState, selectChannel, onDeletePostButton }) => {
     const [commentState, setCommentState] = useState(true)
     const [commentLength, setCommentLength] = useState(item.comments.length)
     const [likeLength, setLikeLength] = useState(item.likes.length)
@@ -57,51 +52,29 @@ const PostItem = React.memo(
       setCommentLength(commentLength + 1)
     }
 
-    const likeButton = async () => {
-      const { data } = await axios({
-        method: 'post',
-        url: 'https://learn.programmers.co.kr/likes/create',
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-        data: {
-          postId: item.postId,
-        },
-      })
-      setLikeId(data._id)
-
-      setLikeLength(likeLength + 1)
-      setLikeState(!likeState)
+    const likeButton = () => {
+      ;(async () => {
+        const likeId = await likeComment({ postId: item.postId })
+        setLikeId(likeId)
+        setLikeLength(likeLength + 1)
+        setLikeState(!likeState)
+      })()
     }
 
-    const likeCancelButton = async () => {
-      await axios({
-        method: 'delete',
-        url: 'https://learn.programmers.co.kr/likes/delete',
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-        data: {
-          id: likeId,
-        },
-      })
-      setLikeLength(likeLength - 1)
-      setLikeState(!likeState)
+    const likeCancelButton = () => {
+      ;(async () => {
+        await likeCancelComment({ id: likeId })
+        setLikeLength(likeLength - 1)
+        setLikeState(!likeState)
+      })()
     }
 
-    const removePost = async () => {
-      await axios({
-        method: 'delete',
-        url: 'https://learn.programmers.co.kr/posts/delete',
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-        data: {
-          id: item.postId,
-        },
-      })
-      const postId = item.postId
-      onClickDeleteBtn(postId)
+    const deletePostButton = () => {
+      ;(async () => {
+        await deletePost({ id: item.postId })
+      })()
+
+      onDeletePostButton(item.postId)
     }
 
     const updatePost = () => {
@@ -159,7 +132,7 @@ const PostItem = React.memo(
             item.authorId === userId ? (
               <Button
                 icon={<DeleteOutlined />}
-                onClick={removePost}
+                onClick={deletePostButton}
                 style={IconStyle}
               />
             ) : (
